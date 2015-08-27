@@ -20,17 +20,17 @@ package edu.emory.mathcs.nlp.learn.vector;
 /**
  * @author Jinho D. Choi ({@code jinho.choi@emory.edu})
  */
-public class StringFeatureVector extends Vector<StringFeatureItem>
+public class SparseVector extends Vector<SparseVectorItem>
 {
-	private static final long serialVersionUID = 742197861795848628L;
+	private static final long serialVersionUID = -1427072719834760188L;
 	
-	public void add(short type, String value)
+	public void add(int index)
 	{
-		vector.add(new StringFeatureItem(type, value));
+		vector.add(new SparseVectorItem(index));
 	}
 	
-	public void add(short type, String value, double weight)
+	public void add(int index, float value)
 	{
-		vector.add(new StringFeatureItem(type, value, weight));
+		vector.add(new SparseVectorItem(index, value));
 	}
 }

@@ -16,21 +16,21 @@
 package edu.emory.mathcs.nlp.learn.vector;
 
 
-
 /**
  * @author Jinho D. Choi ({@code jinho.choi@emory.edu})
  */
-public class SparseFeatureVector extends AbstractFeatureVector<SparseFeatureItem>
+public class WeightVectorTest
 {
-	private static final long serialVersionUID = -1427072719834760188L;
-	
-	public void add(int index)
+	public void testBinomialWeightVector()
 	{
-		vector.add(new SparseFeatureItem(index));
-	}
-	
-	public void add(int index, double value)
-	{
-		vector.add(new SparseFeatureItem(index, value));
+		int featureSize = 3;
+		WeightVector vector = new BinomialWeightVector(featureSize);
+		
+		vector.add(0, 0, 1);
+		vector.add(0, 0, 2);
+		vector.add(0, 0, 3);
+		
+		System.out.println(vector.toArray());
+		
 	}
 }

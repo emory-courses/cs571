@@ -19,7 +19,7 @@ import junit.framework.TestCase;
 
 import org.junit.Test;
 
-import edu.emory.mathcs.nlp.learn.vector.SparseFeatureVector;
+import edu.emory.mathcs.nlp.learn.vector.SparseVector;
 import edu.emory.mathcs.nlp.learn.vector.StringFeatureVector;
 
 /**
@@ -30,11 +30,11 @@ public class FeatureVectorTest extends TestCase
 	@Test
 	public void testSparseFeatureVector()
 	{
-		SparseFeatureVector vector = new SparseFeatureVector();
+		SparseVector vector = new SparseVector();
 		
 		vector.add(2);
-		vector.add(1, 0.2);
-		vector.add(4, 0.3);
+		vector.add(1, 0.2f);
+		vector.add(4, 0.3f);
 		vector.add(3);
 		
 		assertEquals(4, vector.size());

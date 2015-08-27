@@ -26,12 +26,12 @@ import edu.emory.mathcs.nlp.common.Joiner;
 /**
  * @author Jinho D. Choi ({@code jinho.choi@emory.edu})
  */
-public abstract class AbstractFeatureVector<T extends Comparable<T>> implements Serializable, Iterable<T>
+public abstract class Vector<T extends Comparable<T>> implements Serializable, Iterable<T>
 {
 	private static final long serialVersionUID = -4918193483553121004L;
 	protected List<T> vector;
 	
-	public AbstractFeatureVector()
+	public Vector()
 	{
 		vector = new ArrayList<>();
 	}

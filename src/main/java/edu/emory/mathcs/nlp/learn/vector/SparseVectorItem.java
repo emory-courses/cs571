@@ -20,18 +20,18 @@ import java.io.Serializable;
 /**
  * @author Jinho D. Choi ({@code jinho.choi@emory.edu})
  */
-public class SparseFeatureItem implements Serializable, Comparable<SparseFeatureItem>
+public class SparseVectorItem implements Serializable, Comparable<SparseVectorItem>
 {
 	private static final long serialVersionUID = -8933673050278448784L;
-	private int    index;
-	private double value;
+	private int   index;
+	private float value;
 	
-	public SparseFeatureItem(int index)
+	public SparseVectorItem(int index)
 	{
-		set(index, 1d);
+		set(index, 1f);
 	}
 	
-	public SparseFeatureItem(int index, double value)
+	public SparseVectorItem(int index, float value)
 	{
 		set(index, value);
 	}
@@ -41,7 +41,7 @@ public class SparseFeatureItem implements Serializable, Comparable<SparseFeature
 		return index;
 	}
 
-	public double getValue()
+	public float getValue()
 	{
 		return value;
 	}
@@ -51,19 +51,19 @@ public class SparseFeatureItem implements Serializable, Comparable<SparseFeature
 		this.index = index;
 	}
 
-	public void setValue(double value)
+	public void setValue(float value)
 	{
 		this.value = value;
 	}
 	
-	public void set(int index, double value)
+	public void set(int index, float value)
 	{
 		setIndex(index);
 		setValue(value);
 	}
 	
 	@Override
-	public int compareTo(SparseFeatureItem o)
+	public int compareTo(SparseVectorItem o)
 	{
 		return index - o.index;
 	}

@@ -17,7 +17,7 @@ package edu.emory.mathcs.nlp.learn.instance;
 
 import java.io.Serializable;
 
-import edu.emory.mathcs.nlp.learn.vector.SparseFeatureVector;
+import edu.emory.mathcs.nlp.learn.vector.SparseVector;
 
 /**
  * @author Jinho D. Choi ({@code jinho.choi@emory.edu})
@@ -25,10 +25,10 @@ import edu.emory.mathcs.nlp.learn.vector.SparseFeatureVector;
 public class SparseInstance implements Serializable
 {
 	private static final long serialVersionUID = 8175869181443119424L;
-	private SparseFeatureVector vector;
+	private SparseVector vector;
 	private int label;
 	
-	public SparseInstance(int label, SparseFeatureVector vector)
+	public SparseInstance(int label, SparseVector vector)
 	{
 		set(label, vector);
 	}
@@ -38,7 +38,7 @@ public class SparseInstance implements Serializable
 		return label;
 	}
 	
-	public SparseFeatureVector getVector()
+	public SparseVector getVector()
 	{
 		return vector;
 	}
@@ -48,12 +48,12 @@ public class SparseInstance implements Serializable
 		this.label = label;
 	}
 
-	public void setVector(SparseFeatureVector vector)
+	public void setVector(SparseVector vector)
 	{
 		this.vector = vector;
 	}
 
-	public void set(int label, SparseFeatureVector vector)
+	public void set(int label, SparseVector vector)
 	{
 		setLabel(label);
 		setVector(vector);
