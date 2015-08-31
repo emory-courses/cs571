@@ -1,0 +1,4 @@
+edu\emory\mathcs\nlp\bin\MavenTest.class
+edu\emory\mathcs\nlp\benchmark\BenchmarkTest.class
+edu\emory\mathcs\nlp\learn\vector\FeatureVectorTest.class
+edu\emory\mathcs\nlp\learn\vector\WeightVectorTest.class

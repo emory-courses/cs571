@@ -1,0 +1,12 @@
+edu\emory\mathcs\nlp\learn\instance\SparseInstance.class
+edu\emory\mathcs\nlp\learn\vector\WeightVector.class
+edu\emory\mathcs\nlp\learn\vector\Vector.class
+edu\emory\mathcs\nlp\learn\vector\SparseVectorItem.class
+edu\emory\mathcs\nlp\learn\vector\StringFeatureVector.class
+edu\emory\mathcs\nlp\learn\instance\StringInstance.class
+edu\emory\mathcs\nlp\learn\online\OnlineTrainer.class
+edu\emory\mathcs\nlp\learn\vector\StringFeatureItem.class
+edu\emory\mathcs\nlp\bin\Version.class
+edu\emory\mathcs\nlp\learn\vector\BinomialWeightVector.class
+edu\emory\mathcs\nlp\learn\vector\MultinomialWeightVector.class
+edu\emory\mathcs\nlp\learn\vector\SparseVector.class
