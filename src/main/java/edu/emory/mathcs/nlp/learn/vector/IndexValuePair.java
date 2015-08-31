@@ -20,69 +20,57 @@ import java.io.Serializable;
 /**
  * @author Jinho D. Choi ({@code jinho.choi@emory.edu})
  */
-public class StringFeatureItem implements Serializable, Comparable<StringFeatureItem>
+public class IndexValuePair implements Serializable, Comparable<IndexValuePair>
 {
-	private static final long serialVersionUID = 8474553410837185491L;
-	private short  type;
-	private String value;
-	private double weight;
+	private static final long serialVersionUID = -8933673050278448784L;
+	private int   index;
+	private float value;
 	
-	public StringFeatureItem(short type, String value)
+	public IndexValuePair(int index)
 	{
-		set(type, value, 1d);
+		set(index, 1f);
 	}
 	
-	public StringFeatureItem(short type, String value, double weight)
+	public IndexValuePair(int index, float value)
 	{
-		set(type, value, weight);
+		set(index, value);
 	}
 	
-	public short getType()
+	public int getIndex()
 	{
-		return type;
+		return index;
 	}
 
-	public String getValue()
+	public float getValue()
 	{
 		return value;
 	}
 	
-	public double getWeight()
+	public void setIndex(int index)
 	{
-		return weight;
-	}
-	
-	public void setType(short type)
-	{
-		this.type = type;
+		this.index = index;
 	}
 
-	public void setValue(String value)
+	public void setValue(float value)
 	{
 		this.value = value;
 	}
-
-	public void setWeight(double weight)
-	{
-		this.weight = weight;
-	}
 	
-	public void set(short type, String value, double weight)
+	public void set(int index, float value)
 	{
-		setType(type);
+		setIndex(index);
 		setValue(value);
-		setWeight(weight);
 	}
 	
 	@Override
-	public int compareTo(StringFeatureItem o)
+	public int compareTo(IndexValuePair o)
 	{
-		return value.compareTo(o.value);
+		return index - o.index;
 	}
-
+	
 	@Override
 	public String toString()
 	{
-		return type+":"+value+":"+weight;
+		return index+":"+value;
 	}
 }

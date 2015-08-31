@@ -15,8 +15,6 @@
  */
 package edu.emory.mathcs.nlp.benchmark;
 
-import java.util.Arrays;
-
 import org.junit.Test;
 
 /**
@@ -27,23 +25,13 @@ public class BenchmarkTest
 	@Test
 	public void test() throws Exception
 	{
-		int i, size = 1000000;
+		int warm = 1000, iter = 1000000;
 		long st, et;
-//		FloatArrayList fast = new FloatArrayList();
-//		for (i=0; i<size; i++) fast.add(i);
-//		
-//		st = System.currentTimeMillis();
-//		for (i=0; i<100000; i+= 10) fast.add(i, 0f);
-//		et = System.currentTimeMillis();
-//		System.out.println(et-st);
-		
-		float[] array = new float[size];
-		Arrays.fill(array, 0f);
+
+		for (int i=0; i<warm; i++) ;
 		
 		st = System.currentTimeMillis();
-		float[] copy = new float[size+10000];
-		for (i=0; i<size; i++) copy[i] = array[i];
-		for (i=size; i<copy.length; i++) copy[i] = 0f;
+		for (int i=0; i<iter; i++) ;
 		et = System.currentTimeMillis();
 		System.out.println(et-st);
 	}

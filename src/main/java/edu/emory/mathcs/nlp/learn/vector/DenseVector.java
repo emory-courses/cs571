@@ -15,75 +15,69 @@
  */
 package edu.emory.mathcs.nlp.learn.vector;
 
-import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Arrays;
 import java.util.Iterator;
-import java.util.List;
-
-import edu.emory.mathcs.nlp.common.Joiner;
 
 /**
  * @author Jinho D. Choi ({@code jinho.choi@emory.edu})
  */
-public class SparseVector implements Vector
+public class DenseVector implements Vector
 {
-	private static final long serialVersionUID = -1427072719834760188L;
-	private List<IndexValuePair> vector;
+	private static final long serialVersionUID = 4610874141457525275L;
+	private float[] vector;
 	
-	public SparseVector()
+	public DenseVector(int size)
 	{
-		vector = new ArrayList<>();
+		vector = new float[size];
 	}
 	
-	public IndexValuePair get(int index)
+	public float get(int index)
 	{
-		return vector.get(index);
+		return vector[index];
 	}
 	
-	public void add(IndexValuePair item)
+	public void set(int index, float value)
 	{
-		vector.add(item);
-	}
-	
-	public void add(int index)
-	{
-		add(new IndexValuePair(index));
-	}
-	
-	public void add(int index, float value)
-	{
-		add(new IndexValuePair(index, value));
+		vector[index] = value;
 	}
 	
 	public int size()
 	{
-		return vector.size();
-	}
-
-	public void sort()
-	{
-		Collections.sort(vector);
+		return vector.length;
 	}
 	
 	@Override
 	public Iterator<IndexValuePair> iterator()
 	{
-		return vector.iterator();
+		Iterator<IndexValuePair> it = new Iterator<IndexValuePair>()
+		{
+			private int index = 0;
+			
+			@Override
+			public boolean hasNext()
+			{
+				return index < vector.length;
+			}
+			
+			@Override
+			public IndexValuePair next()
+			{
+				return new IndexValuePair(index, vector[index++]);
+			}
+			
+			@Override
+			public void remove()
+			{
+				throw new UnsupportedOperationException();
+			}
+		};
+		
+		return it;
 	}
 
 	@Override
 	public String toString()
 	{
-		return Joiner.join(vector, " ");
+		return Arrays.toString(vector);
 	}
 }
-
-
-
-
-
-
-
-
-
-

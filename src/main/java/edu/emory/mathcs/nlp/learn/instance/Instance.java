@@ -17,43 +17,43 @@ package edu.emory.mathcs.nlp.learn.instance;
 
 import java.io.Serializable;
 
-import edu.emory.mathcs.nlp.learn.vector.StringFeatureVector;
+import edu.emory.mathcs.nlp.learn.vector.Vector;
 
 /**
  * @author Jinho D. Choi ({@code jinho.choi@emory.edu})
  */
-public class StringInstance implements Serializable
+public abstract class Instance implements Serializable
 {
-	private static final long serialVersionUID = -6542519682324505347L;
-	private StringFeatureVector vector;
-	private String label;
+	private static final long serialVersionUID = 8175869181443119424L;
+	protected int    label;
+	protected Vector vector;
 	
-	public StringInstance(String label, StringFeatureVector vector)
+	public Instance(int label, Vector vector)
 	{
 		set(label, vector);
 	}
 	
-	public String getLabel()
+	public int getLabel()
 	{
 		return label;
 	}
-
-	public StringFeatureVector getVector()
+	
+	public Vector getVector()
 	{
 		return vector;
 	}
 
-	public void setLabel(String label)
+	public void setLabel(int label)
 	{
 		this.label = label;
 	}
-	
-	public void setVector(StringFeatureVector vector)
+
+	public void setVector(Vector vector)
 	{
 		this.vector = vector;
 	}
-	
-	public void set(String label, StringFeatureVector vector)
+
+	public void set(int label, Vector vector)
 	{
 		setLabel(label);
 		setVector(vector);

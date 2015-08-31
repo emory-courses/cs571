@@ -16,55 +16,10 @@
 package edu.emory.mathcs.nlp.learn.vector;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
-
-import edu.emory.mathcs.nlp.common.Joiner;
 
 /**
  * @author Jinho D. Choi ({@code jinho.choi@emory.edu})
  */
-public abstract class Vector<T extends Comparable<T>> implements Serializable, Iterable<T>
+public interface Vector extends Serializable, Iterable<IndexValuePair>
 {
-	private static final long serialVersionUID = -4918193483553121004L;
-	protected List<T> vector;
-	
-	public Vector()
-	{
-		vector = new ArrayList<>();
-	}
-	
-	public void add(T item)
-	{
-		vector.add(item);
-	}
-	
-	public T get(int index)
-	{
-		return vector.get(index);
-	}
-	
-	public int size()
-	{
-		return vector.size();
-	}
-	
-	public void sort()
-	{
-		Collections.sort(vector);
-	}
-	
-	@Override
-	public Iterator<T> iterator()
-	{
-		return vector.iterator();
-	}
-
-	@Override
-	public String toString()
-	{
-		return Joiner.join(vector, " ");
-	}
 }

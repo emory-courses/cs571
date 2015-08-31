@@ -13,24 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package edu.emory.mathcs.nlp.learn.vector;
-
-
+package edu.emory.mathcs.nlp.learn.instance;
 
 /**
  * @author Jinho D. Choi ({@code jinho.choi@emory.edu})
  */
-public class StringFeatureVector extends Vector<StringFeatureItem>
+public interface BinomialLabel
 {
-	private static final long serialVersionUID = 742197861795848628L;
-	
-	public void add(short type, String value)
-	{
-		vector.add(new StringFeatureItem(type, value));
-	}
-	
-	public void add(short type, String value, double weight)
-	{
-		vector.add(new StringFeatureItem(type, value, weight));
-	}
+	int POSITIVE =  1;
+	int NEGATIVE = -1;
 }

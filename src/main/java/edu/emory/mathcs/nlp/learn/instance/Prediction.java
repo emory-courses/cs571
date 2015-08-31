@@ -17,30 +17,26 @@ package edu.emory.mathcs.nlp.learn.instance;
 
 import java.io.Serializable;
 
-import edu.emory.mathcs.nlp.learn.vector.SparseVector;
+import edu.emory.mathcs.nlp.common.MathUtils;
+
 
 /**
  * @author Jinho D. Choi ({@code jinho.choi@emory.edu})
  */
-public class SparseInstance implements Serializable
+public class Prediction implements Serializable, Comparable<Prediction>
 {
-	private static final long serialVersionUID = 8175869181443119424L;
-	private SparseVector vector;
-	private int label;
+	private static final long serialVersionUID = -2873195048974695284L;
+	private int    label;
+	private double score;
 	
-	public SparseInstance(int label, SparseVector vector)
+	public Prediction(int label, double score)
 	{
-		set(label, vector);
+		set(label, score);
 	}
 	
 	public int getLabel()
 	{
 		return label;
-	}
-	
-	public SparseVector getVector()
-	{
-		return vector;
 	}
 
 	public void setLabel(int label)
@@ -48,20 +44,31 @@ public class SparseInstance implements Serializable
 		this.label = label;
 	}
 
-	public void setVector(SparseVector vector)
+	public double getScore()
 	{
-		this.vector = vector;
+		return score;
 	}
 
-	public void set(int label, SparseVector vector)
+	public void setScore(double score)
 	{
-		setLabel(label);
-		setVector(vector);
+		this.score = score;
 	}
 	
-	@Override
-	public String toString()
+	public void set(int label, double score)
 	{
-		return label+" "+vector.toString();
+		setLabel(label);
+		setScore(score);
+	}
+	
+	public void copy(Prediction p)
+	{
+		set(p.label, p.score);
+	}
+
+	@Override
+	public int compareTo(Prediction o)
+	{
+		double diff = score - o.score;
+		return (diff == 0) ? label - o.label : MathUtils.signum(diff);
 	}
 }
