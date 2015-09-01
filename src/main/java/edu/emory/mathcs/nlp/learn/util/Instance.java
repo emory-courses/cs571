@@ -22,7 +22,7 @@ import edu.emory.mathcs.nlp.learn.vector.Vector;
 /**
  * @author Jinho D. Choi ({@code jinho.choi@emory.edu})
  */
-public abstract class Instance implements Serializable
+public class Instance implements Serializable
 {
 	private static final long serialVersionUID = 8175869181443119424L;
 	protected int    label;

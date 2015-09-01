@@ -15,17 +15,16 @@
  */
 package edu.emory.mathcs.nlp.learn.sgd.adagrad;
 
-import edu.emory.mathcs.nlp.common.DSUtils;
 import edu.emory.mathcs.nlp.learn.util.Instance;
 import edu.emory.mathcs.nlp.learn.vector.Vector;
-import edu.emory.mathcs.nlp.learn.weight.BinomialWeightVector;
+import edu.emory.mathcs.nlp.learn.weight.WeightVector;
 
 /**
  * @author Jinho D. Choi ({@code jinho.choi@emory.edu})
  */
 public class MultinomialAdaGradHinge extends AbstractAdaGradHinge
 {
-	public MultinomialAdaGradHinge(BinomialWeightVector weightVector, boolean average, float learningRate, float ridge)
+	public MultinomialAdaGradHinge(WeightVector weightVector, boolean average, float learningRate, float ridge)
 	{
 		super(weightVector, average, learningRate, ridge);
 	}
@@ -34,7 +33,7 @@ public class MultinomialAdaGradHinge extends AbstractAdaGradHinge
 	protected void updateWeightVector(Instance instance, int steps)
 	{
 		Vector x = instance.getVector();
-		int yp = instance.getLabel(), yn = bestLabel(instance);
+		int yp = instance.getLabel(), yn = bestMultinomiaLabelHinge(instance);
 		
 		if (yp != yn)
 		{
@@ -50,12 +49,5 @@ public class MultinomialAdaGradHinge extends AbstractAdaGradHinge
 				weight_vector.update(x, yn, (i,j) -> -getGradient(i,j) * steps);
 			}
 		}
-	}
-	
-	private int bestLabel(Instance instance)
-	{
-		double[] scores = weight_vector.scores(instance.getVector());
-		scores[instance.getLabel()] -= 1;
-		return DSUtils.maxIndex(scores);
 	}
 }

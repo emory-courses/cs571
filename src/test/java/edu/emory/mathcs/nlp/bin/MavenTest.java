@@ -33,7 +33,7 @@ public class MavenTest
 	@Test
 	public void test()
 	{
-		List<String> list = DSUtils.toArrayList("A","B","C");
+		List<String> list = DSUtils.toList("A","B","C");
 		assertEquals("A B C", Joiner.join(list, StringConst.SPACE));
 	}
 }

@@ -54,7 +54,10 @@ public class BinomialWeightVector extends WeightVector
 		double score = 0;
 		
 		for (IndexValuePair p : x)
-			score += weight_vector[p.getIndex()] * p.getValue();
+		{
+			if (p.getIndex() < feature_size)
+				score += weight_vector[p.getIndex()] * p.getValue();
+		}
 		
 		return score;
 	}

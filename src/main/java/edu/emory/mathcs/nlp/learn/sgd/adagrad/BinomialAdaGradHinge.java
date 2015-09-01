@@ -16,7 +16,6 @@
 package edu.emory.mathcs.nlp.learn.sgd.adagrad;
 
 import edu.emory.mathcs.nlp.learn.util.Instance;
-import edu.emory.mathcs.nlp.learn.util.Prediction;
 import edu.emory.mathcs.nlp.learn.vector.Vector;
 import edu.emory.mathcs.nlp.learn.weight.WeightVector;
 
@@ -34,7 +33,7 @@ public class BinomialAdaGradHinge extends AbstractAdaGradHinge
 	protected void updateWeightVector(Instance instance, int steps)
 	{
 		Vector x = instance.getVector();
-		int y = instance.getLabel(), yhat = bestLabel(x);
+		int y = instance.getLabel(), yhat = bestBinomialLabelHinge(x);
 		
 		if (y != yhat)
 		{
@@ -42,11 +41,5 @@ public class BinomialAdaGradHinge extends AbstractAdaGradHinge
 			weight_vector.update(x, y, (i,j) -> getGradient(i,j) * y);
 			if (isAveraged()) weight_vector.update(x, y, (i,j) -> getGradient(i,j) * y * steps);
 		}
-	}
-	
-	private int bestLabel(Vector x)
-	{
-		Prediction p = weight_vector.predictBest(x);
-		return (Math.abs(p.getScore()) >= 0.5) ? p.getLabel() : -p.getLabel();
 	}
 }

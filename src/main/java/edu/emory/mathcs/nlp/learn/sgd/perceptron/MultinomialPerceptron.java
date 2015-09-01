@@ -17,16 +17,15 @@ package edu.emory.mathcs.nlp.learn.sgd.perceptron;
 
 import edu.emory.mathcs.nlp.learn.sgd.StochasticGradientDescent;
 import edu.emory.mathcs.nlp.learn.util.Instance;
-import edu.emory.mathcs.nlp.learn.util.Prediction;
 import edu.emory.mathcs.nlp.learn.vector.Vector;
-import edu.emory.mathcs.nlp.learn.weight.MultinomialWeightVector;
+import edu.emory.mathcs.nlp.learn.weight.WeightVector;
 
 /**
  * @author Jinho D. Choi ({@code jinho.choi@emory.edu})
  */
 public class MultinomialPerceptron extends StochasticGradientDescent
 {
-	public MultinomialPerceptron(MultinomialWeightVector weightVector, boolean average, float learningRate)
+	public MultinomialPerceptron(WeightVector weightVector, boolean average, float learningRate)
 	{
 		super(weightVector, average, learningRate);
 	}
@@ -35,8 +34,7 @@ public class MultinomialPerceptron extends StochasticGradientDescent
 	protected void updateWeightVector(Instance instance, int steps)
 	{
 		Vector x = instance.getVector();
-		Prediction p = weight_vector.predictBest(x);
-		int yp = instance.getLabel(), yn = p.getLabel();
+		int yp = instance.getLabel(), yn = weight_vector.predictBest(x).getLabel();
 		
 		if (yp != yn)
 		{
