@@ -19,7 +19,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
-import edu.emory.mathcs.nlp.learn.instance.Instance;
+import edu.emory.mathcs.nlp.learn.util.Instance;
 import edu.emory.mathcs.nlp.learn.weight.WeightVector;
 
 /**

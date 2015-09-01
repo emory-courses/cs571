@@ -16,7 +16,7 @@
 package edu.emory.mathcs.nlp.learn.sgd.adagrad;
 
 import edu.emory.mathcs.nlp.common.DSUtils;
-import edu.emory.mathcs.nlp.learn.instance.Instance;
+import edu.emory.mathcs.nlp.learn.util.Instance;
 import edu.emory.mathcs.nlp.learn.vector.Vector;
 import edu.emory.mathcs.nlp.learn.weight.BinomialWeightVector;
 

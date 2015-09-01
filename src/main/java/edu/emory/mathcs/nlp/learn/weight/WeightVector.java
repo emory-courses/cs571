@@ -20,7 +20,7 @@ import java.util.Arrays;
 import java.util.function.BiFunction;
 
 import edu.emory.mathcs.nlp.common.collection.tuple.Pair;
-import edu.emory.mathcs.nlp.learn.instance.Prediction;
+import edu.emory.mathcs.nlp.learn.util.Prediction;
 import edu.emory.mathcs.nlp.learn.vector.IndexValuePair;
 import edu.emory.mathcs.nlp.learn.vector.Vector;
 
@@ -95,6 +95,12 @@ public abstract class WeightVector implements Serializable
 	public void fill(float value)
 	{
 		Arrays.fill(weight_vector, value);
+	}
+	
+	@Override
+	public String toString()
+	{
+		return Arrays.toString(weight_vector);
 	}
 	
 	/**

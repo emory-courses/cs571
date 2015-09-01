@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package edu.emory.mathcs.nlp.learn.instance;
+package edu.emory.mathcs.nlp.learn.util;
 
 /**
  * @author Jinho D. Choi ({@code jinho.choi@emory.edu})

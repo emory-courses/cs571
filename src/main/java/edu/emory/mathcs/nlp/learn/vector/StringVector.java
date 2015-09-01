@@ -15,42 +15,44 @@
  */
 package edu.emory.mathcs.nlp.learn.vector;
 
+import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
 import edu.emory.mathcs.nlp.common.Joiner;
 
+
+
 /**
  * @author Jinho D. Choi ({@code jinho.choi@emory.edu})
  */
-public class SparseVector implements Vector
+public class StringVector implements Serializable, Iterable<StringItem>
 {
-	private static final long serialVersionUID = -1427072719834760188L;
-	private List<IndexValuePair> vector;
+	private static final long serialVersionUID = 742197861795848628L;
+	private List<StringItem> vector;
 	
-	public SparseVector()
+	public StringVector()
 	{
 		vector = new ArrayList<>();
 	}
 	
-	public IndexValuePair get(int index)
+	public StringItem get(int index)
 	{
 		return vector.get(index);
 	}
 	
-	public void add(int index)
+	public void add(short type, String value)
 	{
-		add(new IndexValuePair(index));
+		add(new StringItem(type, value));
 	}
 	
-	public void add(int index, float value)
+	public void add(short type, String value, double weight)
 	{
-		add(new IndexValuePair(index, value));
+		add(new StringItem(type, value, weight));
 	}
 	
-	public void add(IndexValuePair item)
+	public void add(StringItem item)
 	{
 		vector.add(item);
 	}
@@ -59,18 +61,13 @@ public class SparseVector implements Vector
 	{
 		return vector.size();
 	}
-
-	public void sort()
-	{
-		Collections.sort(vector);
-	}
 	
 	@Override
-	public Iterator<IndexValuePair> iterator()
+	public Iterator<StringItem> iterator()
 	{
-		return vector.iterator();
+		return vector.iterator(); 
 	}
-
+	
 	@Override
 	public String toString()
 	{

@@ -18,8 +18,8 @@ package edu.emory.mathcs.nlp.learn.weight;
 import java.util.Arrays;
 
 import edu.emory.mathcs.nlp.common.collection.tuple.Pair;
-import edu.emory.mathcs.nlp.learn.instance.BinomialLabel;
-import edu.emory.mathcs.nlp.learn.instance.Prediction;
+import edu.emory.mathcs.nlp.learn.util.BinomialLabel;
+import edu.emory.mathcs.nlp.learn.util.Prediction;
 import edu.emory.mathcs.nlp.learn.vector.IndexValuePair;
 import edu.emory.mathcs.nlp.learn.vector.Vector;
 

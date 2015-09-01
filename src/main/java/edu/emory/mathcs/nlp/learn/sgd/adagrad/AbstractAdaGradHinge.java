@@ -32,7 +32,7 @@ public abstract class AbstractAdaGradHinge extends StochasticGradientDescent
 	public AbstractAdaGradHinge(WeightVector weightVector, boolean average, float learningRate, float ridge)
 	{
 		super(weightVector, average, learningRate);
-		diagonals = weightVector.createEmptyVector();
+		diagonals  = weightVector.createEmptyVector();
 		this.ridge = ridge;
 	}
 	

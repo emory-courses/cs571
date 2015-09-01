@@ -15,8 +15,8 @@
  */
 package edu.emory.mathcs.nlp.learn.sgd.adagrad;
 
-import edu.emory.mathcs.nlp.learn.instance.Instance;
-import edu.emory.mathcs.nlp.learn.instance.Prediction;
+import edu.emory.mathcs.nlp.learn.util.Instance;
+import edu.emory.mathcs.nlp.learn.util.Prediction;
 import edu.emory.mathcs.nlp.learn.vector.Vector;
 import edu.emory.mathcs.nlp.learn.weight.WeightVector;
 
@@ -39,8 +39,8 @@ public class BinomialAdaGradHinge extends AbstractAdaGradHinge
 		if (y != yhat)
 		{
 			updateDiagonals(x, y);
-			weight_vector.update(x, y, (i,j) -> getGradient(i,j));
-			if (isAveraged()) weight_vector.update(x, y, (i,j) -> getGradient(i,j) * steps);
+			weight_vector.update(x, y, (i,j) -> getGradient(i,j) * y);
+			if (isAveraged()) weight_vector.update(x, y, (i,j) -> getGradient(i,j) * y * steps);
 		}
 	}
 	

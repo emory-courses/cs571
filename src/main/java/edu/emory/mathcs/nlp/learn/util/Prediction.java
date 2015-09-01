@@ -13,34 +13,30 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package edu.emory.mathcs.nlp.learn.instance;
+package edu.emory.mathcs.nlp.learn.util;
 
 import java.io.Serializable;
 
-import edu.emory.mathcs.nlp.learn.vector.Vector;
+import edu.emory.mathcs.nlp.common.MathUtils;
+
 
 /**
  * @author Jinho D. Choi ({@code jinho.choi@emory.edu})
  */
-public abstract class Instance implements Serializable
+public class Prediction implements Serializable, Comparable<Prediction>
 {
-	private static final long serialVersionUID = 8175869181443119424L;
-	protected int    label;
-	protected Vector vector;
+	private static final long serialVersionUID = -2873195048974695284L;
+	private int    label;
+	private double score;
 	
-	public Instance(int label, Vector vector)
+	public Prediction(int label, double score)
 	{
-		set(label, vector);
+		set(label, score);
 	}
 	
 	public int getLabel()
 	{
 		return label;
-	}
-	
-	public Vector getVector()
-	{
-		return vector;
 	}
 
 	public void setLabel(int label)
@@ -48,20 +44,37 @@ public abstract class Instance implements Serializable
 		this.label = label;
 	}
 
-	public void setVector(Vector vector)
+	public double getScore()
 	{
-		this.vector = vector;
+		return score;
 	}
 
-	public void set(int label, Vector vector)
+	public void setScore(double score)
+	{
+		this.score = score;
+	}
+	
+	public void set(int label, double score)
 	{
 		setLabel(label);
-		setVector(vector);
+		setScore(score);
+	}
+	
+	public void copy(Prediction p)
+	{
+		set(p.label, p.score);
+	}
+
+	@Override
+	public int compareTo(Prediction o)
+	{
+		double diff = score - o.score;
+		return (diff == 0) ? label - o.label : MathUtils.signum(diff);
 	}
 	
 	@Override
 	public String toString()
 	{
-		return label+" "+vector.toString();
+		return label+":"+score;
 	}
 }

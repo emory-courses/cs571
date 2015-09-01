@@ -15,9 +15,9 @@
  */
 package edu.emory.mathcs.nlp.learn.sgd.perceptron;
 
-import edu.emory.mathcs.nlp.learn.instance.Instance;
-import edu.emory.mathcs.nlp.learn.instance.Prediction;
 import edu.emory.mathcs.nlp.learn.sgd.StochasticGradientDescent;
+import edu.emory.mathcs.nlp.learn.util.Instance;
+import edu.emory.mathcs.nlp.learn.util.Prediction;
 import edu.emory.mathcs.nlp.learn.vector.Vector;
 import edu.emory.mathcs.nlp.learn.weight.MultinomialWeightVector;
 
