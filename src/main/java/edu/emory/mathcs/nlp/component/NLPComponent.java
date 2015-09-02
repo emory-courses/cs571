@@ -13,33 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package edu.emory.mathcs.nlp.util;
+package edu.emory.mathcs.nlp.component;
 
+import java.util.List;
 
 /**
  * @author Jinho D. Choi ({@code jinho.choi@emory.edu})
  */
-public class Sigmoid
+public abstract class NLPComponent<N>
 {
-	private final int    TABLE_SIZE = 1000;
-	private final int    MAX_EXP    = 6;
-	private final double NORM       = TABLE_SIZE / MAX_EXP / 2; 
-
-	private float[] table;
-	
-	public Sigmoid()
-	{
-		table = new float[TABLE_SIZE];
-		
-		for (int i=0; i<TABLE_SIZE; i++)
-		{
-			table[i]  = (float)Math.exp((MathUtils.divide(i, TABLE_SIZE) * 2 - 1) * MAX_EXP);
-			table[i] /= (table[i] + 1);
-		}
-	}
-	
-	public double get(double d) 
-	{
-		return (d > MAX_EXP) ? 1 : (d < -MAX_EXP) ? 0 : table[(int)((d + MAX_EXP) * NORM)];
-	}
+	public abstract void process(List<N> nodes);
 }

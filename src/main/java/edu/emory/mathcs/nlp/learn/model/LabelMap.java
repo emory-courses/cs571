@@ -63,7 +63,7 @@ public class LabelMap implements Serializable
 	
 	public void add(String label)
 	{
-		count_map.merge(label, 1, (k,v) -> v + 1);
+		count_map.merge(label, 1, (o,n) -> o + n);
 	}
 	
 	public int indexOf(String label)

@@ -21,6 +21,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import edu.emory.mathcs.nlp.util.Joiner;
+import edu.emory.mathcs.nlp.util.constant.StringConst;
 
 /**
  * @author Jinho D. Choi ({@code jinho.choi@emory.edu})
@@ -74,6 +75,6 @@ public class SparseVector implements Vector
 	@Override
 	public String toString()
 	{
-		return Joiner.join(vector, " ");
+		return Joiner.join(vector, StringConst.SPACE);
 	}
 }

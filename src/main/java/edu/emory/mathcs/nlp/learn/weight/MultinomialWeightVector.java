@@ -30,6 +30,12 @@ public class MultinomialWeightVector extends WeightVector
 {
 	private static final long serialVersionUID = 2190946158451118027L;
 
+	public MultinomialWeightVector()
+	{
+		super(0, 0);
+		weight_vector = new float[0];
+	}
+	
 	public MultinomialWeightVector(int labelSize, int featureSize)
 	{
 		super(labelSize, featureSize);

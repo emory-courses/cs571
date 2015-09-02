@@ -90,7 +90,7 @@ public class FeatureMap implements Serializable
 	
 	public void add(int type, String value)
 	{
-		count_map.computeIfAbsent(type, k -> new Object2IntOpenHashMap<String>()).merge(value, 1, (k,v) -> v + 1);
+		count_map.computeIfAbsent(type, k -> new Object2IntOpenHashMap<String>()).merge(value, 1, (o,n) -> o + n);
 	}
 
 	/** @return the index of the specific feature given the specific type if exists; otherwise, {@code -1}. */

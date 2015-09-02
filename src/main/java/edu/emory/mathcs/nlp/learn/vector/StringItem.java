@@ -22,7 +22,7 @@ import java.io.Serializable;
  */
 public class StringItem implements Serializable, Comparable<StringItem>
 {
-	private static final long serialVersionUID = 8474553410837185491L;
+	private static final long serialVersionUID = 4909247545825639480L;
 	private int    type;
 	private String value;
 	private float  weight;

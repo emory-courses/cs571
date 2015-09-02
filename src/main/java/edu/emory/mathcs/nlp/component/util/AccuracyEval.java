@@ -13,33 +13,45 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package edu.emory.mathcs.nlp.util;
-
+package edu.emory.mathcs.nlp.component.util;
 
 /**
  * @author Jinho D. Choi ({@code jinho.choi@emory.edu})
  */
-public class Sigmoid
+public class AccuracyEval
 {
-	private final int    TABLE_SIZE = 1000;
-	private final int    MAX_EXP    = 6;
-	private final double NORM       = TABLE_SIZE / MAX_EXP / 2; 
-
-	private float[] table;
+	private int correct;
+	private int total;
 	
-	public Sigmoid()
+	public AccuracyEval()
 	{
-		table = new float[TABLE_SIZE];
-		
-		for (int i=0; i<TABLE_SIZE; i++)
-		{
-			table[i]  = (float)Math.exp((MathUtils.divide(i, TABLE_SIZE) * 2 - 1) * MAX_EXP);
-			table[i] /= (table[i] + 1);
-		}
+		clear();
 	}
 	
-	public double get(double d) 
+	public void add(int correct, int total)
 	{
-		return (d > MAX_EXP) ? 1 : (d < -MAX_EXP) ? 0 : table[(int)((d + MAX_EXP) * NORM)];
+		this.correct += correct;
+		this.total   += total;
+	}
+	
+	public void clear()
+	{
+		correct = 0;
+		total   = 0;
+	}
+	
+	public int correct()
+	{
+		return correct;
+	}
+	
+	public int total()
+	{
+		return total;
+	}
+	
+	public double accuracy()
+	{
+		return 100d * correct / total;
 	}
 }

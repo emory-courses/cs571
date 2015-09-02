@@ -17,20 +17,19 @@ package edu.emory.mathcs.nlp.learn.util;
 
 import java.io.Serializable;
 
-import edu.emory.mathcs.nlp.learn.vector.StringVector;
 
 /**
  * @author Jinho D. Choi ({@code jinho.choi@emory.edu})
  */
-public class StringInstance implements Serializable
+public class StringPrediction implements Serializable
 {
-	private static final long serialVersionUID = 1704398147440599696L;
-	private StringVector vector;
+	private static final long serialVersionUID = 4629812694101207696L;
 	private String label;
+	private double score;
 	
-	public StringInstance(String label, StringVector vector)
+	public StringPrediction(String label, double score)
 	{
-		set(label, vector);
+		set(label, score);
 	}
 	
 	public String getLabel()
@@ -38,30 +37,35 @@ public class StringInstance implements Serializable
 		return label;
 	}
 
-	public StringVector getVector()
-	{
-		return vector;
-	}
-
 	public void setLabel(String label)
 	{
 		this.label = label;
 	}
-	
-	public void setVector(StringVector vector)
+
+	public double getScore()
 	{
-		this.vector = vector;
+		return score;
+	}
+
+	public void setScore(double score)
+	{
+		this.score = score;
 	}
 	
-	public void set(String label, StringVector vector)
+	public void set(String label, double score)
 	{
 		setLabel(label);
-		setVector(vector);
+		setScore(score);
 	}
 	
+	public void copy(StringPrediction p)
+	{
+		set(p.label, p.score);
+	}
+
 	@Override
 	public String toString()
 	{
-		return label+" "+vector.toString();
+		return label+":"+score;
 	}
 }
