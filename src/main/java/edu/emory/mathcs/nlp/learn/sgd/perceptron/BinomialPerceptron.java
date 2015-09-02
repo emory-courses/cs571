@@ -25,7 +25,7 @@ import edu.emory.mathcs.nlp.learn.weight.WeightVector;
  */
 public class BinomialPerceptron extends StochasticGradientDescent
 {
-	public BinomialPerceptron(WeightVector weightVector, boolean average, float learningRate)
+	public BinomialPerceptron(WeightVector weightVector, boolean average, double learningRate)
 	{
 		super(weightVector, average, learningRate);
 	}
@@ -38,7 +38,7 @@ public class BinomialPerceptron extends StochasticGradientDescent
 		
 		if (y != yhat)
 		{
-			float gradient = learning_rate * y;
+			double gradient = learning_rate * y;
 			weight_vector.update(x, y, gradient);
 			if (isAveraged()) average_vector.update(x, y, gradient * steps);
 		}

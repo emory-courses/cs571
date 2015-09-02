@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import edu.emory.mathcs.nlp.common.Joiner;
+import edu.emory.mathcs.nlp.util.Joiner;
 
 
 
@@ -47,7 +47,7 @@ public class StringVector implements Serializable, Iterable<StringItem>
 		add(new StringItem(type, value));
 	}
 	
-	public void add(short type, String value, double weight)
+	public void add(short type, String value, float weight)
 	{
 		add(new StringItem(type, value, weight));
 	}

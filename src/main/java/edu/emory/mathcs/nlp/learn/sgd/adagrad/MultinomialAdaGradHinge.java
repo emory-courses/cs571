@@ -24,7 +24,7 @@ import edu.emory.mathcs.nlp.learn.weight.WeightVector;
  */
 public class MultinomialAdaGradHinge extends AbstractAdaGradHinge
 {
-	public MultinomialAdaGradHinge(WeightVector weightVector, boolean average, float learningRate, float ridge)
+	public MultinomialAdaGradHinge(WeightVector weightVector, boolean average, double learningRate, double ridge)
 	{
 		super(weightVector, average, learningRate, ridge);
 	}

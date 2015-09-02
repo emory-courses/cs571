@@ -15,11 +15,11 @@
  */
 package edu.emory.mathcs.nlp.learn.sgd.adagrad;
 
-import edu.emory.mathcs.nlp.common.MathUtils;
 import edu.emory.mathcs.nlp.learn.sgd.StochasticGradientDescent;
 import edu.emory.mathcs.nlp.learn.vector.IndexValuePair;
 import edu.emory.mathcs.nlp.learn.vector.Vector;
 import edu.emory.mathcs.nlp.learn.weight.WeightVector;
+import edu.emory.mathcs.nlp.util.MathUtils;
 
 /**
  * @author Jinho D. Choi ({@code jinho.choi@emory.edu})
@@ -27,9 +27,9 @@ import edu.emory.mathcs.nlp.learn.weight.WeightVector;
 public abstract class AbstractAdaGradHinge extends StochasticGradientDescent
 {
 	protected WeightVector diagonals;
-	protected float ridge;
+	protected double ridge;
 	
-	public AbstractAdaGradHinge(WeightVector weightVector, boolean average, float learningRate, float ridge)
+	public AbstractAdaGradHinge(WeightVector weightVector, boolean average, double learningRate, double ridge)
 	{
 		super(weightVector, average, learningRate);
 		diagonals  = weightVector.createEmptyVector();
@@ -39,11 +39,11 @@ public abstract class AbstractAdaGradHinge extends StochasticGradientDescent
 	protected void updateDiagonals(Vector x, int label)
 	{
 		for (IndexValuePair p : x)
-			diagonals.add(label, p.getIndex(), (float)MathUtils.sq(p.getValue()));
+			diagonals.add(label, p.getIndex(), MathUtils.sq(p.getValue()));
 	}
 	
-	protected float getGradient(int label, int featureIndex)
+	protected double getGradient(int label, int featureIndex)
 	{
-		return learning_rate / (ridge + (float)Math.sqrt(diagonals.get(label, featureIndex)));
+		return learning_rate / (ridge + Math.sqrt(diagonals.get(label, featureIndex)));
 	}
 }

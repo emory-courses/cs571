@@ -17,11 +17,11 @@ package edu.emory.mathcs.nlp.learn.weight;
 
 import java.util.Arrays;
 
-import edu.emory.mathcs.nlp.common.DSUtils;
-import edu.emory.mathcs.nlp.common.collection.tuple.Pair;
+import edu.emory.mathcs.nlp.collection.tuple.Pair;
 import edu.emory.mathcs.nlp.learn.util.Prediction;
 import edu.emory.mathcs.nlp.learn.vector.IndexValuePair;
 import edu.emory.mathcs.nlp.learn.vector.Vector;
+import edu.emory.mathcs.nlp.util.DSUtils;
 
 /**
  * @author Jinho D. Choi ({@code jinho.choi@emory.edu})

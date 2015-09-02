@@ -19,11 +19,11 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
-import edu.emory.mathcs.nlp.common.DSUtils;
 import edu.emory.mathcs.nlp.learn.util.Instance;
 import edu.emory.mathcs.nlp.learn.util.Prediction;
 import edu.emory.mathcs.nlp.learn.vector.Vector;
 import edu.emory.mathcs.nlp.learn.weight.WeightVector;
+import edu.emory.mathcs.nlp.util.DSUtils;
 
 /**
  * @author Jinho D. Choi ({@code jinho.choi@emory.edu})
@@ -32,7 +32,7 @@ public abstract class StochasticGradientDescent
 {
 	protected WeightVector average_vector;
 	protected WeightVector weight_vector;
-	protected float        learning_rate;
+	protected double        learning_rate;
 	protected Random       random;
 	
 	/**
@@ -40,7 +40,7 @@ public abstract class StochasticGradientDescent
 	 * @param average if true, use averaged SGD.
 	 * @param learningRate the learning rate.
 	 */
-	public StochasticGradientDescent(WeightVector weightVector, boolean average, float learningRate)
+	public StochasticGradientDescent(WeightVector weightVector, boolean average, double learningRate)
 	{
 		average_vector = average ? weightVector.createEmptyVector() : null;
 		weight_vector  = weightVector;

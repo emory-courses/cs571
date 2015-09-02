@@ -25,7 +25,7 @@ import edu.emory.mathcs.nlp.learn.weight.WeightVector;
  */
 public class MultinomialPerceptron extends StochasticGradientDescent
 {
-	public MultinomialPerceptron(WeightVector weightVector, boolean average, float learningRate)
+	public MultinomialPerceptron(WeightVector weightVector, boolean average, double learningRate)
 	{
 		super(weightVector, average, learningRate);
 	}

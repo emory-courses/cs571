@@ -23,21 +23,21 @@ import java.io.Serializable;
 public class StringItem implements Serializable, Comparable<StringItem>
 {
 	private static final long serialVersionUID = 8474553410837185491L;
-	private short  type;
+	private int    type;
 	private String value;
-	private double weight;
+	private float  weight;
 	
-	public StringItem(short type, String value)
+	public StringItem(int type, String value)
 	{
-		set(type, value, 1d);
+		set(type, value, 1f);
 	}
 	
-	public StringItem(short type, String value, double weight)
+	public StringItem(int type, String value, float weight)
 	{
 		set(type, value, weight);
 	}
 	
-	public short getType()
+	public int getType()
 	{
 		return type;
 	}
@@ -47,12 +47,12 @@ public class StringItem implements Serializable, Comparable<StringItem>
 		return value;
 	}
 	
-	public double getWeight()
+	public float getWeight()
 	{
 		return weight;
 	}
 	
-	public void setType(short type)
+	public void setType(int type)
 	{
 		this.type = type;
 	}
@@ -62,12 +62,12 @@ public class StringItem implements Serializable, Comparable<StringItem>
 		this.value = value;
 	}
 
-	public void setWeight(double weight)
+	public void setWeight(float weight)
 	{
 		this.weight = weight;
 	}
 	
-	public void set(short type, String value, double weight)
+	public void set(int type, String value, float weight)
 	{
 		setType(type);
 		setValue(value);

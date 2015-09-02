@@ -21,7 +21,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import edu.emory.mathcs.nlp.common.collection.tuple.Pair;
+import edu.emory.mathcs.nlp.collection.tuple.Pair;
 import edu.emory.mathcs.nlp.learn.util.BinomialLabel;
 import edu.emory.mathcs.nlp.learn.util.Prediction;
 import edu.emory.mathcs.nlp.learn.vector.IndexValuePair;
@@ -47,7 +47,7 @@ public class WeightVectorTest
 		
 		w.add(-1, 1, 1);
 		w.update(x, -1, 0.5f);
-		w.update(y, -1, (i,j) -> (float)-j);
+		w.update(y, -1, (i,j) -> (double)-j);
 		assertEquals(-6, w.get(-1, 3), 0);
 		assertEquals("[2.0, 1.0, 3.0, -6.0, -8.0]", w.toString());
 		
@@ -80,7 +80,7 @@ public class WeightVectorTest
 		
 		w.add(0, 1, 1);
 		w.update(x, 1, 0.5f);
-		w.update(y, 2, (i,j) -> (float)-j);
+		w.update(y, 2, (i,j) -> (double)-j);
 		assertEquals(3, w.get(1, 2), 0);
 		assertEquals("[0.0, 2.0, 0.0, 1.0, 0.0, -2.0, 0.0, 3.0, 0.0, 0.0, 0.0, -6.0]", w.toString());
 		

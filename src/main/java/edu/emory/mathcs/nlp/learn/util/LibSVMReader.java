@@ -21,8 +21,8 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
-import edu.emory.mathcs.nlp.common.Splitter;
 import edu.emory.mathcs.nlp.learn.vector.SparseVector;
+import edu.emory.mathcs.nlp.util.Splitter;
 
 /**
  * @author Jinho D. Choi ({@code jinho.choi@emory.edu})

@@ -56,13 +56,13 @@ public class VectorTest extends TestCase
 	}
 	
 	@Test
-	public void testStringFeatureVector()
+	public void testStringVector()
 	{
 		StringVector vector = new StringVector();
 
 		vector.add((short)2, "B");
-		vector.add((short)4, "A", 0.2);
-		vector.add((short)1, "A", 0.3);
+		vector.add((short)4, "A", 0.2f);
+		vector.add((short)1, "A", 0.3f);
 		vector.add((short)3, "C");
 		
 		assertEquals("2:B:1.0 4:A:0.2 1:A:0.3 3:C:1.0", vector.toString());

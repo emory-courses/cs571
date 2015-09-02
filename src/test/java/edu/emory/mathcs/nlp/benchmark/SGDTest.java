@@ -18,10 +18,7 @@ package edu.emory.mathcs.nlp.benchmark;
 import java.io.FileInputStream;
 import java.util.List;
 
-import org.junit.Test;
-
-import edu.emory.mathcs.nlp.common.MathUtils;
-import edu.emory.mathcs.nlp.common.collection.tuple.DoubleIntPair;
+import edu.emory.mathcs.nlp.collection.tuple.DoubleIntPair;
 import edu.emory.mathcs.nlp.learn.sgd.StochasticGradientDescent;
 import edu.emory.mathcs.nlp.learn.sgd.adagrad.MultinomialAdaGradHinge;
 import edu.emory.mathcs.nlp.learn.sgd.perceptron.BinomialPerceptron;
@@ -30,6 +27,7 @@ import edu.emory.mathcs.nlp.learn.util.LibSVMReader;
 import edu.emory.mathcs.nlp.learn.weight.BinomialWeightVector;
 import edu.emory.mathcs.nlp.learn.weight.MultinomialWeightVector;
 import edu.emory.mathcs.nlp.learn.weight.WeightVector;
+import edu.emory.mathcs.nlp.util.MathUtils;
 
 /**
  * @author Jinho D. Choi ({@code jinho.choi@emory.edu})
@@ -60,7 +58,7 @@ public class SGDTest
 		System.out.printf("%d: %5.2f\n", max.i, max.d);	
 	}
 	
-	@Test
+//	@Test
 	public void testMultinomialPerceptron() throws Exception
 	{
 		String filename = "src/test/resources/dat/news20";
@@ -82,9 +80,6 @@ public class SGDTest
 		}
 
 		System.out.printf("%d: %5.2f\n", max.i, max.d);
-		
-		w.expand(w.labelSize(), w.featureSize()+1);
-		System.out.println(getAccuracy(tst.getInstanceList(), w));
 	}
 	
 	double getAccuracy(List<Instance> instances, WeightVector w)
