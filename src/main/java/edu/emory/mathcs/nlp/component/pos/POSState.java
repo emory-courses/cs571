@@ -16,13 +16,13 @@
 package edu.emory.mathcs.nlp.component.pos;
 
 import edu.emory.mathcs.nlp.common.collection.node.POSNode;
-import edu.emory.mathcs.nlp.component.state.LRState;
+import edu.emory.mathcs.nlp.component.state.L2RState;
 
 /**
  * Part-of-speech tagging state.
  * @author Jinho D. Choi ({@code jinho.choi@emory.edu})
  */
-public class POSState<N extends POSNode> extends LRState<N>
+public class POSState<N extends POSNode> extends L2RState<N>
 {
 	public POSState(N[] nodes)
 	{

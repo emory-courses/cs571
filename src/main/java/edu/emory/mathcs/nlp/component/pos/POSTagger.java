@@ -22,7 +22,7 @@ import java.io.ObjectOutputStream;
 import edu.emory.mathcs.nlp.common.collection.node.POSNode;
 import edu.emory.mathcs.nlp.component.NLPComponent;
 import edu.emory.mathcs.nlp.component.eval.AccuracyEval;
-import edu.emory.mathcs.nlp.component.state.LRState;
+import edu.emory.mathcs.nlp.component.state.L2RState;
 import edu.emory.mathcs.nlp.component.util.NLPFlag;
 import edu.emory.mathcs.nlp.learn.model.StringModel;
 import edu.emory.mathcs.nlp.learn.util.StringInstance;
@@ -82,7 +82,7 @@ public class POSTagger<N extends POSNode> extends NLPComponent<N>
 	
 	public void process(N[] nodes)
 	{
-		LRState<N> state = new POSState<>(nodes);
+		L2RState<N> state = new POSState<>(nodes);
 		if (!isDecode()) state.clearGold();
 		
 		while (!state.isTerminate())
@@ -99,12 +99,12 @@ public class POSTagger<N extends POSNode> extends NLPComponent<N>
 		if (isEvaluate()) state.evaluateTokens((AccuracyEval)eval);
 	}
 	
-	private String getLabel(LRState<N> state, StringVector x)
+	private String getLabel(L2RState<N> state, StringVector x)
 	{
 		return isTrain() ? state.getGoldLabel() : model.predictBest(x).getLabel();
 	}
 	
-	protected StringVector extractFeatures(LRState<N> state)
+	protected StringVector extractFeatures(L2RState<N> state)
 	{
 		StringVector x = new StringVector();
 		N node; int type = 0;
