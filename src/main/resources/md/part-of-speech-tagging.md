@@ -1,6 +1,6 @@
 ## POSTagger
 
-See [`POSTagger`]() for the full source code.
+See [`POSTagger`](../../java/edu/emory/mathcs/nlp/component/pos/POSTagger.java) for the full source code.
 
 ```
 public void process(N[] nodes)
@@ -23,7 +23,7 @@ public void process(N[] nodes)
 }
 ```
 
-The `process` method takes an array of nodes whose type extends [`POSNode`]().
+The `process` method takes an array of nodes whose type extends [`POSNode`](../../java/edu/emory/mathcs/nlp/component/pos/POSNode.java).
 
 ```
 public void process(N[] nodes)
