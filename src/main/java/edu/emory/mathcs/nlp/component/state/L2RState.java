@@ -41,7 +41,7 @@ public abstract class L2RState<N> extends NLPState<N>
 	}
 	
 	@Override
-	public void clearGold()
+	public void clearGoldLabels()
 	{
 		gold = Arrays.stream(nodes).map(n -> setter.apply(n, null)).toArray(String[]::new);
 	}

@@ -33,8 +33,7 @@ import edu.emory.mathcs.nlp.learn.vector.StringVector;
 public class POSTagger<N extends POSNode> extends NLPComponent<N>
 {
 	private static final long serialVersionUID = -7926217238116337203L;
-	private DocumentFrequencyMap df_map;
-	private AmbiguityClassMap    ac_map;
+	private AmbiguityClassMap ambiguity_class_map;
 
 	public POSTagger(NLPFlag flag, StringModel model)
 	{
@@ -46,35 +45,23 @@ public class POSTagger<N extends POSNode> extends NLPComponent<N>
 	@Override
 	protected void readLexicons(ObjectInputStream in) throws IOException, ClassNotFoundException
 	{
-		df_map = (DocumentFrequencyMap)in.readObject();
-		ac_map = (AmbiguityClassMap)in.readObject();
+		ambiguity_class_map = (AmbiguityClassMap)in.readObject();
 	}
 
 	@Override
 	protected void writeLexicons(ObjectOutputStream out) throws IOException
 	{
-		out.writeObject(df_map);
-		out.writeObject(ac_map);
+		out.writeObject(ambiguity_class_map);
 	}
 	
-	public DocumentFrequencyMap getDocumentFrequencyMap()
-	{
-		return df_map;
-	}
-
 	public AmbiguityClassMap getAmbiguityClassMap()
 	{
-		return ac_map;
-	}
-
-	public void setDocumentFrequencyMap(DocumentFrequencyMap map)
-	{
-		df_map = map;
+		return ambiguity_class_map;
 	}
 	
 	public void setAmbiguityClassMap(AmbiguityClassMap map)
 	{
-		ac_map = map;
+		ambiguity_class_map = map;
 	}
 	
 //	============================== PROCESS ==============================
@@ -82,7 +69,7 @@ public class POSTagger<N extends POSNode> extends NLPComponent<N>
 	public void process(N[] nodes)
 	{
 		L2RState<N> state = new POSState<>(nodes);
-		if (!isDecode()) state.clearGold();
+		if (!isDecode()) state.clearGoldLabels();
 		
 		while (!state.isTerminate())
 		{
@@ -91,8 +78,7 @@ public class POSTagger<N extends POSNode> extends NLPComponent<N>
 			state.setLabel(label);
 			state.next();
 			
-			if (isTrain())
-				model.addInstance(new StringInstance(label, x));
+			if (isTrain()) model.addInstance(new StringInstance(label, x));
 		}
 		
 		if (isEvaluate()) state.evaluateTokens((AccuracyEval)eval);
@@ -121,7 +107,7 @@ public class POSTagger<N extends POSNode> extends NLPComponent<N>
 		if (node != null) x.add(type++, node.getPOSTag());
 		
 		node = state.getNode(0);
-		if (node != null) x.add(type++, ac_map.get(node));
+		if (node != null) x.add(type++, ambiguity_class_map.get(node));
 		
 		return x;
 	}

@@ -38,7 +38,7 @@ public abstract class NLPState<N>
 	}
 
 	/** Clears and saves the gold-standard labels in {@link #nodes} during training. */
-	public abstract void clearGold();
+	public abstract void clearGoldLabels();
 	/** Moves on to the next state */
 	public abstract void next();
 	/** @return true if no more state is available. */
