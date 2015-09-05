@@ -13,19 +13,46 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package edu.emory.mathcs.nlp.component.pos;
-
-import edu.emory.mathcs.nlp.common.collection.node.POSNode;
-import edu.emory.mathcs.nlp.component.state.LRState;
+package edu.emory.mathcs.nlp.component.eval;
 
 /**
- * Part-of-speech tagging state.
  * @author Jinho D. Choi ({@code jinho.choi@emory.edu})
  */
-public class POSState<N extends POSNode> extends LRState<N>
+public class AccuracyEval implements Eval
 {
-	public POSState(N[] nodes)
+	private int correct;
+	private int total;
+	
+	public AccuracyEval()
 	{
-		super(nodes, N::getPOSTag, N::setPOSTag);
+		clear();
+	}
+	
+	public void add(int correct, int total)
+	{
+		this.correct += correct;
+		this.total   += total;
+	}
+	
+	public void clear()
+	{
+		correct = 0;
+		total   = 0;
+	}
+	
+	public int correct()
+	{
+		return correct;
+	}
+	
+	public int total()
+	{
+		return total;
+	}
+	
+	@Override
+	public double score()
+	{
+		return 100d * correct / total;
 	}
 }

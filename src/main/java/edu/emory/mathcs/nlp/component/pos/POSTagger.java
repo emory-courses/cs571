@@ -15,48 +15,74 @@
  */
 package edu.emory.mathcs.nlp.component.pos;
 
-import java.util.List;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 
+import edu.emory.mathcs.nlp.common.collection.node.POSNode;
 import edu.emory.mathcs.nlp.component.NLPComponent;
-import edu.emory.mathcs.nlp.component.NLPFlag;
-import edu.emory.mathcs.nlp.component.util.AccuracyEval;
+import edu.emory.mathcs.nlp.component.eval.AccuracyEval;
+import edu.emory.mathcs.nlp.component.state.LRState;
+import edu.emory.mathcs.nlp.component.util.NLPFlag;
 import edu.emory.mathcs.nlp.learn.model.StringModel;
 import edu.emory.mathcs.nlp.learn.util.StringInstance;
 import edu.emory.mathcs.nlp.learn.vector.StringVector;
-import edu.emory.mathcs.nlp.learn.weight.MultinomialWeightVector;
 
 /**
  * @author Jinho D. Choi ({@code jinho.choi@emory.edu})
  */
-public class POSTagger<N extends IPOSNode> extends NLPComponent<N>
+public class POSTagger<N extends POSNode> extends NLPComponent<N>
 {
-	protected NLPFlag      flag;
-	protected StringModel  model; 
-	protected AccuracyEval eval;
-	
-	/** For training. */
-	public POSTagger(float biasWeight)
+	private static final long serialVersionUID = -7926217238116337203L;
+	private DocumentFrequencyMap df_map;
+	private AmbiguityClassMap    ac_map;
+
+	public POSTagger(NLPFlag flag, StringModel model)
 	{
-		flag  = NLPFlag.TRAIN;
-		model = new StringModel(new MultinomialWeightVector(), biasWeight);
+		super(flag, model);
 	}
 	
-	public POSTagger(StringModel model, AccuracyEval eval)
+//	============================== LEXICONS ==============================
+
+	@Override
+	protected void readLexicons(ObjectInputStream in) throws IOException, ClassNotFoundException
 	{
-		flag = NLPFlag.EVALUATE;
-		this.model = model;
-		this.eval  = eval;
+		df_map = (DocumentFrequencyMap)in.readObject();
+		ac_map = (AmbiguityClassMap)in.readObject();
+	}
+
+	@Override
+	protected void writeLexicons(ObjectOutputStream out) throws IOException
+	{
+		out.writeObject(df_map);
+		out.writeObject(ac_map);
 	}
 	
-	public void setEval(AccuracyEval eval)
+	public DocumentFrequencyMap getDocumentFrequencyMap()
 	{
-		flag = NLPFlag.EVALUATE;
-		this.eval = eval;
+		return df_map;
+	}
+
+	public AmbiguityClassMap getAmbiguityClassMap()
+	{
+		return ac_map;
+	}
+
+	public void setDocumentFrequencyMap(DocumentFrequencyMap map)
+	{
+		df_map = map;
 	}
 	
-	public void process(List<N> nodes)
+	public void setAmbiguityClassMap(AmbiguityClassMap map)
 	{
-		POSState<N> state = new POSState<>(nodes);
+		ac_map = map;
+	}
+	
+//	============================== PROCESS ==============================
+	
+	public void process(N[] nodes)
+	{
+		LRState<N> state = new POSState<>(nodes);
 		if (!isDecode()) state.clearGold();
 		
 		while (!state.isTerminate())
@@ -70,35 +96,15 @@ public class POSTagger<N extends IPOSNode> extends NLPComponent<N>
 				model.addInstance(new StringInstance(label, x));
 		}
 		
-		if (isEvaluate()) state.evaluate(eval);
+		if (isEvaluate()) state.evaluateTokens((AccuracyEval)eval);
 	}
 	
-	private String getLabel(POSState<N> state, StringVector x)
+	private String getLabel(LRState<N> state, StringVector x)
 	{
 		return isTrain() ? state.getGoldLabel() : model.predictBest(x).getLabel();
 	}
 	
-	public boolean isTrain()
-	{
-		return flag == NLPFlag.TRAIN;
-	}
-	
-	public boolean isDecode()
-	{
-		return flag == NLPFlag.DECODE;
-	}
-	
-	public boolean isEvaluate()
-	{
-		return flag == NLPFlag.EVALUATE;
-	}
-	
-	public StringModel getModel()
-	{
-		return model;
-	}
-	
-	protected StringVector extractFeatures(POSState<N> state)
+	protected StringVector extractFeatures(LRState<N> state)
 	{
 		StringVector x = new StringVector();
 		N node; int type = 0;
@@ -114,6 +120,9 @@ public class POSTagger<N extends IPOSNode> extends NLPComponent<N>
 		
 		node = state.getNode(-1);
 		if (node != null) x.add(type++, node.getPOSTag());
+		
+		node = state.getNode(0);
+		if (node != null) x.add(type++, ac_map.get(node));
 		
 		return x;
 	}

@@ -15,17 +15,40 @@
  */
 package edu.emory.mathcs.nlp.component.pos;
 
+import static org.junit.Assert.assertEquals;
+
+import org.junit.Test;
+
+import edu.emory.mathcs.nlp.common.collection.node.NLPNode;
 import edu.emory.mathcs.nlp.common.collection.node.POSNode;
-import edu.emory.mathcs.nlp.component.state.LRState;
 
 /**
- * Part-of-speech tagging state.
  * @author Jinho D. Choi ({@code jinho.choi@emory.edu})
  */
-public class POSState<N extends POSNode> extends LRState<N>
+public class AmbiguityClassMapTest
 {
-	public POSState(N[] nodes)
+	@Test
+	public void test()
 	{
-		super(nodes, N::getPOSTag, N::setPOSTag);
+		AmbiguityClassMap map = new AmbiguityClassMap();
+		
+		map.add(new POSNode("A", "a1"));
+		map.add(new POSNode("A", "a2"));
+		map.add(new POSNode("B", "b1"));
+		map.add(new POSNode("B", "b2"));
+		map.add(new POSNode("B", "b2"));
+		
+		map.expand(0.4);
+		
+		assertEquals("a2_a1", map.get(new NLPNode("A")));
+		assertEquals("b2"   , map.get(new NLPNode("B")));
+		assertEquals(null   , map.get(new NLPNode("C")));
+		
+		map.add(new POSNode("C", "c1"));
+		map.add(new POSNode("C", "c1"));
+		map.add(new POSNode("C", "c2"));
+		map.expand(0.3);
+
+		assertEquals("c2_c1", map.get(new NLPNode("C")));
 	}
 }

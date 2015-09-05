@@ -21,7 +21,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import edu.emory.mathcs.nlp.collection.tuple.Pair;
+import edu.emory.mathcs.nlp.common.collection.tuple.Pair;
 import edu.emory.mathcs.nlp.learn.util.BinomialLabel;
 import edu.emory.mathcs.nlp.learn.util.Prediction;
 import edu.emory.mathcs.nlp.learn.vector.IndexValuePair;

@@ -15,17 +15,37 @@
  */
 package edu.emory.mathcs.nlp.component.pos;
 
-import edu.emory.mathcs.nlp.common.collection.node.POSNode;
-import edu.emory.mathcs.nlp.component.state.LRState;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
+import java.util.Set;
+
+import org.junit.Test;
+
+import edu.emory.mathcs.nlp.common.collection.node.NLPNode;
 
 /**
- * Part-of-speech tagging state.
  * @author Jinho D. Choi ({@code jinho.choi@emory.edu})
  */
-public class POSState<N extends POSNode> extends LRState<N>
+public class DocumentFrequencyMapTest
 {
-	public POSState(N[] nodes)
+	@Test
+	public void test()
 	{
-		super(nodes, N::getPOSTag, N::setPOSTag);
+		DocumentFrequencyMap map = new DocumentFrequencyMap(2);
+		NLPNode A = new NLPNode("A");
+		NLPNode B = new NLPNode("B");
+		NLPNode C = new NLPNode("C");
+		
+		map.add(new NLPNode[]{A});
+		map.add(new NLPNode[]{B});
+		map.add(new NLPNode[]{A,B,C});
+		
+		Set<String> set = map.create(1);
+		System.out.println(set.toString());
+		
+		assertTrue (set.contains("a"));
+		assertTrue (set.contains("b"));
+		assertFalse(set.contains("c"));
 	}
 }

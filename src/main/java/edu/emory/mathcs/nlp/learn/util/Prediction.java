@@ -17,7 +17,7 @@ package edu.emory.mathcs.nlp.learn.util;
 
 import java.io.Serializable;
 
-import edu.emory.mathcs.nlp.util.MathUtils;
+import edu.emory.mathcs.nlp.common.util.MathUtils;
 
 
 /**

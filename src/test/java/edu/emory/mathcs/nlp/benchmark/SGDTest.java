@@ -18,16 +18,16 @@ package edu.emory.mathcs.nlp.benchmark;
 import java.io.FileInputStream;
 import java.util.List;
 
-import edu.emory.mathcs.nlp.collection.tuple.DoubleIntPair;
+import edu.emory.mathcs.nlp.common.collection.tuple.DoubleIntPair;
+import edu.emory.mathcs.nlp.common.util.MathUtils;
 import edu.emory.mathcs.nlp.learn.sgd.StochasticGradientDescent;
+import edu.emory.mathcs.nlp.learn.sgd.adagrad.BinomialAdaGradHinge;
 import edu.emory.mathcs.nlp.learn.sgd.adagrad.MultinomialAdaGradHinge;
-import edu.emory.mathcs.nlp.learn.sgd.perceptron.BinomialPerceptron;
 import edu.emory.mathcs.nlp.learn.util.Instance;
 import edu.emory.mathcs.nlp.learn.util.LibSVMReader;
 import edu.emory.mathcs.nlp.learn.weight.BinomialWeightVector;
 import edu.emory.mathcs.nlp.learn.weight.MultinomialWeightVector;
 import edu.emory.mathcs.nlp.learn.weight.WeightVector;
-import edu.emory.mathcs.nlp.util.MathUtils;
 
 /**
  * @author Jinho D. Choi ({@code jinho.choi@emory.edu})
@@ -37,13 +37,13 @@ public class SGDTest
 //	@Test
 	public void testBinomialPerceptron() throws Exception
 	{
-		String filename = "src/test/resources/dat/a9a";
+		String filename = "src/test/resources/edu/emory/mathcs/nlp/dat/a9a";
 		
 		LibSVMReader trn = new LibSVMReader(new FileInputStream(filename+".trn"));
 		LibSVMReader tst = new LibSVMReader(new FileInputStream(filename+".tst"));
 		
 		WeightVector w = new BinomialWeightVector(trn.featureSize());
-		StochasticGradientDescent sgd = new BinomialPerceptron(w, false, 0.01f);
+		StochasticGradientDescent sgd = new BinomialAdaGradHinge(w, true, 0.01f, 0.1f);
 		DoubleIntPair max = new DoubleIntPair(0,0);
 		double acc;
 		
@@ -61,13 +61,13 @@ public class SGDTest
 //	@Test
 	public void testMultinomialPerceptron() throws Exception
 	{
-		String filename = "src/test/resources/dat/news20";
+		String filename = "src/test/resources/edu/emory/mathcs/nlp/dat/news20";
 		
 		LibSVMReader trn = new LibSVMReader(new FileInputStream(filename+".trn"));
 		LibSVMReader tst = new LibSVMReader(new FileInputStream(filename+".tst"));
 		
 		WeightVector w = new MultinomialWeightVector(trn.labelSize(), trn.featureSize());
-		StochasticGradientDescent sgd = new MultinomialAdaGradHinge(w, false, 0.01f, 0.1f);
+		StochasticGradientDescent sgd = new MultinomialAdaGradHinge(w, true, 0.01f, 0.1f);
 		DoubleIntPair max = new DoubleIntPair(0,0);
 		double acc;
 		

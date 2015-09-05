@@ -15,12 +15,121 @@
  */
 package edu.emory.mathcs.nlp.component;
 
-import java.util.List;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
+
+import edu.emory.mathcs.nlp.component.eval.Eval;
+import edu.emory.mathcs.nlp.component.util.NLPFlag;
+import edu.emory.mathcs.nlp.learn.model.StringModel;
 
 /**
  * @author Jinho D. Choi ({@code jinho.choi@emory.edu})
  */
-public abstract class NLPComponent<N>
+public abstract class NLPComponent<N> implements Serializable
 {
-	public abstract void process(List<N> nodes);
+	private static final long serialVersionUID = 4546728532759275929L;
+	protected StringModel[] models;
+	protected StringModel   model;
+	protected NLPFlag       flag;
+	protected Eval          eval;
+	
+//	============================== CONSTRUCTORS ==============================
+	
+	public NLPComponent(NLPFlag flag, StringModel model)
+	{
+		setModel(model);
+		setFlag(flag);
+	}
+	
+	public NLPComponent(NLPFlag flag, StringModel[] models)
+	{
+		setModels(models);
+		setFlag(flag);
+	}
+	
+//	============================== SERIALIZE ==============================
+	
+	private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException
+	{
+		models = (StringModel[])in.readObject();
+		model  = (StringModel  )in.readObject();
+		readLexicons(in);
+	}
+	
+	private void writeObject(ObjectOutputStream out) throws IOException
+	{
+		out.writeObject(models);
+		out.writeObject(model);
+		writeLexicons(out);
+	}
+	
+	protected abstract void readLexicons (ObjectInputStream in) throws IOException, ClassNotFoundException;
+	protected abstract void writeLexicons(ObjectOutputStream out) throws IOException;
+	
+//	============================== MODELS ==============================
+	
+	public StringModel getModel()
+	{
+		return model;
+	}
+	
+	public void setModel(StringModel model)
+	{
+		this.model = model;
+	}
+	
+	public StringModel[] getModels()
+	{
+		return models;
+	}
+	
+	public void setModels(StringModel[] model)
+	{
+		this.models = model;
+	}
+	
+//	============================== FLAG ==============================
+	
+	public NLPFlag getFlag()
+	{
+		return flag;
+	}
+	
+	public void setFlag(NLPFlag flag)
+	{
+		this.flag = flag;
+	}
+	
+	public boolean isTrain()
+	{
+		return flag == NLPFlag.TRAIN;
+	}
+	
+	public boolean isDecode()
+	{
+		return flag == NLPFlag.DECODE;
+	}
+	
+	public boolean isEvaluate()
+	{
+		return flag == NLPFlag.EVALUATE;
+	}
+	
+//	============================== EVALUATOR ==============================
+
+	public Eval getEval()
+	{
+		return eval;
+	}
+	
+	public void setEval(Eval eval)
+	{
+		this.eval = eval;
+	}
+	
+//	============================== PROCESS ==============================
+	
+	public abstract void process(N[] nodes);
 }

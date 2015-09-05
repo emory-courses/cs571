@@ -15,11 +15,11 @@
  */
 package edu.emory.mathcs.nlp.learn.sgd.adagrad;
 
+import edu.emory.mathcs.nlp.common.util.MathUtils;
 import edu.emory.mathcs.nlp.learn.sgd.StochasticGradientDescent;
 import edu.emory.mathcs.nlp.learn.vector.IndexValuePair;
 import edu.emory.mathcs.nlp.learn.vector.Vector;
 import edu.emory.mathcs.nlp.learn.weight.WeightVector;
-import edu.emory.mathcs.nlp.util.MathUtils;
 
 /**
  * @author Jinho D. Choi ({@code jinho.choi@emory.edu})

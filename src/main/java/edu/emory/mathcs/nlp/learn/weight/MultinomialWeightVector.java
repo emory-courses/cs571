@@ -17,11 +17,11 @@ package edu.emory.mathcs.nlp.learn.weight;
 
 import java.util.Arrays;
 
-import edu.emory.mathcs.nlp.collection.tuple.Pair;
+import edu.emory.mathcs.nlp.common.collection.tuple.Pair;
+import edu.emory.mathcs.nlp.common.util.DSUtils;
 import edu.emory.mathcs.nlp.learn.util.Prediction;
 import edu.emory.mathcs.nlp.learn.vector.IndexValuePair;
 import edu.emory.mathcs.nlp.learn.vector.Vector;
-import edu.emory.mathcs.nlp.util.DSUtils;
 
 /**
  * @author Jinho D. Choi ({@code jinho.choi@emory.edu})
@@ -66,7 +66,6 @@ public class MultinomialWeightVector extends WeightVector
 		weight_vector = vector;
 		label_size    = labelSize;
 		feature_size  = featureSize;
-		
 		return true;
 	}
 	

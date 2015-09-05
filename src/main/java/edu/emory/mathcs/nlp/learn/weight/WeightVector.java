@@ -19,7 +19,7 @@ import java.io.Serializable;
 import java.util.Arrays;
 import java.util.function.BiFunction;
 
-import edu.emory.mathcs.nlp.collection.tuple.Pair;
+import edu.emory.mathcs.nlp.common.collection.tuple.Pair;
 import edu.emory.mathcs.nlp.learn.util.Prediction;
 import edu.emory.mathcs.nlp.learn.vector.IndexValuePair;
 import edu.emory.mathcs.nlp.learn.vector.Vector;

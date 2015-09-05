@@ -13,19 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package edu.emory.mathcs.nlp.component.pos;
-
-import edu.emory.mathcs.nlp.common.collection.node.POSNode;
-import edu.emory.mathcs.nlp.component.state.LRState;
+package edu.emory.mathcs.nlp.component.eval;
 
 /**
- * Part-of-speech tagging state.
  * @author Jinho D. Choi ({@code jinho.choi@emory.edu})
  */
-public class POSState<N extends POSNode> extends LRState<N>
+public interface Eval
 {
-	public POSState(N[] nodes)
-	{
-		super(nodes, N::getPOSTag, N::setPOSTag);
-	}
+	void   clear();
+	double score();
 }

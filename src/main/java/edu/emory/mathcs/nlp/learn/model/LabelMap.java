@@ -23,6 +23,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map.Entry;
 
+import edu.emory.mathcs.nlp.common.util.FastUtils;
+
 /**
  * @author Jinho D. Choi ({@code jinho.choi@emory.edu})
  */
@@ -57,13 +59,13 @@ public class LabelMap implements Serializable
 			}
 		}
 
-		count_map.clear();
+		count_map = new Object2IntOpenHashMap<>();
 		return list.size();
 	}
 	
 	public void add(String label)
 	{
-		count_map.merge(label, 1, (o,n) -> o + n);
+		FastUtils.increment(count_map, label);
 	}
 	
 	public int indexOf(String label)

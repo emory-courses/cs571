@@ -25,7 +25,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map.Entry;
 
-import edu.emory.mathcs.nlp.util.DSUtils;
+import edu.emory.mathcs.nlp.common.util.DSUtils;
+import edu.emory.mathcs.nlp.common.util.FastUtils;
 
 /**
  * @author Jinho D. Choi ({@code jinho.choi@emory.edu})
@@ -58,7 +59,7 @@ public class FeatureMap implements Serializable
 			expandFeatures(countMap, index_map.get(type), cutoff);
 		}
 		
-		count_map.values().forEach(m -> m.clear());
+		count_map = new Int2ObjectOpenHashMap<>();
 		return feature_size;
 	}
 	
@@ -90,7 +91,7 @@ public class FeatureMap implements Serializable
 	
 	public void add(int type, String value)
 	{
-		count_map.computeIfAbsent(type, k -> new Object2IntOpenHashMap<String>()).merge(value, 1, (o,n) -> o + n);
+		FastUtils.increment(count_map.computeIfAbsent(type, k -> new Object2IntOpenHashMap<String>()), value);
 	}
 
 	/** @return the index of the specific feature given the specific type if exists; otherwise, {@code -1}. */

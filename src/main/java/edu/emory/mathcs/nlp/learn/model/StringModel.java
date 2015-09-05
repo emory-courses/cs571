@@ -38,18 +38,28 @@ public class StringModel implements Serializable
 {
 	private static final long serialVersionUID = 6610292514588323072L;
 	private Deque<StringInstance> instance_deque;
+	private List<Instance>        instance_list;
 	private LabelMap              label_map;
 	private FeatureMap            feature_map;
 	private WeightVector          weight_vector;
-	private float                 bias_weight;
+	private float                 bias;
 	
-	public StringModel(WeightVector vector, float biasWeight)
+	public StringModel(WeightVector vector)
 	{
 		instance_deque = new ArrayDeque<>();
 		label_map      = new LabelMap();
 		feature_map    = new FeatureMap();
 		weight_vector  = vector;
-		bias_weight    = biasWeight;
+	}
+	
+	public float getBias()
+	{
+		return bias;
+	}
+	
+	public void setBias(float bias)
+	{
+		this.bias = bias;
 	}
 	
 	public void addInstance(StringInstance instance)
@@ -59,9 +69,14 @@ public class StringModel implements Serializable
 		instance_deque.add(instance);
 	}
 	
-	public List<Instance> vectorize(int labelCutoff, int featureCutoff)
+	public List<Instance> getInstanceList()
 	{
-		List<Instance> list = new ArrayList<>();
+		return instance_list;
+	}
+	
+	public void vectorize(int labelCutoff, int featureCutoff)
+	{
+		instance_list = new ArrayList<>();
 		StringInstance instance;
 		int labelIndex;
 		
@@ -77,10 +92,8 @@ public class StringModel implements Serializable
 			labelIndex = label_map.indexOf(instance.getLabel());
 			
 			if (labelIndex >= 0)
-				list.add(new Instance(getLabel(labelIndex), toSparseVector(instance.getVector(), bias_weight)));
+				instance_list.add(new Instance(getLabel(labelIndex), toSparseVector(instance.getVector())));
 		}
-		
-		return list;
 	}
 	
 	private int getLabel(int index)
@@ -88,12 +101,13 @@ public class StringModel implements Serializable
 		return weight_vector.isBinomial() ? index*2 - 1 : index;
 	}
 	
-	public SparseVector toSparseVector(StringVector vector, float biasWeight)
+	public SparseVector toSparseVector(StringVector vector)
 	{
 		SparseVector x = new SparseVector();
 		int index;
 		
-		x.add(new IndexValuePair(0, biasWeight));	// bias
+		if (bias > 0)	// bias
+			x.add(new IndexValuePair(0, bias));
 		
 		for (StringItem e : vector)
 		{
@@ -112,7 +126,7 @@ public class StringModel implements Serializable
 	
 	public StringPrediction predictBest(StringVector x)
 	{
-		Prediction p = weight_vector.predictBest(toSparseVector(x, bias_weight));
+		Prediction p = weight_vector.predictBest(toSparseVector(x));
 		return new StringPrediction(label_map.getLabel(p.getLabel()), p.getScore());
 	}
 }
