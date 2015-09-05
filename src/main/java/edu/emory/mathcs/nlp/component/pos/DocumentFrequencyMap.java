@@ -23,8 +23,8 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import edu.emory.mathcs.nlp.common.collection.node.NLPNode;
 import edu.emory.mathcs.nlp.common.util.FastUtils;
+import edu.emory.mathcs.nlp.component.util.NLPNode;
 
 /**
  * @author Jinho D. Choi ({@code jinho.choi@emory.edu})

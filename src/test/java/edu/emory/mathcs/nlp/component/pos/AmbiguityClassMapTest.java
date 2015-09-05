@@ -19,8 +19,7 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import edu.emory.mathcs.nlp.common.collection.node.NLPNode;
-import edu.emory.mathcs.nlp.common.collection.node.POSNode;
+import edu.emory.mathcs.nlp.component.util.NLPNode;
 
 /**
  * @author Jinho D. Choi ({@code jinho.choi@emory.edu})

@@ -19,10 +19,10 @@ import java.io.IOException;
 import java.util.List;
 import java.util.function.Consumer;
 
-import edu.emory.mathcs.nlp.common.collection.node.NLPNode;
-import edu.emory.mathcs.nlp.common.reader.TSVIndex;
-import edu.emory.mathcs.nlp.common.reader.TSVReader;
 import edu.emory.mathcs.nlp.common.util.IOUtils;
+import edu.emory.mathcs.nlp.component.util.NLPNode;
+import edu.emory.mathcs.nlp.component.util.TSVIndex;
+import edu.emory.mathcs.nlp.component.util.TSVReader;
 
 
 /**

@@ -20,13 +20,11 @@ import java.util.function.Consumer;
 
 import org.junit.Test;
 
-import edu.emory.mathcs.nlp.common.collection.node.POSNode;
-import edu.emory.mathcs.nlp.common.reader.POSIndex;
-import edu.emory.mathcs.nlp.common.reader.TSVReader;
 import edu.emory.mathcs.nlp.common.util.IOUtils;
 import edu.emory.mathcs.nlp.component.eval.AccuracyEval;
 import edu.emory.mathcs.nlp.component.eval.Eval;
 import edu.emory.mathcs.nlp.component.util.NLPFlag;
+import edu.emory.mathcs.nlp.component.util.TSVReader;
 import edu.emory.mathcs.nlp.learn.model.StringModel;
 import edu.emory.mathcs.nlp.learn.sgd.StochasticGradientDescent;
 import edu.emory.mathcs.nlp.learn.sgd.adagrad.MultinomialAdaGradHinge;

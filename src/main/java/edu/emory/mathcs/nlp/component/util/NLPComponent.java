@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package edu.emory.mathcs.nlp.component;
+package edu.emory.mathcs.nlp.component.util;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -21,7 +21,6 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
 import edu.emory.mathcs.nlp.component.eval.Eval;
-import edu.emory.mathcs.nlp.component.util.NLPFlag;
 import edu.emory.mathcs.nlp.learn.model.StringModel;
 
 /**

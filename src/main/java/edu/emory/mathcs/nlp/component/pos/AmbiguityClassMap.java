@@ -25,11 +25,10 @@ import java.util.stream.Collectors;
 
 import edu.emory.mathcs.nlp.common.collection.ngram.Bigram;
 import edu.emory.mathcs.nlp.common.collection.ngram.Unigram;
-import edu.emory.mathcs.nlp.common.collection.node.NLPNode;
-import edu.emory.mathcs.nlp.common.collection.node.POSNode;
 import edu.emory.mathcs.nlp.common.collection.tuple.ObjectDoublePair;
 import edu.emory.mathcs.nlp.common.constant.StringConst;
 import edu.emory.mathcs.nlp.common.util.Joiner;
+import edu.emory.mathcs.nlp.component.util.NLPNode;
 
 /**
  * @author Jinho D. Choi ({@code jinho.choi@emory.edu})

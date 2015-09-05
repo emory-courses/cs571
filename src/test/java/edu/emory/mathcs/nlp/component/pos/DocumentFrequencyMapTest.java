@@ -22,7 +22,7 @@ import java.util.Set;
 
 import org.junit.Test;
 
-import edu.emory.mathcs.nlp.common.collection.node.NLPNode;
+import edu.emory.mathcs.nlp.component.util.NLPNode;
 
 /**
  * @author Jinho D. Choi ({@code jinho.choi@emory.edu})

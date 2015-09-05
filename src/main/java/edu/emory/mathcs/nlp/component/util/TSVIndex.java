@@ -13,18 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package edu.emory.mathcs.nlp.component.pos;
+package edu.emory.mathcs.nlp.component.util;
 
-import edu.emory.mathcs.nlp.component.state.L2RState;
+import java.util.List;
 
 /**
- * Part-of-speech tagging state.
  * @author Jinho D. Choi ({@code jinho.choi@emory.edu})
  */
-public class POSState<N extends POSNode> extends L2RState<N>
+public interface TSVIndex<N>
 {
-	public POSState(N[] nodes)
-	{
-		super(nodes, N::getPOSTag, N::setPOSTag);
-	}
+	N[] toNodeList(List<String[]> values);
 }

@@ -20,7 +20,6 @@ import java.util.List;
 import java.util.Set;
 
 import edu.emory.mathcs.nlp.bin.NLPTrain;
-import edu.emory.mathcs.nlp.common.collection.node.POSNode;
 import edu.emory.mathcs.nlp.common.util.FileUtils;
 import edu.emory.mathcs.nlp.component.eval.AccuracyEval;
 import edu.emory.mathcs.nlp.component.eval.Eval;

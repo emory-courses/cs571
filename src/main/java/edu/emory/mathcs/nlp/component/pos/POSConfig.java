@@ -21,12 +21,10 @@ import java.io.InputStream;
 
 import org.w3c.dom.Element;
 
-import edu.emory.mathcs.nlp.common.collection.node.POSNode;
-import edu.emory.mathcs.nlp.common.reader.POSIndex;
-import edu.emory.mathcs.nlp.common.reader.TSVReader;
 import edu.emory.mathcs.nlp.common.util.XMLUtils;
 import edu.emory.mathcs.nlp.component.util.NLPConfig;
 import edu.emory.mathcs.nlp.component.util.NLPMode;
+import edu.emory.mathcs.nlp.component.util.TSVReader;
 
 /**
  * @author Jinho D. Choi ({@code jinho.choi@emory.edu})
