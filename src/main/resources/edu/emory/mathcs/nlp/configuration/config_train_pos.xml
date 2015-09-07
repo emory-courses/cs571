@@ -1,0 +1,22 @@
+<configuration>
+    <language>english</language>
+
+    <global>
+        <distributional_semantics>brown-rcv1.clean.tokenized-CoNLL03.txt-c1000-freq1.txt.xz</distributional_semantics>
+    </global>
+
+    <pos>
+	    <reader>
+	        <column index="2" field="form"/>
+	        <column index="4" field="pos"/>
+	        <column index="5" field="feats"/>
+	    </reader>
+	    
+        <trainer algorithm="adagrad-hinge" label_cutoff="4" feature_cutoff="3" average="false" learning_rate="0.02" ridge="0.1" bias="0"/>
+        
+        <ambiguity_class_threshold>0.4</ambiguity_class_threshold>
+        <document_frequency_cutoff>2</document_frequency_cutoff>
+        <document_size>1500</document_size>
+        <bootstrap>true</bootstrap>
+    </pos>
+</configuration>

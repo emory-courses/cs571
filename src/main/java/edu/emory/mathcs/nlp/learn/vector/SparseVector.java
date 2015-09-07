@@ -15,22 +15,66 @@
  */
 package edu.emory.mathcs.nlp.learn.vector;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
 
+import edu.emory.mathcs.nlp.common.constant.StringConst;
+import edu.emory.mathcs.nlp.common.util.Joiner;
 
 /**
  * @author Jinho D. Choi ({@code jinho.choi@emory.edu})
  */
-public class SparseVector extends Vector<SparseVectorItem>
+public class SparseVector implements Vector
 {
 	private static final long serialVersionUID = -1427072719834760188L;
+	private List<IndexValuePair> vector;
+	
+	public SparseVector()
+	{
+		vector = new ArrayList<>();
+	}
+	
+	public IndexValuePair get(int index)
+	{
+		return vector.get(index);
+	}
 	
 	public void add(int index)
 	{
-		vector.add(new SparseVectorItem(index));
+		add(new IndexValuePair(index));
 	}
 	
 	public void add(int index, float value)
 	{
-		vector.add(new SparseVectorItem(index, value));
+		add(new IndexValuePair(index, value));
+	}
+	
+	public void add(IndexValuePair item)
+	{
+		vector.add(item);
+	}
+	
+	public int size()
+	{
+		return vector.size();
+	}
+
+	public void sort()
+	{
+		Collections.sort(vector);
+	}
+	
+	@Override
+	public Iterator<IndexValuePair> iterator()
+	{
+		return vector.iterator();
+	}
+
+	@Override
+	public String toString()
+	{
+		return Joiner.join(vector, StringConst.SPACE);
 	}
 }
