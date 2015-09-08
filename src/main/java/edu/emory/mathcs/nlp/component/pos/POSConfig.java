@@ -52,4 +52,19 @@ public class POSConfig extends NLPConfig<POSNode>
 		
 		return new TSVReader<>(new POSIndex(form, pos, feats));
 	}
+	
+	public int getDocumentSize()
+	{
+		return 0;
+	}
+	
+	public int getDocumentFrequencyCutoff()
+	{
+		return 0;
+	}
+	
+	public double getAmbiguityClassThreshold()
+	{
+		return 0d;
+	}
 }

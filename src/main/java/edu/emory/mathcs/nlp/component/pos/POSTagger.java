@@ -18,6 +18,7 @@ package edu.emory.mathcs.nlp.component.pos;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.Set;
 
 import edu.emory.mathcs.nlp.component.eval.AccuracyEval;
 import edu.emory.mathcs.nlp.component.state.L2RState;
@@ -34,7 +35,8 @@ public class POSTagger<N extends POSNode> extends NLPComponent<N>
 {
 	private static final long serialVersionUID = -7926217238116337203L;
 	private AmbiguityClassMap ambiguity_class_map;
-
+	private Set<String> train_word_set;
+	
 	public POSTagger(NLPFlag flag, StringModel model)
 	{
 		super(flag, model);
@@ -62,6 +64,16 @@ public class POSTagger<N extends POSNode> extends NLPComponent<N>
 	public void setAmbiguityClassMap(AmbiguityClassMap map)
 	{
 		ambiguity_class_map = map;
+	}
+	
+	public Set<String> getTrainWordSet()
+	{
+		return train_word_set;
+	}
+
+	public void setTrainWordSet(Set<String> set)
+	{
+		train_word_set = set;
 	}
 	
 //	============================== PROCESS ==============================

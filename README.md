@@ -6,3 +6,4 @@ This is a graduate course in computer science, studying topics in natural Langua
 * [Syllabus](../../wiki/Syllabus).
 * [Schedule](../../wiki/Schedule).
 * [Reading](../../wiki/Reading).
+* [Quizzes](../../wiki/Quizzes).

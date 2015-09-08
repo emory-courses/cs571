@@ -129,4 +129,15 @@ public class StringModel implements Serializable
 		Prediction p = weight_vector.predictBest(toSparseVector(x));
 		return new StringPrediction(label_map.getLabel(p.getLabel()), p.getScore());
 	}
+	
+	public String trainInfo()
+	{
+		StringBuilder build = new StringBuilder();
+		
+		build.append("- # of instances: "+instance_list.size()+"\n");
+		build.append("- # of labels   : "+label_map.size()+"\n");
+		build.append("- # of features : "+feature_map.size());
+		
+		return build.toString();
+	}
 }

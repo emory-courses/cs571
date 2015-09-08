@@ -15,7 +15,7 @@
  */
 package edu.emory.mathcs.nlp.benchmark;
 
-import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
+import java.util.Arrays;
 
 import org.junit.Test;
 
@@ -43,13 +43,14 @@ public class Benchmark
 		System.out.println(et-st);
 	}
 
-//	@Test
+	@Test
 	public void test()
 	{
-		Object2IntOpenHashMap<String> map = new Object2IntOpenHashMap<String>();
-		System.out.println(map.getInt("A"));
-		map.put("A", 1);
-		System.out.println(map.getInt("A"));
+		float[] f = {1,2,3};
+		float[] g = f.clone();
+		f[0] = 0;
+		System.out.println(Arrays.toString(f));
+		System.out.println(Arrays.toString(g));
 	}
 	
 	void call(String s) {}

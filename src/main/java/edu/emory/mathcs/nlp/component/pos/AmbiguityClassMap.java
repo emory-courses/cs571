@@ -45,7 +45,7 @@ public class AmbiguityClassMap implements Serializable
 		pos_count = new Bigram<>();
 	}
 	
-	public void addAll(POSNode[] nodes)
+	public void add(POSNode[] nodes)
 	{
 		for (POSNode node : nodes) add(node);
 	}
@@ -84,6 +84,11 @@ public class AmbiguityClassMap implements Serializable
 	{
 		List<String> ambi = ambiguity_class.get(toKey(node));
 		return (ambi != null) ? Joiner.join(ambi, StringConst.UNDERSCORE) : null;
+	}
+	
+	public int size()
+	{
+		return ambiguity_class.size();
 	}
 	
 	private String toKey(NLPNode node)

@@ -20,13 +20,9 @@ import java.util.List;
 import java.util.Set;
 
 import edu.emory.mathcs.nlp.bin.NLPTrain;
-import edu.emory.mathcs.nlp.common.util.FileUtils;
-import edu.emory.mathcs.nlp.component.eval.AccuracyEval;
-import edu.emory.mathcs.nlp.component.eval.Eval;
-import edu.emory.mathcs.nlp.component.util.NLPFlag;
-import edu.emory.mathcs.nlp.learn.model.StringModel;
-import edu.emory.mathcs.nlp.learn.sgd.StochasticGradientDescent;
-import edu.emory.mathcs.nlp.learn.weight.MultinomialWeightVector;
+import edu.emory.mathcs.nlp.common.util.BinUtils;
+import edu.emory.mathcs.nlp.component.util.NLPComponent;
+import edu.emory.mathcs.nlp.component.util.NLPConfig;
 
 /**
  * @author Jinho D. Choi ({@code jinho.choi@emory.edu})
@@ -34,49 +30,48 @@ import edu.emory.mathcs.nlp.learn.weight.MultinomialWeightVector;
 public class POSTrain extends NLPTrain<POSNode>
 {
 	protected String config_file;
+	Set<String> train_word_set;
 	
-	int document_frequency_cutoff = 2;
-	int document_size = 1500;
-	double ambiguity_class_threshold = 0.4;
-	DocumentFrequencyMap df_map;
-	AmbiguityClassMap    ac_map;
-	Set<String>          lswf_set;
-	
-	
-	public void train(POSConfig config) throws IOException
+	public POSTrain(String[] args)
 	{
-		List<String> trainFiles   = FileUtils.getFileList(train_path  , train_ext);
-		List<String> developFiles = FileUtils.getFileList(develop_path, develop_ext);
-		StringModel model = new StringModel(new MultinomialWeightVector());
-		POSTagger<POSNode> tagger = new POSTagger<>(NLPFlag.TRAIN, model);
-		Eval eval = new AccuracyEval();
 		
-		collect(trainFiles);
-		iterate(trainFiles, nodes -> tagger.process(nodes));
-		
-		StochasticGradientDescent sgd = config.getTrainer(model);
-		tagger.setFlag(NLPFlag.EVALUATE);
-		tagger.setEval(eval);
-		
-		for (int i=0; i<50; i++)
-		{
-			sgd.train(model.getInstanceList());
-			eval.clear();
-			iterate(developFiles, nodes -> tagger.process(nodes));
-			System.out.printf("%3d: %5.2f\n", i, eval.score());
-		}
 	}
 	
-	public void collect(List<String> inputFiles) throws IOException
+	
+	public void train() throws IOException
 	{
-		iterate(inputFiles, nodes -> collect(nodes));
-		lswf_set = df_map.create(document_frequency_cutoff);
-		ac_map.expand(ambiguity_class_threshold);
+//		List<String> trainFiles   = FileUtils.getFileList(train_path  , train_ext);
+//		List<String> developFiles = FileUtils.getFileList(develop_path, develop_ext);
+//		StringModel model = new StringModel(new MultinomialWeightVector());
+//		POSTagger<POSNode> tagger = new POSTagger<>(NLPFlag.TRAIN, model);
+//		Eval eval = new AccuracyEval();
+		
+		
 	}
 	
-	private void collect(POSNode[] nodes)
+	@Override
+	public void collect(List<String> inputFiles, NLPComponent<POSNode> component, NLPConfig<POSNode> configuration)
 	{
-		df_map.add(nodes);
-		for (POSNode node : nodes) ac_map.add(node);
+		POSTagger<POSNode> tagger = (POSTagger<POSNode>)component;
+		POSConfig config = (POSConfig)configuration;
+		
+		DocumentFrequencyMap df = new DocumentFrequencyMap(config.getDocumentSize());
+		AmbiguityClassMap    ac = new AmbiguityClassMap();
+		
+		iterate(inputFiles, nodes -> collect(nodes, df, ac));
+		Set<String> set = df.create(config.getDocumentFrequencyCutoff());
+		ac.expand(config.getAmbiguityClassThreshold());
+		
+		tagger.setTrainWordSet(set);
+		tagger.setAmbiguityClassMap(ac);
+		
+		BinUtils.LOG.info(String.format("- # of ambiguity classes: %d\n", ac.size()));
+		BinUtils.LOG.info(String.format("- # of training words: %d\n", set.size()));
+	}
+	
+	private void collect(POSNode[] nodes, DocumentFrequencyMap df, AmbiguityClassMap ac)
+	{
+		df.add(nodes);
+		ac.add(nodes);
 	}
 }
