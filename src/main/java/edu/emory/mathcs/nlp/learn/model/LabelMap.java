@@ -38,10 +38,19 @@ public class LabelMap implements Serializable
 	public LabelMap()
 	{
 		count_map = new Object2IntOpenHashMap<>();
-		index_map = new Object2IntOpenHashMap<>();
-		list = new ArrayList<>();
+		initIndices();
 	}
 	
+	public void initIndices()
+	{
+		index_map = new Object2IntOpenHashMap<>();
+		list = new ArrayList<>();		
+	}
+	
+	/**
+	 * @param cutoff discards labels whose frequencies are less than or equal to this cutoff.
+	 * @return the total number of labels.
+	 */
 	public int expand(int cutoff)
 	{
 		String label;

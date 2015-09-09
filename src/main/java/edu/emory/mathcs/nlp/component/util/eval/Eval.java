@@ -13,14 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package edu.emory.mathcs.nlp.component.util;
-
-import java.util.List;
+package edu.emory.mathcs.nlp.component.util.eval;
 
 /**
  * @author Jinho D. Choi ({@code jinho.choi@emory.edu})
  */
-public interface TSVIndex<N>
+public interface Eval
 {
-	N[] toNodeList(List<String[]> values);
+	void   clear();
+	double score();
 }

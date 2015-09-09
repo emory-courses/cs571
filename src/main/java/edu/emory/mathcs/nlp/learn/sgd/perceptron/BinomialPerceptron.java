@@ -15,7 +15,6 @@
  */
 package edu.emory.mathcs.nlp.learn.sgd.perceptron;
 
-import edu.emory.mathcs.nlp.learn.sgd.StochasticGradientDescent;
 import edu.emory.mathcs.nlp.learn.util.Instance;
 import edu.emory.mathcs.nlp.learn.vector.Vector;
 import edu.emory.mathcs.nlp.learn.weight.WeightVector;
@@ -23,7 +22,7 @@ import edu.emory.mathcs.nlp.learn.weight.WeightVector;
 /**
  * @author Jinho D. Choi ({@code jinho.choi@emory.edu})
  */
-public class BinomialPerceptron extends StochasticGradientDescent
+public class BinomialPerceptron extends Perceptron
 {
 	public BinomialPerceptron(WeightVector weightVector, boolean average, double learningRate)
 	{

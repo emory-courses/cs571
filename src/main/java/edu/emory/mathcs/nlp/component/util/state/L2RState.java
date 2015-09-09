@@ -13,31 +13,33 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package edu.emory.mathcs.nlp.component.state;
+package edu.emory.mathcs.nlp.component.util.state;
 
 import java.util.Arrays;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 
-import edu.emory.mathcs.nlp.component.eval.AccuracyEval;
+import edu.emory.mathcs.nlp.component.util.eval.AccuracyEval;
 
 /**
- * Left-to-right tagging state.
  * @author Jinho D. Choi ({@code jinho.choi@emory.edu})
  */
-public abstract class L2RState<N> extends NLPState<N>
+public abstract class L2RState<N> extends NLPState<N,String>
 {
 	protected BiFunction<N,String,String> setter;
 	protected Function<N,String> getter;
 	protected String[] gold;
-	protected int index;
+	protected int index = 0;
 	
+	/**
+	 * @param getter (node) -> (label) 
+	 * @param setter (node, new label) -> (old label)
+	 */
 	public L2RState(N[] nodes, Function<N,String> getter, BiFunction<N,String,String> setter)
 	{
 		super(nodes);
 		this.getter = getter;
 		this.setter = setter;
-		index = 0;
 	}
 	
 	@Override
@@ -58,19 +60,21 @@ public abstract class L2RState<N> extends NLPState<N>
 		return index >= nodes.length;
 	}
 	
-	public N getNode(int window)
-	{
-		return getNode(index, window);
-	}
-	
+	@Override
 	public String getGoldLabel()
 	{
 		return gold[index];
 	}
 	
+	@Override
 	public void setLabel(String label)
 	{
 		setter.apply(nodes[index], label);
+	}
+	
+	public N getNode(int window)
+	{
+		return getNode(index, window);
 	}
 	
 	public void evaluateTokens(AccuracyEval eval)

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package edu.emory.mathcs.nlp.component.util;
+package edu.emory.mathcs.nlp.component.util.reader;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -30,7 +30,7 @@ import edu.emory.mathcs.nlp.common.util.Splitter;
 public class TSVReader<N>
 {
 	private BufferedReader reader;
-	private TSVIndex<N> index;
+	private TSVIndex<N>    index;
 	
 	public TSVReader(TSVIndex<N> index)
 	{

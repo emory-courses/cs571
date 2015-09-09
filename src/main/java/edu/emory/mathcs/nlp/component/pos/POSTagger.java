@@ -20,10 +20,8 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.Set;
 
-import edu.emory.mathcs.nlp.component.eval.AccuracyEval;
-import edu.emory.mathcs.nlp.component.state.L2RState;
+import edu.emory.mathcs.nlp.common.util.StringUtils;
 import edu.emory.mathcs.nlp.component.util.NLPComponent;
-import edu.emory.mathcs.nlp.component.util.NLPFlag;
 import edu.emory.mathcs.nlp.learn.model.StringModel;
 import edu.emory.mathcs.nlp.learn.util.StringInstance;
 import edu.emory.mathcs.nlp.learn.vector.StringVector;
@@ -31,15 +29,15 @@ import edu.emory.mathcs.nlp.learn.vector.StringVector;
 /**
  * @author Jinho D. Choi ({@code jinho.choi@emory.edu})
  */
-public class POSTagger<N extends POSNode> extends NLPComponent<N>
+public class POSTagger<N extends POSNode> extends NLPComponent<N,String,POSState<N>>
 {
 	private static final long serialVersionUID = -7926217238116337203L;
 	private AmbiguityClassMap ambiguity_class_map;
 	private Set<String> train_word_set;
 	
-	public POSTagger(NLPFlag flag, StringModel model)
+	public POSTagger(StringModel model)
 	{
-		super(flag, model);
+		super(new StringModel[]{model});
 	}
 	
 //	============================== LEXICONS ==============================
@@ -78,49 +76,59 @@ public class POSTagger<N extends POSNode> extends NLPComponent<N>
 	
 //	============================== PROCESS ==============================
 	
-	public void process(N[] nodes)
+	@Override
+	protected POSState<N> createState(N[] nodes)
 	{
-		L2RState<N> state = new POSState<>(nodes);
-		if (!isDecode()) state.clearGoldLabels();
-		
-		while (!state.isTerminate())
-		{
-			StringVector x = extractFeatures(state);
-			String label = getLabel(state, x);
-			state.setLabel(label);
-			state.next();
-			
-			if (isTrain()) model.addInstance(new StringInstance(label, x));
-		}
-		
-		if (isEvaluate()) state.evaluateTokens((AccuracyEval)eval);
+		return new POSState<>(nodes);
 	}
-	
-	private String getLabel(L2RState<N> state, StringVector x)
+
+	@Override
+	protected String getLabel(POSState<N> state, StringVector vector)
 	{
-		return isTrain() ? state.getGoldLabel() : model.predictBest(x).getLabel();
+		return isTrain() ? state.getGoldLabel() : models[0].predictBest(vector).getLabel();
 	}
-	
-	protected StringVector extractFeatures(L2RState<N> state)
+
+	@Override
+	protected void addInstance(String label, StringVector vector)
+	{
+		models[0].addInstance(new StringInstance(label, vector));
+	}
+
+	@Override
+	protected StringVector extractFeatures(POSState<N> state)
 	{
 		StringVector x = new StringVector();
-		N node; int type = 0;
+		int type = 0;
 		
-		node = state.getNode(0);
-		if (node != null) x.add(type++, node.getWordForm());
-		
-		node = state.getNode(-1);
-		if (node != null) x.add(type++, node.getWordForm());
-		
-		node = state.getNode(1);
-		if (node != null) x.add(type++, node.getWordForm());
-		
-		node = state.getNode(-1);
-		if (node != null) x.add(type++, node.getPOSTag());
-		
-		node = state.getNode(0);
-		if (node != null) x.add(type++, ambiguity_class_map.get(node));
+		addWordForm      (x, state,  0, type++);
+		addWordForm      (x, state,  1, type++);
+		addWordForm      (x, state, -1, type++);
+		addPOSTag        (x, state, -1, type++);
+		addAmbiguityClass(x, state,  0, type++);
 		
 		return x;
+	}
+	
+	protected void addWordForm(StringVector x, POSState<N> state, int window, int type)
+	{
+		N node = state.getNode(window);
+		if (node != null && includeWordForm(node)) x.add(type, node.getWordForm());
+	}
+	
+	protected void addPOSTag(StringVector x, POSState<N> state, int window, int type)
+	{
+		N node = state.getNode(window);
+		if (node != null) x.add(type, node.getPOSTag());
+	}
+	
+	protected void addAmbiguityClass(StringVector x, POSState<N> state, int window, int type)
+	{
+		N node = state.getNode(window);
+		if (node != null) x.add(type, ambiguity_class_map.get(node));
+	}
+	
+	private boolean includeWordForm(N node)
+	{
+		return train_word_set == null || train_word_set.contains(StringUtils.toLowerCase(node.getSimplifiedWordForm()));
 	}
 }

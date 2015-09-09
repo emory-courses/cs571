@@ -74,16 +74,24 @@ public class StringModel implements Serializable
 		return instance_list;
 	}
 	
-	public void vectorize(int labelCutoff, int featureCutoff)
+	public void vectorize(int labelCutoff, int featureCutoff, boolean reset)
 	{
 		instance_list = new ArrayList<>();
 		StringInstance instance;
 		int labelIndex;
 		
 		// filtering
+		if (reset)
+		{
+			label_map  .initIndices();
+			feature_map.initIndices();
+		}
+		
 		label_map  .expand(labelCutoff);
 		feature_map.expand(featureCutoff);
-		weight_vector.expand(label_map.size(), feature_map.size());
+		
+		if (reset)	weight_vector.init  (label_map.size(), feature_map.size());
+		else		weight_vector.expand(label_map.size(), feature_map.size());
 		
 		// vectorizing
 		while (!instance_deque.isEmpty())
@@ -94,6 +102,8 @@ public class StringModel implements Serializable
 			if (labelIndex >= 0)
 				instance_list.add(new Instance(getLabel(labelIndex), toSparseVector(instance.getVector())));
 		}
+		
+		instance_deque = new ArrayDeque<>();
 	}
 	
 	private int getLabel(int index)

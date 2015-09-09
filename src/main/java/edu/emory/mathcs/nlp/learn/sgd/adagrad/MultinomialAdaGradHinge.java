@@ -22,7 +22,7 @@ import edu.emory.mathcs.nlp.learn.weight.WeightVector;
 /**
  * @author Jinho D. Choi ({@code jinho.choi@emory.edu})
  */
-public class MultinomialAdaGradHinge extends AbstractAdaGradHinge
+public class MultinomialAdaGradHinge extends AdaGradHinge
 {
 	public MultinomialAdaGradHinge(WeightVector weightVector, boolean average, double learningRate, double ridge)
 	{

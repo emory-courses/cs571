@@ -15,23 +15,30 @@
  */
 package edu.emory.mathcs.nlp.component.pos;
 
-import edu.emory.mathcs.nlp.component.util.eval.AccuracyEval;
-import edu.emory.mathcs.nlp.component.util.eval.Eval;
-import edu.emory.mathcs.nlp.component.util.state.L2RState;
+import static org.junit.Assert.assertEquals;
+
+import org.junit.Test;
+
+import edu.emory.mathcs.nlp.common.util.IOUtils;
 
 /**
  * @author Jinho D. Choi ({@code jinho.choi@emory.edu})
  */
-public class POSState<N extends POSNode> extends L2RState<N>
+public class POSConfigTest
 {
-	public POSState(N[] nodes)
+	@Test
+	public void test()
 	{
-		super(nodes, N::getPOSTag, N::setPOSTag);
-	}
+		String filename = "src/main/resources/edu/emory/mathcs/nlp/configuration/config_train.xml";
+		POSConfig config = new POSConfig(IOUtils.createFileInputStream(filename));
+		POSIndex index = (POSIndex)config.getTSVIndex();
 
-	@Override
-	public void evaluate(Eval eval)
-	{
-		evaluateTokens((AccuracyEval)eval);
+		assertEquals(1, index.form);
+		assertEquals(3, index.pos);
+		assertEquals(4, index.feats);
+		
+		assertEquals(1500, config.getDocumentSize());
+		assertEquals(   2, config.getDocumentFrequencyCutoff());
+		assertEquals(0.4d, config.getAmbiguityClassThreshold(), 0);
 	}
 }

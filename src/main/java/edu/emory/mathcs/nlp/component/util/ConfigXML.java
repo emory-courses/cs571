@@ -36,9 +36,9 @@ public interface ConfigXML
 	String FIELD_XHEADS	= "xheads";
 	String FIELD_SEQTAG	= "seqtag";
 	
-//	========================== READER ==========================
+//	========================== TSV READER ==========================
 
-	String READER	= "reader";
+	String TSV		= "tsv";
 	String COLUMN	= "column";
 	String FIELD	= "field";
 	String INDEX	= "index";
@@ -51,11 +51,12 @@ public interface ConfigXML
 	String ALGORITHM		= "algorithm";
 	String LABEL_CUTOFF		= "label_cutoff";
 	String FEATURE_CUTOFF	= "feature_cutoff";
+	String LEARNING_RATE	= "learning_rate";
 	String AVERAGE			= "average";
 	String BIAS				= "bias";
-	String LEARNING_RATE				= "eta";	// learning rate
-	String RIDGE				= "rho";	// ridge
+	String RIDGE			= "ridge";
 	String BINOMIAL			= "binomial";
+	String RESET			= "reset";
 	
 //	========================== ALGORITHMS ==========================
 	

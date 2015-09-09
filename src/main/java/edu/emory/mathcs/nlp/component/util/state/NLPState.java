@@ -13,15 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package edu.emory.mathcs.nlp.component.state;
+package edu.emory.mathcs.nlp.component.util.state;
 
 import edu.emory.mathcs.nlp.common.util.DSUtils;
+import edu.emory.mathcs.nlp.component.util.eval.Eval;
 
 /**
- * The state of NLP component.
  * @author Jinho D. Choi ({@code jinho.choi@emory.edu})
  */
-public abstract class NLPState<N>
+public abstract class NLPState<N,L>
 {
 	protected N[] nodes;
 
@@ -37,10 +37,21 @@ public abstract class NLPState<N>
 		return DSUtils.isRange(nodes, index) ? nodes[index] : null;
 	}
 
-	/** Clears and saves the gold-standard labels in {@link #nodes} during training. */
+	/** Clears and saves the gold-standard labels in the input nodes if available. */
 	public abstract void clearGoldLabels();
-	/** Moves on to the next state */
+	
+	/** Moves onto the next state */
 	public abstract void next();
-	/** @return true if no more state is available. */
+	
+	/** @return true if no more state can be processed; otherwise, false. */
 	public abstract boolean isTerminate();
+	
+	/** @return the gold standard label for the current state. */
+	public abstract L getGoldLabel();
+	
+	/** Assigns the specific label to the current state. */
+	public abstract void setLabel(L label);
+	
+	/** Evaluates all predictions given the current input and the evaluator. */
+	public abstract void evaluate(Eval eval);
 }

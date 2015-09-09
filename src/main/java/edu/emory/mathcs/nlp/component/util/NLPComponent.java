@@ -20,47 +20,39 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
-import edu.emory.mathcs.nlp.component.eval.Eval;
+import edu.emory.mathcs.nlp.component.util.eval.Eval;
+import edu.emory.mathcs.nlp.component.util.state.NLPState;
 import edu.emory.mathcs.nlp.learn.model.StringModel;
+import edu.emory.mathcs.nlp.learn.vector.StringVector;
 
 /**
  * @author Jinho D. Choi ({@code jinho.choi@emory.edu})
  */
-public abstract class NLPComponent<N> implements Serializable
+public abstract class NLPComponent<N,L,S extends NLPState<N,L>> implements Serializable
 {
 	private static final long serialVersionUID = 4546728532759275929L;
 	protected StringModel[] models;
-	protected StringModel   model;
 	protected NLPFlag       flag;
 	protected Eval          eval;
 	
 //	============================== CONSTRUCTORS ==============================
 	
-	public NLPComponent(NLPFlag flag, StringModel model)
-	{
-		setModel(model);
-		setFlag(flag);
-	}
-	
-	public NLPComponent(NLPFlag flag, StringModel[] models)
+	public NLPComponent(StringModel[] models)
 	{
 		setModels(models);
-		setFlag(flag);
 	}
 	
-//	============================== SERIALIZE ==============================
+//	============================== SERIALIZATION ==============================
 	
 	private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException
 	{
 		models = (StringModel[])in.readObject();
-		model  = (StringModel  )in.readObject();
 		readLexicons(in);
 	}
 	
 	private void writeObject(ObjectOutputStream out) throws IOException
 	{
 		out.writeObject(models);
-		out.writeObject(model);
 		writeLexicons(out);
 	}
 	
@@ -68,16 +60,6 @@ public abstract class NLPComponent<N> implements Serializable
 	protected abstract void writeLexicons(ObjectOutputStream out) throws IOException;
 	
 //	============================== MODELS ==============================
-	
-	public StringModel getModel()
-	{
-		return model;
-	}
-	
-	public void setModel(StringModel model)
-	{
-		this.model = model;
-	}
 	
 	public StringModel[] getModels()
 	{
@@ -106,6 +88,16 @@ public abstract class NLPComponent<N> implements Serializable
 		return flag == NLPFlag.TRAIN;
 	}
 	
+	public boolean isBootstrap()
+	{
+		return flag == NLPFlag.BOOTSTRAP;
+	}
+	
+	public boolean isTrainOrBootstrap()
+	{
+		return isTrain() || isBootstrap();
+	}
+	
 	public boolean isDecode()
 	{
 		return flag == NLPFlag.DECODE;
@@ -130,5 +122,29 @@ public abstract class NLPComponent<N> implements Serializable
 	
 //	============================== PROCESS ==============================
 	
-	public abstract void process(N[] nodes);
+	/** @return the processing state for the input nodes. */
+	protected abstract S createState(N[] nodes);
+	/** @return the gold-standard label for training; otherwise, the predicted label. */
+	protected abstract L getLabel(S state, StringVector vector);
+	/** Adds a training instance (label, x) to the statistical model. */
+	protected abstract void addInstance(L label, StringVector vector);
+	/** @return the vector consisting of all features extracted from the state. */
+	protected abstract StringVector extractFeatures(S state);
+	
+	public void process(N[] nodes)
+	{
+		S state = createState(nodes);
+		if (!isDecode()) state.clearGoldLabels();
+		
+		while (!state.isTerminate())
+		{
+			StringVector vector = extractFeatures(state);
+			if (isTrainOrBootstrap()) addInstance(state.getGoldLabel(), vector);
+			L label = getLabel(state, vector);
+			state.setLabel(label);
+			state.next();
+		}
+		
+		if (isEvaluate()) state.evaluate(eval);
+	}
 }

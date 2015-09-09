@@ -23,10 +23,10 @@ import org.junit.Test;
 
 import edu.emory.mathcs.nlp.common.util.FileUtils;
 import edu.emory.mathcs.nlp.common.util.IOUtils;
-import edu.emory.mathcs.nlp.component.eval.AccuracyEval;
-import edu.emory.mathcs.nlp.component.eval.Eval;
 import edu.emory.mathcs.nlp.component.util.NLPFlag;
-import edu.emory.mathcs.nlp.component.util.TSVReader;
+import edu.emory.mathcs.nlp.component.util.eval.AccuracyEval;
+import edu.emory.mathcs.nlp.component.util.eval.Eval;
+import edu.emory.mathcs.nlp.component.util.reader.TSVReader;
 import edu.emory.mathcs.nlp.learn.model.StringModel;
 import edu.emory.mathcs.nlp.learn.sgd.StochasticGradientDescent;
 import edu.emory.mathcs.nlp.learn.sgd.adagrad.MultinomialAdaGradHinge;
@@ -44,7 +44,7 @@ public class POSDevelop
 		final String  root = "/Users/jdchoi/Documents/Data/experiments/wsj/pos/";
 		final boolean average = false;
 		final double  ambiguity_class_threshold = 0.4;
-		final double  learning_rate = 0.02;
+		final double  learning_rate = 0.04;
 		final double  ridge = 0.1;
 		final int     epochs = 100;
 		final int     label_cutoff   = 2;
@@ -63,10 +63,11 @@ public class POSDevelop
 		// collect training instances from the training data
 		System.out.println("Collecting training instances.");
 		StringModel model = new StringModel(new MultinomialWeightVector());
-		POSTagger<POSNode> tagger = new POSTagger<>(NLPFlag.TRAIN, model);
+		POSTagger<POSNode> tagger = new POSTagger<>(model);
+		tagger.setFlag(NLPFlag.TRAIN);
 		tagger.setAmbiguityClassMap(ambi);
 		iterate(reader, trainFiles, nodes -> tagger.process(nodes));
-		model.vectorize(label_cutoff, feature_cutoff);
+		model.vectorize(label_cutoff, feature_cutoff, false);
 		
 		// train the statistical model using the development data
 		StochasticGradientDescent sgd = new MultinomialAdaGradHinge(model.getWeightVector(), average, learning_rate, ridge);

@@ -1,0 +1,17 @@
+<configuration>
+    <language>english</language>
+
+    <pos>
+	    <tsv>
+	        <column index="1" field="form"/>
+	        <column index="2" field="pos"/>
+	        <column index="0" field="feats"/>
+	    </tsv>
+	    
+        <trainer algorithm="adagrad-hinge" label_cutoff="4" feature_cutoff="2" reset="false" average="false" learning_rate="0.04" ridge="0.1" bias="0"/>
+        <ambiguity_class_threshold>0.4</ambiguity_class_threshold>
+        <document_frequency_cutoff>2</document_frequency_cutoff>
+        <document_size>1500</document_size>
+        <bootstrap>true</bootstrap>
+    </pos>
+</configuration>

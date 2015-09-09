@@ -38,26 +38,13 @@ public class NLPNode implements Serializable
 		return word_form;
 	}
 	
+	/** @return {@link #getWordForm()} -> {@link StringUtils#toSimplifiedForm(String)}. */
 	public String getSimplifiedWordForm()
 	{
 		return simplified_word_form;
 	}
-	
-	public String getLowerSimplifiedWordForm()
-	{
-		return StringUtils.toLowerCase(simplified_word_form);
-	}
-	
-	/**
-	 * Get the word shape of the simplified word-form of the node.
-	 * @param maxRepetitions the max count of repetition of a word shape in sequence.
-	 * @return the word shape of a node's simplified word-form.
-	 */
-	public String getWordShape(int maxRepetitions)
-	{
-		return StringUtils.getShape(simplified_word_form, maxRepetitions);
-	}
 
+	/** @return the old word-form. */
 	public String setWordForm(String form)
 	{
 		simplified_word_form = StringUtils.toSimplifiedForm(form);

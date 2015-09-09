@@ -22,7 +22,7 @@ import edu.emory.mathcs.nlp.learn.weight.WeightVector;
 /**
  * @author Jinho D. Choi ({@code jinho.choi@emory.edu})
  */
-public class BinomialAdaGradHinge extends AbstractAdaGradHinge
+public class BinomialAdaGradHinge extends AdaGradHinge
 {
 	public BinomialAdaGradHinge(WeightVector weightVector, boolean average, double learningRate, double ridge)
 	{

@@ -18,16 +18,16 @@ package edu.emory.mathcs.nlp.component.pos;
 import java.util.List;
 
 import edu.emory.mathcs.nlp.component.util.FeatMap;
-import edu.emory.mathcs.nlp.component.util.TSVIndex;
+import edu.emory.mathcs.nlp.component.util.reader.TSVIndex;
 
 /**
  * @author Jinho D. Choi ({@code jinho.choi@emory.edu})
  */
 public class POSIndex implements TSVIndex<POSNode>
 {
-	int form;
-	int pos;
-	int feats;
+	public int form;
+	public int pos;
+	public int feats;
 	
 	public POSIndex(int form, int pos)
 	{

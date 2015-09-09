@@ -33,13 +33,19 @@ public class BinomialWeightVector extends WeightVector
 	public BinomialWeightVector()
 	{
 		super(2, 0);
-		weight_vector = new float[0];
 	}
 	
 	public BinomialWeightVector(int featureSize)
 	{
 		super(2, featureSize);
+	}
+	
+	@Override
+	public void init(int labelSize, int featureSize)
+	{
 		weight_vector = new float[featureSize];
+		label_size    = 2;
+		feature_size  = featureSize;
 	}
 	
 	@Override

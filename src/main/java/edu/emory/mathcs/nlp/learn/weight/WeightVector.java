@@ -36,8 +36,7 @@ public abstract class WeightVector implements Serializable
 	
 	public WeightVector(int labelSize, int featureSize)
 	{
-		label_size   = labelSize;
-		feature_size = featureSize;
+		init(labelSize, featureSize);
 	}
 	
 	/** @return a vector whose size is the same as this vector but the values are initialized to 0. */
@@ -107,6 +106,8 @@ public abstract class WeightVector implements Serializable
 	{
 		return Arrays.toString(weight_vector);
 	}
+	
+	public abstract void init(int labelSize, int featureSize);
 	
 	/**
 	 * Expands the size of this weight vector.

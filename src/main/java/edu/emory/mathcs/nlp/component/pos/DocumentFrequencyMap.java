@@ -24,6 +24,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import edu.emory.mathcs.nlp.common.util.FastUtils;
+import edu.emory.mathcs.nlp.common.util.StringUtils;
 import edu.emory.mathcs.nlp.component.util.NLPNode;
 
 /**
@@ -67,6 +68,6 @@ public class DocumentFrequencyMap implements Serializable
 	
 	private String toKey(NLPNode node)
 	{
-		return node.getLowerSimplifiedWordForm();
+		return StringUtils.toLowerCase(node.getSimplifiedWordForm());
 	}
 }

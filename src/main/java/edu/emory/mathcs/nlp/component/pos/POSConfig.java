@@ -24,13 +24,17 @@ import org.w3c.dom.Element;
 import edu.emory.mathcs.nlp.common.util.XMLUtils;
 import edu.emory.mathcs.nlp.component.util.NLPConfig;
 import edu.emory.mathcs.nlp.component.util.NLPMode;
-import edu.emory.mathcs.nlp.component.util.TSVReader;
+import edu.emory.mathcs.nlp.component.util.reader.TSVIndex;
 
 /**
  * @author Jinho D. Choi ({@code jinho.choi@emory.edu})
  */
 public class POSConfig extends NLPConfig<POSNode>
 {
+	private int    document_size;
+	private int    document_frequency_cutoff;
+	private double ambiguity_class_threshold;
+	
 	public POSConfig()
 	{
 		super(NLPMode.pos);
@@ -39,32 +43,57 @@ public class POSConfig extends NLPConfig<POSNode>
 	public POSConfig(InputStream in)
 	{
 		super(NLPMode.pos, in);
+		init();
+	}
+	
+	private void init()
+	{
+		Element eMode = getModeElement();
+		setDocumentSize(XMLUtils.getIntegerTextContentFromFirstElementByTagName(eMode, "document_size"));
+		setDocumentFrequencyCutoff(XMLUtils.getIntegerTextContentFromFirstElementByTagName(eMode, "document_frequency_cutoff"));
+		setAmbiguityClassThreshold(XMLUtils.getDoubleTextContentFromFirstElementByTagName(eMode, "ambiguity_class_threshold"));
 	}
 
-	public TSVReader<POSNode> getReader()
+	@Override
+	public TSVIndex<POSNode> getTSVIndex()
 	{
-		Element eReader = XMLUtils.getFirstElementByTagName(getModeElement(), READER);
+		Element eReader = XMLUtils.getFirstElementByTagName(getModeElement(), TSV);
 		Object2IntMap<String> map = getFieldMap(eReader);
 		
 		int form  = map.get(FIELD_FORM)  - 1;
 		int pos   = map.get(FIELD_POS)   - 1;
 		int feats = map.get(FIELD_FEATS) - 1;
 		
-		return new TSVReader<>(new POSIndex(form, pos, feats));
+		return new POSIndex(form, pos, feats);
 	}
 	
 	public int getDocumentSize()
 	{
-		return 0;
+		return document_size;
 	}
 	
 	public int getDocumentFrequencyCutoff()
 	{
-		return 0;
+		return document_frequency_cutoff;
 	}
 	
 	public double getAmbiguityClassThreshold()
 	{
-		return 0d;
+		return ambiguity_class_threshold;
+	}
+	
+	public void setDocumentSize(int size)
+	{
+		document_size = size;
+	}
+	
+	public void setDocumentFrequencyCutoff(int cutoff)
+	{
+		document_frequency_cutoff = cutoff;
+	}
+	
+	public void setAmbiguityClassThreshold(double threshold)
+	{
+		ambiguity_class_threshold = threshold;
 	}
 }

@@ -15,6 +15,8 @@
  */
 package edu.emory.mathcs.nlp.learn.sgd.adagrad;
 
+import java.util.StringJoiner;
+
 import edu.emory.mathcs.nlp.common.util.MathUtils;
 import edu.emory.mathcs.nlp.learn.sgd.StochasticGradientDescent;
 import edu.emory.mathcs.nlp.learn.vector.IndexValuePair;
@@ -24,12 +26,12 @@ import edu.emory.mathcs.nlp.learn.weight.WeightVector;
 /**
  * @author Jinho D. Choi ({@code jinho.choi@emory.edu})
  */
-public abstract class AbstractAdaGradHinge extends StochasticGradientDescent
+public abstract class AdaGradHinge extends StochasticGradientDescent
 {
 	protected WeightVector diagonals;
 	protected double ridge;
 	
-	public AbstractAdaGradHinge(WeightVector weightVector, boolean average, double learningRate, double ridge)
+	public AdaGradHinge(WeightVector weightVector, boolean average, double learningRate, double ridge)
 	{
 		super(weightVector, average, learningRate);
 		diagonals  = weightVector.createEmptyVector();
@@ -45,5 +47,16 @@ public abstract class AbstractAdaGradHinge extends StochasticGradientDescent
 	protected double getGradient(int label, int featureIndex)
 	{
 		return learning_rate / (ridge + Math.sqrt(diagonals.get(label, featureIndex)));
+	}
+	
+	public String toString()
+	{
+		StringJoiner join = new StringJoiner(", ");
+		
+		join.add("average = "+isAveraged());
+		join.add("learning rate = "+learning_rate);
+		join.add("ridge = "+ridge);
+		
+		return "AdaGrad-Hinge: "+join.toString();
 	}
 }

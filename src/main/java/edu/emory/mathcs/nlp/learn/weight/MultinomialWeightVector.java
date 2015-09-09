@@ -33,13 +33,18 @@ public class MultinomialWeightVector extends WeightVector
 	public MultinomialWeightVector()
 	{
 		super(0, 0);
-		weight_vector = new float[0];
 	}
 	
 	public MultinomialWeightVector(int labelSize, int featureSize)
 	{
 		super(labelSize, featureSize);
+	}
+	
+	public void init(int labelSize, int featureSize)
+	{
 		weight_vector = new float[labelSize * featureSize];
+		label_size    = labelSize;
+		feature_size  = featureSize;
 	}
 
 	@Override

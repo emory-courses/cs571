@@ -41,10 +41,19 @@ public class FeatureMap implements Serializable
 	public FeatureMap()
 	{
 		count_map = new Int2ObjectOpenHashMap<>();
+		initIndices();
+	}
+	
+	public void initIndices()
+	{
 		index_map = new ArrayList<>();
 		feature_size = 1;
 	}
 	
+	/**
+	 * @param cutoff discards features whose frequencies are less than or equal to this cutoff.
+	 * @return the total number of features.
+	 */
 	public int expand(int cutoff)
 	{
 		Object2IntMap<String> countMap;

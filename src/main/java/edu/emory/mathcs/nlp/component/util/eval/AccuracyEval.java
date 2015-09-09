@@ -13,13 +13,46 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package edu.emory.mathcs.nlp.component.eval;
+package edu.emory.mathcs.nlp.component.util.eval;
 
 /**
  * @author Jinho D. Choi ({@code jinho.choi@emory.edu})
  */
-public interface Eval
+public class AccuracyEval implements Eval
 {
-	void   clear();
-	double score();
+	private int correct;
+	private int total;
+	
+	public AccuracyEval()
+	{
+		clear();
+	}
+	
+	public void add(int correct, int total)
+	{
+		this.correct += correct;
+		this.total   += total;
+	}
+	
+	public void clear()
+	{
+		correct = 0;
+		total   = 0;
+	}
+	
+	public int correct()
+	{
+		return correct;
+	}
+	
+	public int total()
+	{
+		return total;
+	}
+	
+	@Override
+	public double score()
+	{
+		return 100d * correct / total;
+	}
 }

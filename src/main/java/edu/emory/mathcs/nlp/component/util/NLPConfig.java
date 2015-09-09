@@ -26,17 +26,21 @@ import org.w3c.dom.NodeList;
 
 import edu.emory.mathcs.nlp.common.util.Language;
 import edu.emory.mathcs.nlp.common.util.XMLUtils;
+import edu.emory.mathcs.nlp.component.util.reader.TSVIndex;
+import edu.emory.mathcs.nlp.component.util.reader.TSVReader;
 import edu.emory.mathcs.nlp.learn.model.StringModel;
 import edu.emory.mathcs.nlp.learn.sgd.StochasticGradientDescent;
+import edu.emory.mathcs.nlp.learn.sgd.adagrad.AdaGradHinge;
 import edu.emory.mathcs.nlp.learn.sgd.adagrad.BinomialAdaGradHinge;
 import edu.emory.mathcs.nlp.learn.sgd.adagrad.MultinomialAdaGradHinge;
 import edu.emory.mathcs.nlp.learn.sgd.perceptron.BinomialPerceptron;
 import edu.emory.mathcs.nlp.learn.sgd.perceptron.MultinomialPerceptron;
+import edu.emory.mathcs.nlp.learn.sgd.perceptron.Perceptron;
 
 /**
  * @author Jinho D. Choi ({@code jinho.choi@emory.edu})
  */
-public class NLPConfig<N> implements ConfigXML
+public abstract class NLPConfig<N> implements ConfigXML
 {
 	private NLPMode mode;
 	private Element xml;
@@ -72,10 +76,21 @@ public class NLPConfig<N> implements ConfigXML
 		return Language.getType(language);
 	}
 	
-	/** For TSV reader. */
-	protected Object2IntMap<String> getFieldMap(Element eReader)
+	public boolean isBootstrap()
 	{
-		NodeList list = eReader.getElementsByTagName(COLUMN);
+		Element eMode = getModeElement();
+		return XMLUtils.getBooleanTextContentFromFirstElementByTagName(eMode, BOOTSTRAP);
+	}
+
+	public TSVReader<N> getTSVReader()
+	{
+		return new TSVReader<>(getTSVIndex());
+	}
+	
+	/** Called by {@link #getTSVReader()}. */
+	protected Object2IntMap<String> getFieldMap(Element eTSV)
+	{
+		NodeList list = eTSV.getElementsByTagName(COLUMN);
 		int i, index, size = list.getLength();
 		Element element;
 		String field;
@@ -94,32 +109,22 @@ public class NLPConfig<N> implements ConfigXML
 		return map;
 	}
 	
+	protected abstract TSVIndex<N> getTSVIndex();
+	
 //	=================================== TRAINER ===================================
 	
-	public boolean isBootstrap()
-	{
-		Element eMode = getModeElement();
-		return XMLUtils.getBooleanTextContentFromFirstElementByTagName(eMode, BOOTSTRAP);
-	}
-	
-	public StochasticGradientDescent getTrainer(StringModel model)
-	{
-		Element eMode = getModeElement();
-		return getTrainer(eMode, model, 0);
-	}
-	
-	public StochasticGradientDescent[] getTrainers(StringModel[] models)
+	public StochasticGradientDescent[] getLearners(StringModel[] models)
 	{
 		StochasticGradientDescent[] trainers = new StochasticGradientDescent[models.length];
 		Element eMode = getModeElement();
 		
 		for (int i=0; i<models.length; i++)
-			trainers[i] = getTrainer(eMode, models[i], i);
+			trainers[i] = getLearner(eMode, models[i], i);
 		
 		return trainers;
 	}
 	
-	private StochasticGradientDescent getTrainer(Element eMode, StringModel model, int index)
+	private StochasticGradientDescent getLearner(Element eMode, StringModel model, int index)
 	{
 		Element  eTrainer = XMLUtils.getElementByTagName(eMode, TRAINER, index);
 		String  algorithm = XMLUtils.getTrimmedAttribute(eTrainer, ALGORITHM);
@@ -139,28 +144,29 @@ public class NLPConfig<N> implements ConfigXML
 		int labelCutoff   = XMLUtils.getIntegerAttribute(eTrainer, LABEL_CUTOFF);
 		int featureCutoff = XMLUtils.getIntegerAttribute(eTrainer, FEATURE_CUTOFF);
 		float bias        = XMLUtils.getFloatAttribute  (eTrainer, BIAS);
+		boolean reset     = XMLUtils.getBooleanAttribute(eTrainer, RESET);
 		
-		model.vectorize(labelCutoff, featureCutoff);
 		model.setBias(bias);
+		model.vectorize(labelCutoff, featureCutoff, reset);
 	}
 	
-	private StochasticGradientDescent getPerceptron(Element eTrainer, StringModel model)
+	private Perceptron getPerceptron(Element eTrainer, StringModel model)
 	{
-		boolean binomial = XMLUtils.getBooleanAttribute(eTrainer, BINOMIAL);
-		boolean average  = XMLUtils.getBooleanAttribute(eTrainer, AVERAGE);
-		double  eta      = XMLUtils.getDoubleAttribute (eTrainer, LEARNING_RATE);
+		boolean binomial     = XMLUtils.getBooleanAttribute(eTrainer, BINOMIAL);
+		boolean average      = XMLUtils.getBooleanAttribute(eTrainer, AVERAGE);
+		double  learningRate = XMLUtils.getDoubleAttribute (eTrainer, LEARNING_RATE);
 		
-		return binomial ? new BinomialPerceptron(model.getWeightVector(), average, eta) : new MultinomialPerceptron(model.getWeightVector(), average, eta);
+		return binomial ? new BinomialPerceptron(model.getWeightVector(), average, learningRate) : new MultinomialPerceptron(model.getWeightVector(), average, learningRate);
 	}
 	
-	private StochasticGradientDescent getAdaGradHinge(Element eTrainer, StringModel model)
+	private AdaGradHinge getAdaGradHinge(Element eTrainer, StringModel model)
 	{
-		boolean binomial = XMLUtils.getBooleanAttribute(eTrainer, BINOMIAL);
-		boolean average  = XMLUtils.getBooleanAttribute(eTrainer, AVERAGE);
-		double  eta      = XMLUtils.getDoubleAttribute (eTrainer, LEARNING_RATE);
-		double  rho      = XMLUtils.getDoubleAttribute (eTrainer, RIDGE);
+		boolean binomial     = XMLUtils.getBooleanAttribute(eTrainer, BINOMIAL);
+		boolean average      = XMLUtils.getBooleanAttribute(eTrainer, AVERAGE);
+		double  learningRate = XMLUtils.getDoubleAttribute (eTrainer, LEARNING_RATE);
+		double  ridge        = XMLUtils.getDoubleAttribute (eTrainer, RIDGE);
 		
-		return binomial ? new BinomialAdaGradHinge(model.getWeightVector(), average, eta, rho) : new MultinomialAdaGradHinge(model.getWeightVector(), average, eta, rho);
+		return binomial ? new BinomialAdaGradHinge(model.getWeightVector(), average, learningRate, ridge) : new MultinomialAdaGradHinge(model.getWeightVector(), average, learningRate, ridge);
 	}
 	
 //	=================================== XML ===================================

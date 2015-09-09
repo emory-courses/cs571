@@ -15,36 +15,28 @@
  */
 package edu.emory.mathcs.nlp.learn.sgd.perceptron;
 
-import edu.emory.mathcs.nlp.learn.util.Instance;
-import edu.emory.mathcs.nlp.learn.vector.Vector;
+import java.util.StringJoiner;
+
+import edu.emory.mathcs.nlp.learn.sgd.StochasticGradientDescent;
 import edu.emory.mathcs.nlp.learn.weight.WeightVector;
 
 /**
  * @author Jinho D. Choi ({@code jinho.choi@emory.edu})
  */
-public class MultinomialPerceptron extends Perceptron
+public abstract class Perceptron extends StochasticGradientDescent
 {
-	public MultinomialPerceptron(WeightVector weightVector, boolean average, double learningRate)
+	public Perceptron(WeightVector weightVector, boolean average, double learningRate)
 	{
 		super(weightVector, average, learningRate);
 	}
 
-	@Override
-	protected void updateWeightVector(Instance instance, int steps)
+	public String toString()
 	{
-		Vector x = instance.getVector();
-		int yp = instance.getLabel(), yn = weight_vector.predictBest(x).getLabel();
+		StringJoiner join = new StringJoiner(", ");
 		
-		if (yp != yn)
-		{
-			weight_vector.update(x, yp,  learning_rate);
-			weight_vector.update(x, yn, -learning_rate);
-			
-			if (isAveraged())
-			{
-				average_vector.update(x, yp,  learning_rate * steps);
-				average_vector.update(x, yn, -learning_rate * steps);
-			}
-		}
+		join.add("average = "+isAveraged());
+		join.add("learning rate = "+learning_rate);
+		
+		return "Perceptron: "+join.toString();
 	}
 }
