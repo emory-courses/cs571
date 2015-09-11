@@ -21,6 +21,7 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
 import edu.emory.mathcs.nlp.component.util.eval.Eval;
+import edu.emory.mathcs.nlp.component.util.feature.FeatureTemplate;
 import edu.emory.mathcs.nlp.component.util.state.NLPState;
 import edu.emory.mathcs.nlp.learn.model.StringModel;
 import edu.emory.mathcs.nlp.learn.vector.StringVector;
@@ -31,9 +32,10 @@ import edu.emory.mathcs.nlp.learn.vector.StringVector;
 public abstract class NLPComponent<N,L,S extends NLPState<N,L>> implements Serializable
 {
 	private static final long serialVersionUID = 4546728532759275929L;
+	protected FeatureTemplate<N,S> feature_template;
 	protected StringModel[] models;
-	protected NLPFlag       flag;
-	protected Eval          eval;
+	protected NLPFlag flag;
+	protected Eval eval;
 	
 //	============================== CONSTRUCTORS ==============================
 	
@@ -44,14 +46,17 @@ public abstract class NLPComponent<N,L,S extends NLPState<N,L>> implements Seria
 	
 //	============================== SERIALIZATION ==============================
 	
+	@SuppressWarnings("unchecked")
 	private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException
 	{
+		feature_template = (FeatureTemplate<N,S>)in.readObject();
 		models = (StringModel[])in.readObject();
 		readLexicons(in);
 	}
 	
 	private void writeObject(ObjectOutputStream out) throws IOException
 	{
+		out.writeObject(feature_template);
 		out.writeObject(models);
 		writeLexicons(out);
 	}
@@ -69,6 +74,18 @@ public abstract class NLPComponent<N,L,S extends NLPState<N,L>> implements Seria
 	public void setModels(StringModel[] model)
 	{
 		this.models = model;
+	}
+	
+//	============================== FEATURE ==============================
+
+	public FeatureTemplate<N,S> getFeatureTemplate()
+	{
+		return feature_template;
+	}
+
+	public void setFeatureTemplate(FeatureTemplate<N,S> template)
+	{
+		feature_template = template;
 	}
 	
 //	============================== FLAG ==============================
@@ -128,12 +145,11 @@ public abstract class NLPComponent<N,L,S extends NLPState<N,L>> implements Seria
 	protected abstract L getLabel(S state, StringVector vector);
 	/** Adds a training instance (label, x) to the statistical model. */
 	protected abstract void addInstance(L label, StringVector vector);
-	/** @return the vector consisting of all features extracted from the state. */
-	protected abstract StringVector extractFeatures(S state);
 	
 	public void process(N[] nodes)
 	{
 		S state = createState(nodes);
+		feature_template.setState(state);
 		if (!isDecode()) state.clearGoldLabels();
 		
 		while (!state.isTerminate())
@@ -146,5 +162,11 @@ public abstract class NLPComponent<N,L,S extends NLPState<N,L>> implements Seria
 		}
 		
 		if (isEvaluate()) state.evaluate(eval);
+	}
+	
+	/** @return the vector consisting of all features extracted from the state. */
+	protected StringVector extractFeatures(S state)
+	{
+		return feature_template.extractFeatures();
 	}
 }

@@ -1,0 +1,13 @@
+<configuration>
+    <language>english</language>
+
+	<tsv>
+        <column index= "0" field="form"/>
+        <column index= "1" field="pos"/>
+        <column index="-1" field="feats"/>
+    </tsv>
+
+    <trainer algorithm="adadelta" label_cutoff="4" feature_cutoff="3" reset="false" average="false" learning_rate="0.04" decaying_rate="0.4" bias="0" />
+	<ambiguity_class_threshold>0.4</ambiguity_class_threshold>
+	<bootstrap>true</bootstrap>
+</configuration>

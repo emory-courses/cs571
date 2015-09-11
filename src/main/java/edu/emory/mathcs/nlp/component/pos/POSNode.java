@@ -15,8 +15,8 @@
  */
 package edu.emory.mathcs.nlp.component.pos;
 
-import edu.emory.mathcs.nlp.component.util.FeatMap;
-import edu.emory.mathcs.nlp.component.util.NLPNode;
+import edu.emory.mathcs.nlp.component.util.node.FeatMap;
+import edu.emory.mathcs.nlp.component.util.node.NLPNode;
 
 
 /**

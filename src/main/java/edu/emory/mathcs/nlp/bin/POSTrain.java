@@ -16,20 +16,18 @@
 package edu.emory.mathcs.nlp.bin;
 
 import java.util.List;
-import java.util.Set;
 
 import edu.emory.mathcs.nlp.common.util.BinUtils;
-import edu.emory.mathcs.nlp.common.util.FileUtils;
 import edu.emory.mathcs.nlp.common.util.IOUtils;
 import edu.emory.mathcs.nlp.component.pos.AmbiguityClassMap;
-import edu.emory.mathcs.nlp.component.pos.DocumentFrequencyMap;
 import edu.emory.mathcs.nlp.component.pos.POSConfig;
+import edu.emory.mathcs.nlp.component.pos.POSFeatureTemplate;
 import edu.emory.mathcs.nlp.component.pos.POSNode;
 import edu.emory.mathcs.nlp.component.pos.POSState;
 import edu.emory.mathcs.nlp.component.pos.POSTagger;
 import edu.emory.mathcs.nlp.component.util.NLPComponent;
-import edu.emory.mathcs.nlp.component.util.NLPConfig;
 import edu.emory.mathcs.nlp.component.util.NLPTrain;
+import edu.emory.mathcs.nlp.component.util.config.NLPConfig;
 import edu.emory.mathcs.nlp.component.util.eval.AccuracyEval;
 import edu.emory.mathcs.nlp.component.util.reader.TSVReader;
 import edu.emory.mathcs.nlp.learn.model.StringModel;
@@ -44,19 +42,20 @@ public class POSTrain extends NLPTrain<POSNode,String,POSState<POSNode>>
 	{
 		super(args);
 	}
-	
-	public void train()
-	{
-		NLPConfig<POSNode> configuration = new POSConfig(IOUtils.createFileInputStream(configuration_file));
-		List<String>       trainFiles    = FileUtils.getFileList(train_path  , train_ext);
-		List<String>       developFiles  = FileUtils.getFileList(develop_path, develop_ext);
-		TSVReader<POSNode> reader        = configuration.getTSVReader();
-		
-		StringModel model = new StringModel(new MultinomialWeightVector());
-		POSTagger<POSNode> tagger = new POSTagger<>(model);
-		tagger.setEval(new AccuracyEval());
 
-		train(reader, trainFiles, developFiles, tagger, configuration);
+	@Override
+	protected NLPConfig<POSNode> createConfiguration(String filename)
+	{
+		return new POSConfig(IOUtils.createFileInputStream(filename));
+	}
+	
+	@Override
+	protected NLPComponent<POSNode,String,POSState<POSNode>> createComponent()
+	{
+		POSTagger<POSNode> tagger = new POSTagger<>(new StringModel(new MultinomialWeightVector()));
+		tagger.setFeatureTemplate(new POSFeatureTemplate<>());
+		tagger.setEval(new AccuracyEval());	
+		return tagger;
 	}
 	
 	@Override
@@ -64,25 +63,13 @@ public class POSTrain extends NLPTrain<POSNode,String,POSState<POSNode>>
 	{
 		POSTagger<POSNode> tagger = (POSTagger<POSNode>)component;
 		POSConfig config = (POSConfig)configuration;
+		AmbiguityClassMap ac = new AmbiguityClassMap();
 		
-		DocumentFrequencyMap df = new DocumentFrequencyMap(config.getDocumentSize());
-		AmbiguityClassMap    ac = new AmbiguityClassMap();
-		
-		iterate(reader, inputFiles, nodes -> collect(nodes, df, ac));
-		Set<String> set = df.create(config.getDocumentFrequencyCutoff());
+		iterate(reader, inputFiles, nodes -> ac.add(nodes));
 		ac.expand(config.getAmbiguityClassThreshold());
-		
-		tagger.setTrainWordSet(set);
 		tagger.setAmbiguityClassMap(ac);
 		
-		BinUtils.LOG.info(String.format("- # of ambiguity classes  : %d\n", ac.size()));
-		BinUtils.LOG.info(String.format("- # of training word types: %d\n", set.size()));
-	}
-	
-	private void collect(POSNode[] nodes, DocumentFrequencyMap df, AmbiguityClassMap ac)
-	{
-		df.add(nodes);
-		ac.add(nodes);
+		BinUtils.LOG.info(String.format("- # of ambiguity classes: %d\n", ac.size()));
 	}
 	
 	static public void main(String[] args)

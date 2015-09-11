@@ -82,6 +82,12 @@ public abstract class WeightVector implements Serializable
 		weight_vector[indexOf(label, featureIndex)] += value;
 	}
 	
+	/** weight_vector[indexOf(label, featureIndex)] *= multiplier + value. */
+	public void multiplyAdd(int label, int featureIndex, double multiplier, double value) 
+	{
+		weight_vector[indexOf(label, featureIndex)] *= multiplier + value;
+	}
+	
 	public void update(Vector x, int label, double gradient)
 	{
 		for (IndexValuePair p : x)

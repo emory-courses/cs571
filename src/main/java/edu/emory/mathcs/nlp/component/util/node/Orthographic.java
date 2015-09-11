@@ -13,33 +13,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package edu.emory.mathcs.nlp.component.pos;
-
-import edu.emory.mathcs.nlp.component.util.eval.AccuracyEval;
-import edu.emory.mathcs.nlp.component.util.eval.Eval;
-import edu.emory.mathcs.nlp.component.util.state.L2RState;
+package edu.emory.mathcs.nlp.component.util.node;
 
 /**
  * @author Jinho D. Choi ({@code jinho.choi@emory.edu})
  */
-public class POSState<N extends POSNode> extends L2RState<N>
+public interface Orthographic
 {
-	AmbiguityClassMap ambiguity_class_map;
-	
-	public POSState(N[] nodes, AmbiguityClassMap map)
-	{
-		super(nodes, N::getPOSTag, N::setPOSTag);
-		ambiguity_class_map = map;
-	}
-
-	@Override
-	public void evaluate(Eval eval)
-	{
-		evaluateTokens((AccuracyEval)eval);
-	}
-	
-	public String getAmbiguityClass(N node)
-	{
-		return ambiguity_class_map.get(node);
-	}
+	String HYPERLINK			= "0";
+	String ALL_UPPER			= "1";
+	String ALL_LOWER			= "2";
+	String ALL_DIGIT			= "3";
+	String ALL_PUNCT			= "4";
+	String ALL_DIGIT_OR_PUNCT	= "5";
+	String HAS_DIGIT			= "6";
+	String HAS_PERIOD			= "7";
+	String HAS_HYPHEN			= "8";
+	String HAS_OTHER_PUNCT		= "9";
+	String NO_LOWER				= "10";
+	String FST_UPPER			= "11";
+	String UPPER_1				= "12";
+	String UPPER_2				= "13";
 }

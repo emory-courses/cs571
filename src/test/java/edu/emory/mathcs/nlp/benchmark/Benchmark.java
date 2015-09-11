@@ -15,9 +15,11 @@
  */
 package edu.emory.mathcs.nlp.benchmark;
 
-import java.util.Arrays;
+import java.util.function.Function;
 
 import org.junit.Test;
+
+import edu.emory.mathcs.nlp.component.util.node.NLPNode;
 
 /**
  * @author Jinho D. Choi ({@code jinho.choi@emory.edu})
@@ -27,31 +29,26 @@ public class Benchmark
 	@Test
 	public void speed()
 	{
-		final int warm = 100, iter = 10000000;
-		String[] array = {"A","B","C","D","E","A","B","C","D","E","A","B","C","D","E","A","B","C","D","E"};
+		final int iter = 100000000;
 		long st, et;
 		
-		for (int i=0; i<warm; i++)
-//			Arrays.stream(array).forEach(e -> call(e));
-			for (String e : array) call(e);
-		
+		NLPNode node = new NLPNode("A");
+
 		st = System.currentTimeMillis();
 		for (int i=0; i<iter; i++)
-//			Arrays.stream(array).forEach(e -> call(e));
-			for (String e : array) call(e);
+//			node.getSimplifiedWordForm();
+			get(node, NLPNode::getSimplifiedWordForm);
 		et = System.currentTimeMillis();
 		System.out.println(et-st);
 	}
-
-	@Test
-	public void test()
+	
+	String get(NLPNode node, Function<NLPNode,String> f)
 	{
-		float[] f = {1,2,3};
-		float[] g = f.clone();
-		f[0] = 0;
-		System.out.println(Arrays.toString(f));
-		System.out.println(Arrays.toString(g));
+		return f.apply(node);
 	}
 	
-	void call(String s) {}
+	String get(NLPNode node)
+	{
+		return node.getSimplifiedWordForm();
+	}
 }

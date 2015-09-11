@@ -23,7 +23,9 @@ import java.util.function.Consumer;
 import org.kohsuke.args4j.Option;
 
 import edu.emory.mathcs.nlp.common.util.BinUtils;
+import edu.emory.mathcs.nlp.common.util.FileUtils;
 import edu.emory.mathcs.nlp.common.util.IOUtils;
+import edu.emory.mathcs.nlp.component.util.config.NLPConfig;
 import edu.emory.mathcs.nlp.component.util.eval.Eval;
 import edu.emory.mathcs.nlp.component.util.reader.TSVReader;
 import edu.emory.mathcs.nlp.component.util.state.NLPState;
@@ -75,12 +77,21 @@ public abstract class NLPTrain<N,L,S extends NLPState<N,L>>
 	
 	/** Collects necessary lexicons for the component. */
 	public abstract void collect(TSVReader<N> reader, List<String> inputFiles, NLPComponent<N,L,S> component, NLPConfig<N> configuration);
+	protected abstract NLPConfig<N> createConfiguration(String filename);
+	protected abstract NLPComponent<N,L,S> createComponent();
 	
-	/**
-	 * Collects, trains and bootstraps the statistical models.
-	 * @param component the statistical models and the evaluator are already set (see {@link NLPComponent#setModels(StringModel[])} 
-	 */
-	public void train(TSVReader<N> reader, List<String> trainFiles, List<String> developFiles, NLPComponent<N,L,S> component, NLPConfig<N> configuration)
+	public void train()
+	{
+		List<String>        trainFiles    = FileUtils.getFileList(train_path  , train_ext);
+		List<String>        developFiles  = FileUtils.getFileList(develop_path, develop_ext);
+		NLPConfig<N>        configuration = createConfiguration(configuration_file);
+		TSVReader<N>        reader        = configuration.getTSVReader();
+		NLPComponent<N,L,S> component     = createComponent();
+
+		train(reader, trainFiles, developFiles, configuration, component);
+	}
+	
+	public void train(TSVReader<N> reader, List<String> trainFiles, List<String> developFiles, NLPConfig<N> configuration, NLPComponent<N,L,S> component)
 	{
 		BinUtils.LOG.info("Collecting lexicons:\n");
 		collect(reader, trainFiles, component, configuration);
@@ -113,13 +124,6 @@ public abstract class NLPTrain<N,L,S extends NLPState<N,L>>
 				break;
 			}
 		}
-		
-//		BinUtils.LOG.info("\nCollecting instances:\n\n");
-//		component.setFlag(NLPFlag.BOOTSTRAP);
-//		iterate(reader, trainFiles, nodes -> component.process(nodes));
-//		
-//		component.setFlag(NLPFlag.EVALUATE);
-//		train(reader, developFiles, component, configuration);
 	}
 	
 	public double train(TSVReader<N> reader, List<String> developFiles, NLPComponent<N,?,?> component, NLPConfig<N> configuration)
@@ -161,7 +165,7 @@ public abstract class NLPTrain<N,L,S extends NLPState<N,L>>
 					currScore[i] = -1;
 				}
 				
-				BinUtils.LOG.info(String.format("%4d.%d: %5.2f\n", epoch, i, eval.score()));				
+				BinUtils.LOG.info(String.format("%4d.%d: %5.2f\n", i, epoch, eval.score()));				
 			}
 			
 			if (Arrays.stream(currScore).allMatch(d -> d < 0)) break; 

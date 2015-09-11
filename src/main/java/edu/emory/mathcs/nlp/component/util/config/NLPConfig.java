@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package edu.emory.mathcs.nlp.component.util;
+package edu.emory.mathcs.nlp.component.util.config;
 
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
@@ -21,7 +21,6 @@ import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import java.io.InputStream;
 
 import org.w3c.dom.Element;
-import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import edu.emory.mathcs.nlp.common.util.Language;
@@ -30,9 +29,12 @@ import edu.emory.mathcs.nlp.component.util.reader.TSVIndex;
 import edu.emory.mathcs.nlp.component.util.reader.TSVReader;
 import edu.emory.mathcs.nlp.learn.model.StringModel;
 import edu.emory.mathcs.nlp.learn.sgd.StochasticGradientDescent;
-import edu.emory.mathcs.nlp.learn.sgd.adagrad.AdaGradHinge;
-import edu.emory.mathcs.nlp.learn.sgd.adagrad.BinomialAdaGradHinge;
-import edu.emory.mathcs.nlp.learn.sgd.adagrad.MultinomialAdaGradHinge;
+import edu.emory.mathcs.nlp.learn.sgd.adadelta.AdaDelta;
+import edu.emory.mathcs.nlp.learn.sgd.adadelta.BinomialAdaDelta;
+import edu.emory.mathcs.nlp.learn.sgd.adadelta.MultinomialAdaDelta;
+import edu.emory.mathcs.nlp.learn.sgd.adagrad.AdaGrad;
+import edu.emory.mathcs.nlp.learn.sgd.adagrad.BinomialAdaGrad;
+import edu.emory.mathcs.nlp.learn.sgd.adagrad.MultinomialAdaGrad;
 import edu.emory.mathcs.nlp.learn.sgd.perceptron.BinomialPerceptron;
 import edu.emory.mathcs.nlp.learn.sgd.perceptron.MultinomialPerceptron;
 import edu.emory.mathcs.nlp.learn.sgd.perceptron.Perceptron;
@@ -42,33 +44,18 @@ import edu.emory.mathcs.nlp.learn.sgd.perceptron.Perceptron;
  */
 public abstract class NLPConfig<N> implements ConfigXML
 {
-	private NLPMode mode;
-	private Element xml;
+	protected Element xml;
 	
 //	=================================== CONSTRUCTORS ===================================
 	
-	public NLPConfig(NLPMode mode)
-	{
-		setMode(mode);
-	}
+	public NLPConfig() {}
 	
-	public NLPConfig(NLPMode mode, InputStream in)
+	public NLPConfig(InputStream in)
 	{
-		setMode(mode);
 		xml = XMLUtils.getDocumentElement(in);
 	}
 	
 //	=================================== GETTERS & SETTERS ===================================  
-
-	public NLPMode getMode()
-	{
-		return mode;
-	}
-	
-	public void setMode(NLPMode mode)
-	{
-		this.mode = mode;
-	}
 	
 	public Language getLanguage()
 	{
@@ -78,8 +65,7 @@ public abstract class NLPConfig<N> implements ConfigXML
 	
 	public boolean isBootstrap()
 	{
-		Element eMode = getModeElement();
-		return XMLUtils.getBooleanTextContentFromFirstElementByTagName(eMode, BOOTSTRAP);
+		return XMLUtils.getBooleanTextContentFromFirstElementByTagName(xml, BOOTSTRAP);
 	}
 
 	public TSVReader<N> getTSVReader()
@@ -116,24 +102,24 @@ public abstract class NLPConfig<N> implements ConfigXML
 	public StochasticGradientDescent[] getLearners(StringModel[] models)
 	{
 		StochasticGradientDescent[] trainers = new StochasticGradientDescent[models.length];
-		Element eMode = getModeElement();
 		
 		for (int i=0; i<models.length; i++)
-			trainers[i] = getLearner(eMode, models[i], i);
+			trainers[i] = getTrainer(models[i], i);
 		
 		return trainers;
 	}
 	
-	private StochasticGradientDescent getLearner(Element eMode, StringModel model, int index)
+	private StochasticGradientDescent getTrainer(StringModel model, int index)
 	{
-		Element  eTrainer = XMLUtils.getElementByTagName(eMode, TRAINER, index);
+		Element  eTrainer = XMLUtils.getElementByTagName(xml, TRAINER, index);
 		String  algorithm = XMLUtils.getTrimmedAttribute(eTrainer, ALGORITHM);
 		initTrainer(eTrainer, model);
 		
 		switch (algorithm)
 		{
-		case PERCEPTRON   : return getPerceptron  (eTrainer, model);
-		case ADAGRAD_HINGE: return getAdaGradHinge(eTrainer, model);
+		case PERCEPTRON: return getPerceptron(eTrainer, model);
+		case ADAGRAD   : return getAdaGrad   (eTrainer, model);
+		case ADADELTA  : return getAdaDelta  (eTrainer, model);
 		}
 		
 		throw new IllegalArgumentException(algorithm+" is not a valid algorithm name.");
@@ -159,36 +145,22 @@ public abstract class NLPConfig<N> implements ConfigXML
 		return binomial ? new BinomialPerceptron(model.getWeightVector(), average, learningRate) : new MultinomialPerceptron(model.getWeightVector(), average, learningRate);
 	}
 	
-	private AdaGradHinge getAdaGradHinge(Element eTrainer, StringModel model)
+	private AdaGrad getAdaGrad(Element eTrainer, StringModel model)
 	{
 		boolean binomial     = XMLUtils.getBooleanAttribute(eTrainer, BINOMIAL);
 		boolean average      = XMLUtils.getBooleanAttribute(eTrainer, AVERAGE);
 		double  learningRate = XMLUtils.getDoubleAttribute (eTrainer, LEARNING_RATE);
-		double  ridge        = XMLUtils.getDoubleAttribute (eTrainer, RIDGE);
 		
-		return binomial ? new BinomialAdaGradHinge(model.getWeightVector(), average, learningRate, ridge) : new MultinomialAdaGradHinge(model.getWeightVector(), average, learningRate, ridge);
+		return binomial ? new BinomialAdaGrad(model.getWeightVector(), average, learningRate) : new MultinomialAdaGrad(model.getWeightVector(), average, learningRate);
 	}
 	
-//	=================================== XML ===================================
-
-	protected Element getModeElement(NLPMode mode)
+	private AdaDelta getAdaDelta(Element eTrainer, StringModel model)
 	{
-		NodeList list = xml.getChildNodes();
-		int i, len = list.getLength();
-		Node node;
+		boolean binomial     = XMLUtils.getBooleanAttribute(eTrainer, BINOMIAL);
+		boolean average      = XMLUtils.getBooleanAttribute(eTrainer, AVERAGE);
+		double  learningRate = XMLUtils.getDoubleAttribute (eTrainer, LEARNING_RATE);
+		double  decayingRate = XMLUtils.getDoubleAttribute (eTrainer, DECAYING_RATE);
 		
-		for (i=0; i<len; i++)
-		{
-			node = list.item(i);
-			if (node.getNodeName().equals(mode.toString()))
-				return (Element)node;
-		}
-		
-		return null;
-	}
-	
-	protected Element getModeElement()
-	{
-		return getModeElement(mode);
+		return binomial ? new BinomialAdaDelta(model.getWeightVector(), average, learningRate, decayingRate) : new MultinomialAdaDelta(model.getWeightVector(), average, learningRate, decayingRate);
 	}
 }

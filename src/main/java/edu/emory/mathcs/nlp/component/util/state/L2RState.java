@@ -77,6 +77,16 @@ public abstract class L2RState<N> extends NLPState<N,String>
 		return getNode(index, window);
 	}
 	
+	public boolean isFirst(N node)
+	{
+		return nodes[0] == node;
+	}
+	
+	public boolean isLast(N node)
+	{
+		return nodes[nodes.length-1] == node;
+	}
+	
 	public void evaluateTokens(AccuracyEval eval)
 	{
 		int correct = 0;

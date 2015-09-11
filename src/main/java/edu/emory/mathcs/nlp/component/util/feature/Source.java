@@ -13,33 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package edu.emory.mathcs.nlp.component.pos;
+package edu.emory.mathcs.nlp.component.util.feature;
 
-import edu.emory.mathcs.nlp.component.util.eval.AccuracyEval;
-import edu.emory.mathcs.nlp.component.util.eval.Eval;
-import edu.emory.mathcs.nlp.component.util.state.L2RState;
+import java.io.Serializable;
 
 /**
  * @author Jinho D. Choi ({@code jinho.choi@emory.edu})
  */
-public class POSState<N extends POSNode> extends L2RState<N>
+public enum Source implements Serializable
 {
-	AmbiguityClassMap ambiguity_class_map;
-	
-	public POSState(N[] nodes, AmbiguityClassMap map)
-	{
-		super(nodes, N::getPOSTag, N::setPOSTag);
-		ambiguity_class_map = map;
-	}
-
-	@Override
-	public void evaluate(Eval eval)
-	{
-		evaluateTokens((AccuracyEval)eval);
-	}
-	
-	public String getAmbiguityClass(N node)
-	{
-		return ambiguity_class_map.get(node);
-	}
+	i,j,k;
 }

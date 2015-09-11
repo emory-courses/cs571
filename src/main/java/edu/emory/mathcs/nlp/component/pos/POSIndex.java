@@ -17,7 +17,7 @@ package edu.emory.mathcs.nlp.component.pos;
 
 import java.util.List;
 
-import edu.emory.mathcs.nlp.component.util.FeatMap;
+import edu.emory.mathcs.nlp.component.util.node.FeatMap;
 import edu.emory.mathcs.nlp.component.util.reader.TSVIndex;
 
 /**
@@ -55,7 +55,7 @@ public class POSIndex implements TSVIndex<POSNode>
 	public POSNode create(String[] values)
 	{
 		String  f = (form  >= 0) ? values[form] : null;
-		String  t = (pos   >= 0) ? values[pos] : null;
+		String  t = (pos   >= 0) ? values[pos]  : null;
 		FeatMap m = (feats >= 0) ? new FeatMap(values[feats]) : new FeatMap();
 		return new POSNode(f, t, m);
 	}

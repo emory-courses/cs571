@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package edu.emory.mathcs.nlp.learn.sgd.adagrad;
+package edu.emory.mathcs.nlp.learn.sgd.adadelta;
 
 import edu.emory.mathcs.nlp.learn.util.Instance;
 import edu.emory.mathcs.nlp.learn.vector.Vector;
@@ -22,11 +22,11 @@ import edu.emory.mathcs.nlp.learn.weight.WeightVector;
 /**
  * @author Jinho D. Choi ({@code jinho.choi@emory.edu})
  */
-public class MultinomialAdaGradHinge extends AdaGradHinge
+public class MultinomialAdaDelta extends AdaDelta
 {
-	public MultinomialAdaGradHinge(WeightVector weightVector, boolean average, double learningRate, double ridge)
+	public MultinomialAdaDelta(WeightVector weightVector, boolean average, double learningRate, double decayingRate)
 	{
-		super(weightVector, average, learningRate, ridge);
+		super(weightVector, average, learningRate, decayingRate);
 	}
 
 	@Override
@@ -37,16 +37,16 @@ public class MultinomialAdaGradHinge extends AdaGradHinge
 		
 		if (yp != yn)
 		{
-			updateDiagonals(x, yp);
-			updateDiagonals(x, yn);
+			updateDiagonals(x, yp, steps);
+			updateDiagonals(x, yn, steps);
 			
 			weight_vector.update(x, yp, (i,j) ->  getGradient(i,j));
 			weight_vector.update(x, yn, (i,j) -> -getGradient(i,j));
 			
 			if (isAveraged())
 			{
-				weight_vector.update(x, yp, (i,j) ->  getGradient(i,j) * steps);
-				weight_vector.update(x, yn, (i,j) -> -getGradient(i,j) * steps);
+				average_vector.update(x, yp, (i,j) ->  getGradient(i,j) * steps);
+				average_vector.update(x, yn, (i,j) -> -getGradient(i,j) * steps);
 			}
 		}
 	}

@@ -22,24 +22,32 @@ import edu.emory.mathcs.nlp.learn.weight.WeightVector;
 /**
  * @author Jinho D. Choi ({@code jinho.choi@emory.edu})
  */
-public class BinomialAdaGradHinge extends AdaGradHinge
+public class MultinomialAdaGrad extends AdaGrad
 {
-	public BinomialAdaGradHinge(WeightVector weightVector, boolean average, double learningRate, double ridge)
+	public MultinomialAdaGrad(WeightVector weightVector, boolean average, double learningRate)
 	{
-		super(weightVector, average, learningRate, ridge);
+		super(weightVector, average, learningRate);
 	}
 
 	@Override
 	protected void updateWeightVector(Instance instance, int steps)
 	{
 		Vector x = instance.getVector();
-		int y = instance.getLabel(), yhat = bestBinomialLabelHinge(x);
+		int yp = instance.getLabel(), yn = bestMultinomiaLabelHinge(instance);
 		
-		if (y != yhat)
+		if (yp != yn)
 		{
-			updateDiagonals(x, y);
-			weight_vector.update(x, y, (i,j) -> getGradient(i,j) * y);
-			if (isAveraged()) weight_vector.update(x, y, (i,j) -> getGradient(i,j) * y * steps);
+			updateDiagonals(x, yp);
+			updateDiagonals(x, yn);
+			
+			weight_vector.update(x, yp, (i,j) ->  getGradient(i,j));
+			weight_vector.update(x, yn, (i,j) -> -getGradient(i,j));
+			
+			if (isAveraged())
+			{
+				average_vector.update(x, yp, (i,j) ->  getGradient(i,j) * steps);
+				average_vector.update(x, yn, (i,j) -> -getGradient(i,j) * steps);
+			}
 		}
 	}
 }

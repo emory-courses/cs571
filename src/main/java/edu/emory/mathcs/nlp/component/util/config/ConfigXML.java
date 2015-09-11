@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package edu.emory.mathcs.nlp.component.util;
+package edu.emory.mathcs.nlp.component.util.config;
 
 /**
  * @author Jinho D. Choi ({@code jinho.choi@emory.edu})
@@ -52,6 +52,7 @@ public interface ConfigXML
 	String LABEL_CUTOFF		= "label_cutoff";
 	String FEATURE_CUTOFF	= "feature_cutoff";
 	String LEARNING_RATE	= "learning_rate";
+	String DECAYING_RATE	= "decaying_rate";
 	String AVERAGE			= "average";
 	String BIAS				= "bias";
 	String RIDGE			= "ridge";
@@ -60,6 +61,7 @@ public interface ConfigXML
 	
 //	========================== ALGORITHMS ==========================
 	
-	String PERCEPTRON		= "perceptron";
-	String ADAGRAD_HINGE	= "adagrad-hinge";
+	String PERCEPTRON	= "perceptron";
+	String ADAGRAD		= "adagrad";
+	String ADADELTA		= "adadelta";
 }
