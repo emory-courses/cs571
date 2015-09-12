@@ -32,8 +32,8 @@ public abstract class StochasticGradientDescent
 {
 	protected WeightVector average_vector;
 	protected WeightVector weight_vector;
-	protected double       learning_rate;
-	protected Random       random;
+	protected final double learning_rate;
+	protected final Random random;
 	
 	/**
 	 * @param weightVector the weight vector to be trained (may contain previously learned weights). 
@@ -71,6 +71,8 @@ public abstract class StochasticGradientDescent
 				updateWeightVector(instance, steps++);
 		}
 		
+		updateWeightVectorMiniBatch();
+		
 		if (isAveraged() && steps > 0)
 		{
 			average(steps);
@@ -83,6 +85,7 @@ public abstract class StochasticGradientDescent
 	 * @param steps the total number of instance visited during training.
 	 */
 	protected abstract void updateWeightVector(Instance instance, int steps);
+	protected abstract void updateWeightVectorMiniBatch();
 	
 	protected void average(int steps)
 	{

@@ -24,22 +24,19 @@ import edu.emory.mathcs.nlp.learn.weight.WeightVector;
  */
 public class BinomialAdaDelta extends AdaDelta
 {
-	public BinomialAdaDelta(WeightVector weightVector, boolean average, double learningRate, double decayingRate)
+	public BinomialAdaDelta(WeightVector weightVector, boolean average, double learningRate, double decayingRate, int batchSize)
 	{
-		super(weightVector, average, learningRate, decayingRate);
+		super(weightVector, average, learningRate, decayingRate, batchSize);
 	}
 
 	@Override
-	protected void updateWeightVector(Instance instance, int steps)
-	{
+    protected void updateGradients(Instance instance)
+    {
 		Vector x = instance.getVector();
-		int y = instance.getLabel(), yhat = bestBinomialLabelHinge(x);
+		int yp = instance.getLabel();
+		int yn = bestBinomialLabelHinge(x);
 		
-		if (y != yhat)
-		{
-//			updateDiagonals(x, y, steps);
-			weight_vector.update(x, y, (i,j) -> getGradient(i,j) * y);
-			if (isAveraged()) average_vector.update(x, y, (i,j) -> getGradient(i,j) * y * steps);
-		}
-	}
+		if (yp != yn)
+			weight_vector.update(x, yp, yp);
+    }
 }

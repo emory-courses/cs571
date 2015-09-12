@@ -29,6 +29,8 @@ public abstract class Perceptron extends StochasticGradientDescent
 	{
 		super(weightVector, average, learningRate);
 	}
+	
+	protected void updateWeightVectorMiniBatch() {}
 
 	public String toString()
 	{

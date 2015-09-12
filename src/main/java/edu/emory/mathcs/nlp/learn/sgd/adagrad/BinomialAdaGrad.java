@@ -33,13 +33,14 @@ public class BinomialAdaGrad extends AdaGrad
 	protected void updateWeightVector(Instance instance, int steps)
 	{
 		Vector x = instance.getVector();
-		int y = instance.getLabel(), yhat = bestBinomialLabelHinge(x);
+		int yp = instance.getLabel();
+		int yn = bestBinomialLabelHinge(x);
 		
-		if (y != yhat)
+		if (yp != yn)
 		{
-			updateDiagonals(x, y);
-			weight_vector.update(x, y, (i,j) -> getGradient(i,j) * y);
-			if (isAveraged()) average_vector.update(x, y, (i,j) -> getGradient(i,j) * y * steps);
+			updateDiagonals(x, yp);
+			weight_vector.update(x, yp, (i,j) -> getGradient(i,j) * yp);
+			if (isAveraged()) average_vector.update(x, yp, (i,j) -> getGradient(i,j) * yp * steps);
 		}
 	}
 }

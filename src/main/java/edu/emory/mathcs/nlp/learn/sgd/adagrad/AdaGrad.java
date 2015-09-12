@@ -37,6 +37,8 @@ public abstract class AdaGrad extends StochasticGradientDescent
 		diagonals = weightVector.createEmptyVector();
 	}
 	
+	protected void updateWeightVectorMiniBatch() {}
+	
 	protected void updateDiagonals(Vector x, int label)
 	{
 		for (IndexValuePair p : x)

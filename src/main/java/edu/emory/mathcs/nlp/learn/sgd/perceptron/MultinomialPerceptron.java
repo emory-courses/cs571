@@ -33,7 +33,8 @@ public class MultinomialPerceptron extends Perceptron
 	protected void updateWeightVector(Instance instance, int steps)
 	{
 		Vector x = instance.getVector();
-		int yp = instance.getLabel(), yn = weight_vector.predictBest(x).getLabel();
+		int yp = instance.getLabel();
+		int yn = weight_vector.predictBest(x).getLabel();
 		
 		if (yp != yn)
 		{

@@ -53,6 +53,7 @@ public interface ConfigXML
 	String FEATURE_CUTOFF	= "feature_cutoff";
 	String LEARNING_RATE	= "learning_rate";
 	String DECAYING_RATE	= "decaying_rate";
+	String BATCH_SIZE		= "batch_size";
 	String AVERAGE			= "average";
 	String BIAS				= "bias";
 	String RIDGE			= "ridge";

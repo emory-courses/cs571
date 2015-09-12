@@ -33,13 +33,14 @@ public class BinomialPerceptron extends Perceptron
 	protected void updateWeightVector(Instance instance, int steps)
 	{
 		Vector x = instance.getVector();
-		int y = instance.getLabel(), yhat = weight_vector.predictBest(x).getLabel();
+		int yp = instance.getLabel();
+		int yn = weight_vector.predictBest(x).getLabel();
 		
-		if (y != yhat)
+		if (yp != yn)
 		{
-			double gradient = learning_rate * y;
-			weight_vector.update(x, y, gradient);
-			if (isAveraged()) average_vector.update(x, y, gradient * steps);
+			double gradient = learning_rate * yp;
+			weight_vector.update(x, yp, gradient);
+			if (isAveraged()) average_vector.update(x, yp, gradient * steps);
 		}
 	}
 }

@@ -15,14 +15,12 @@
  */
 package edu.emory.mathcs.nlp.learn.sgd.adadelta;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Arrays;
 import java.util.StringJoiner;
 
 import edu.emory.mathcs.nlp.common.util.MathUtils;
 import edu.emory.mathcs.nlp.learn.sgd.StochasticGradientDescent;
-import edu.emory.mathcs.nlp.learn.vector.IndexValuePair;
-import edu.emory.mathcs.nlp.learn.vector.Vector;
+import edu.emory.mathcs.nlp.learn.util.Instance;
 import edu.emory.mathcs.nlp.learn.weight.WeightVector;
 
 /**
@@ -32,29 +30,67 @@ public abstract class AdaDelta extends StochasticGradientDescent
 {
 	protected final double epsilon = 0.0000001;
 	protected WeightVector diagonals;
-	protected double decaying_rate;
-	protected double growth_rate;
+	protected WeightVector gradients;
+	protected int          mini_batch;
+	
+	protected final double decaying_rate;
+	protected final double growth_rate;
+	protected final int    batch_size;
 
-	public AdaDelta(WeightVector weightVector, boolean average, double learningRate, double decayingRate)
+	public AdaDelta(WeightVector weightVector, boolean average, double learningRate, double decayingRate, int batchSize)
 	{
 		super(weightVector, average, learningRate);
 		diagonals  = weightVector.createEmptyVector();
+		gradients  = weightVector.createEmptyVector();
+		mini_batch = 0;
+		
 		decaying_rate = decayingRate;
-		growth_rate = 1-decayingRate;
+		growth_rate   = 1-decayingRate;
+		batch_size    = batchSize;
 	}
 	
-	protected void updateDiagonals(WeightVector gradient)
+	@Override
+    protected void updateWeightVector(Instance instance, int steps)
+    {
+    	updateGradients(instance);
+		
+		if (++mini_batch == batch_size)
+			updateWeightVectorMiniBatch();
+    }
+	
+	protected void updateWeightVectorMiniBatch()
 	{
-		ParallelDecay.parallelDecay(diagonals.toArray(), (float)(decaying_rate));
-		for (int i=0; i<gradient.toArray().length; i++)
-			diagonals.toArray()[i] += growth_rate*MathUtils.sq(gradient.toArray()[i]);
+		if (mini_batch > 0)
+		{
+			updateDiagonals();
+			updateWeightVector();
+			Arrays.fill(gradients.toArray(), 0);
+			mini_batch = 0;
+		}
 	}
 	
-	protected double getGradient(int label, int featureIndex)
+	protected void updateDiagonals()
 	{
-		return learning_rate / (epsilon + Math.sqrt(diagonals.get(label, featureIndex)));
+//		double norm = MathUtils.reciprocal(mini_batch);
+		float[] d = diagonals.toArray();
+		float[] g = gradients.toArray();
+		
+		for (int i=0; i<d.length; i++)
+			d[i] = (float)(decaying_rate*d[i] + growth_rate*MathUtils.sq(g[i]));
 	}
-
+	
+	protected void updateWeightVector()
+	{
+		float[] w = weight_vector.toArray();
+		float[] d = diagonals.toArray();
+		float[] g = gradients.toArray();
+ 		
+		for (int i=0; i<w.length; i++)
+			w[i] += learning_rate / Math.sqrt(epsilon + d[i]) * g[i];
+	}
+	
+	protected abstract void updateGradients(Instance instance);
+	
 	@Override
 	public String toString()
 	{
@@ -63,6 +99,7 @@ public abstract class AdaDelta extends StochasticGradientDescent
 		join.add("average = " + isAveraged());
 		join.add("learning rate = "+learning_rate);
 		join.add("decaying rate = "+decaying_rate);
+		join.add("batch size = "+batch_size);
 		
 		return "AdaDelta: "+join.toString();
 	}

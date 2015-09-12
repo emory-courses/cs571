@@ -7,7 +7,7 @@
         <column index="-1" field="feats"/>
     </tsv>
 
-    <trainer algorithm="adadelta" label_cutoff="4" feature_cutoff="2" reset="false" average="false" learning_rate="0.001" decaying_rate="0.4" bias="0" />
+    <trainer algorithm="adadelta" label_cutoff="4" feature_cutoff="2" reset="false" average="false" learning_rate="0.01" decaying_rate="0.4" batch_size="100000" bias="0" />
 	<ambiguity_class_threshold>0.4</ambiguity_class_threshold>
 	<bootstrap>true</bootstrap>
 </configuration>

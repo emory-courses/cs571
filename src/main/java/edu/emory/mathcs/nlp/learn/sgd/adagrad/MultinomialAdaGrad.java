@@ -33,7 +33,8 @@ public class MultinomialAdaGrad extends AdaGrad
 	protected void updateWeightVector(Instance instance, int steps)
 	{
 		Vector x = instance.getVector();
-		int yp = instance.getLabel(), yn = bestMultinomiaLabelHinge(instance);
+		int yp = instance.getLabel();
+		int yn = bestMultinomialLabelHinge(instance);
 		
 		if (yp != yn)
 		{

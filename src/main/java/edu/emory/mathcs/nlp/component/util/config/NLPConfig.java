@@ -15,7 +15,6 @@
  */
 package edu.emory.mathcs.nlp.component.util.config;
 
-import edu.emory.mathcs.nlp.learn.sgd.adadelta.MultinomialAdaDelta;
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 
@@ -32,6 +31,7 @@ import edu.emory.mathcs.nlp.learn.model.StringModel;
 import edu.emory.mathcs.nlp.learn.sgd.StochasticGradientDescent;
 import edu.emory.mathcs.nlp.learn.sgd.adadelta.AdaDelta;
 import edu.emory.mathcs.nlp.learn.sgd.adadelta.BinomialAdaDelta;
+import edu.emory.mathcs.nlp.learn.sgd.adadelta.MultinomialAdaDelta;
 import edu.emory.mathcs.nlp.learn.sgd.adagrad.AdaGrad;
 import edu.emory.mathcs.nlp.learn.sgd.adagrad.BinomialAdaGrad;
 import edu.emory.mathcs.nlp.learn.sgd.adagrad.MultinomialAdaGrad;
@@ -160,7 +160,8 @@ public abstract class NLPConfig<N> implements ConfigXML
 		boolean average      = XMLUtils.getBooleanAttribute(eTrainer, AVERAGE);
 		double  learningRate = XMLUtils.getDoubleAttribute (eTrainer, LEARNING_RATE);
 		double  decayingRate = XMLUtils.getDoubleAttribute (eTrainer, DECAYING_RATE);
+		int     batchSize    = XMLUtils.getIntegerAttribute(eTrainer, BATCH_SIZE);
 		
-		return binomial ? new BinomialAdaDelta(model.getWeightVector(), average, learningRate, decayingRate) : new MultinomialAdaDelta(model.getWeightVector(), average, learningRate, decayingRate, 100000);
+		return binomial ? new BinomialAdaDelta(model.getWeightVector(), average, learningRate, decayingRate, batchSize) : new MultinomialAdaDelta(model.getWeightVector(), average, learningRate, decayingRate, batchSize);
 	}
 }

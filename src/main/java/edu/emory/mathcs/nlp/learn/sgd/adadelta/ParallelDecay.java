@@ -7,10 +7,10 @@ package edu.emory.mathcs.nlp.learn.sgd.adadelta;
 public class ParallelDecay extends Thread {
 
     private float[] arr;
-    private float mult;
+    private double mult;
     private int low, high;
 
-    public ParallelDecay(float[] arr, float mult, int low, int high)
+    public ParallelDecay(float[] arr, double mult, int low, int high)
     {
         this.arr = arr;
         this.mult = mult;
@@ -22,23 +22,23 @@ public class ParallelDecay extends Thread {
     {
         decay(arr, mult, low, high);
     }
-    public static void decay(float[] arr, float mult)
+    public static void decay(float[] arr, double mult)
     {
         decay(arr, mult, 0, arr.length);
     }
 
-    public static void decay(float[] arr, float mult, int low, int high)
+    public static void decay(float[] arr, double mult, int low, int high)
     {
         for (int i = low; i < high; i++)
             arr[i]*=mult;
     }
 
-    public static float[] parallelDecay(float[] arr, float mult)
+    public static float[] parallelDecay(float[] arr, double mult)
     {
         return parallelDecay(arr, mult, Runtime.getRuntime().availableProcessors());
     }
 
-    public static float[] parallelDecay(float[] arr, float mult, int threads)
+    public static float[] parallelDecay(float[] arr, double mult, int threads)
     {
         int size = (int) Math.ceil(arr.length * 1.0 / threads);
 
