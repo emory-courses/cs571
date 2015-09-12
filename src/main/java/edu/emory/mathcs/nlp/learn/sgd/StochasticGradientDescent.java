@@ -106,7 +106,7 @@ public abstract class StochasticGradientDescent
 		return (Math.abs(p.getScore()) >= 0.5) ? p.getLabel() : -p.getLabel();
 	}
  	
- 	protected int bestMultinomiaLabelHinge(Instance instance)
+ 	protected int bestMultinomialLabelHinge(Instance instance)
 	{
 		double[] scores = weight_vector.scores(instance.getVector());
 		scores[instance.getLabel()] -= 1;
