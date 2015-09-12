@@ -28,7 +28,7 @@ import edu.emory.mathcs.nlp.learn.weight.WeightVector;
  */
 public abstract class AdaDelta extends StochasticGradientDescent
 {
-	protected final double epsilon = 0.0000001;
+	protected final double epsilon = 0.00001;
 	protected WeightVector diagonals;
 	protected WeightVector gradients;
 	protected int          mini_batch;
@@ -71,7 +71,6 @@ public abstract class AdaDelta extends StochasticGradientDescent
 	
 	protected void updateDiagonals()
 	{
-//		double norm = MathUtils.reciprocal(mini_batch);
 		float[] d = diagonals.toArray();
 		float[] g = gradients.toArray();
 		
@@ -86,7 +85,7 @@ public abstract class AdaDelta extends StochasticGradientDescent
 		float[] g = gradients.toArray();
  		
 		for (int i=0; i<w.length; i++)
-			w[i] += learning_rate / Math.sqrt(epsilon + d[i]) * g[i];
+			w[i] += learning_rate / (epsilon + Math.sqrt(d[i])) * g[i];
 	}
 	
 	protected abstract void updateGradients(Instance instance);
