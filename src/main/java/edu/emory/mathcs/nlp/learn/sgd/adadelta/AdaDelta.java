@@ -15,6 +15,8 @@
  */
 package edu.emory.mathcs.nlp.learn.sgd.adadelta;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.StringJoiner;
 
 import edu.emory.mathcs.nlp.common.util.MathUtils;
@@ -28,38 +30,37 @@ import edu.emory.mathcs.nlp.learn.weight.WeightVector;
  */
 public abstract class AdaDelta extends StochasticGradientDescent
 {
-	protected final double epsilon = 0.00001;
+	protected final double epsilon = 0.0000001;
 	protected WeightVector diagonals;
 	protected double decaying_rate;
-	
+	protected double growth_rate;
+
 	public AdaDelta(WeightVector weightVector, boolean average, double learningRate, double decayingRate)
 	{
 		super(weightVector, average, learningRate);
 		diagonals  = weightVector.createEmptyVector();
 		decaying_rate = decayingRate;
+		growth_rate = 1-decayingRate;
 	}
 	
-	protected void updateDiagonals(Vector x, int label, int steps)
+	protected void updateDiagonals(WeightVector gradient)
 	{
-		if (steps%25000 == 0)
-			ParallelDecay.parallelDecay(diagonals.toArray(), (float)(decaying_rate/25000));
-		
-		for (IndexValuePair p : x)
-			diagonals.add(label, p.getIndex(), (1-decaying_rate) * MathUtils.sq(p.getValue()));
-//			diagonals.multiplyAdd(label, p.getIndex(), decaying_rate, (1-decaying_rate) * MathUtils.sq(p.getValue()));
+		ParallelDecay.parallelDecay(diagonals.toArray(), (float)(decaying_rate));
+		for (int i=0; i<gradient.toArray().length; i++)
+			diagonals.toArray()[i] += growth_rate*MathUtils.sq(gradient.toArray()[i]);
 	}
 	
 	protected double getGradient(int label, int featureIndex)
 	{
 		return learning_rate / (epsilon + Math.sqrt(diagonals.get(label, featureIndex)));
 	}
-	
+
 	@Override
 	public String toString()
 	{
 		StringJoiner join = new StringJoiner(", ");
 		
-		join.add("average = "+isAveraged());
+		join.add("average = " + isAveraged());
 		join.add("learning rate = "+learning_rate);
 		join.add("decaying rate = "+decaying_rate);
 		

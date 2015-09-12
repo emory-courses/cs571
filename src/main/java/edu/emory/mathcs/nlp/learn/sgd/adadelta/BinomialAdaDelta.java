@@ -37,7 +37,7 @@ public class BinomialAdaDelta extends AdaDelta
 		
 		if (y != yhat)
 		{
-			updateDiagonals(x, y, steps);
+//			updateDiagonals(x, y, steps);
 			weight_vector.update(x, y, (i,j) -> getGradient(i,j) * y);
 			if (isAveraged()) average_vector.update(x, y, (i,j) -> getGradient(i,j) * y * steps);
 		}
