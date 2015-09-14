@@ -13,34 +13,52 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package edu.emory.mathcs.nlp.learn.sgd.perceptron;
+package edu.emory.mathcs.nlp.learn.optimization.sgd;
 
+import java.util.List;
+
+import edu.emory.mathcs.nlp.learn.optimization.OnlineOptimizer;
 import edu.emory.mathcs.nlp.learn.util.Instance;
-import edu.emory.mathcs.nlp.learn.vector.Vector;
 import edu.emory.mathcs.nlp.learn.weight.WeightVector;
 
 /**
  * @author Jinho D. Choi ({@code jinho.choi@emory.edu})
  */
-public class BinomialPerceptron extends Perceptron
+public abstract class StochasticGradientDescent extends OnlineOptimizer
 {
-	public BinomialPerceptron(WeightVector weightVector, boolean average, double learningRate)
+	public StochasticGradientDescent(WeightVector weightVector, boolean average, double learningRate)
 	{
 		super(weightVector, average, learningRate);
 	}
 
 	@Override
-	protected void updateWeightVector(Instance instance, int steps)
+	public void train(List<Instance> instances, int epochs)
 	{
-		Vector x = instance.getVector();
-		int yp = instance.getLabel();
-		int yn = weight_vector.predictBest(x).getLabel();
+		steps = 1;
 		
-		if (yp != yn)
+		for (; epochs>0; epochs--)
 		{
-			double gradient = learning_rate * yp;
-			weight_vector.update(x, yp, gradient);
-			if (isAveraged()) average_vector.update(x, yp, gradient * steps);
+			shuffle(instances);
+			
+			for (Instance instance : instances)
+			{
+				update(instance);
+				steps++;
+			}
 		}
+		
+		if (isAveraged() && steps > 0) average();
+	}
+	
+	private void average()
+	{
+		float[] w = weight_vector .toArray();
+		float[] a = average_vector.toArray();
+		float   n = 1f / steps;
+		
+		for (int i=0; i<w.length; i++)
+			w[i] -= a[i] * n;
+		
+		average_vector.fill(0);
 	}
 }

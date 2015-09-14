@@ -45,24 +45,25 @@ public interface ConfigXML
 	
 //	========================== TRAINER ==========================
 
-	String TRAINER			= "trainer";
-	String BOOTSTRAP		= "bootstrap";
+	String TRAINER	= "trainer";
+	String ST4SP	= "st4sp";
+	String DELTA	= "delta";
 	
 	String ALGORITHM		= "algorithm";
 	String LABEL_CUTOFF		= "label_cutoff";
 	String FEATURE_CUTOFF	= "feature_cutoff";
 	String LEARNING_RATE	= "learning_rate";
 	String DECAYING_RATE	= "decaying_rate";
-	String BATCH_SIZE		= "batch_size";
+	String BATCH_RATIO		= "batch_ratio";
 	String AVERAGE			= "average";
 	String BIAS				= "bias";
 	String RIDGE			= "ridge";
-	String BINOMIAL			= "binomial";
 	String RESET			= "reset";
 	
 //	========================== ALGORITHMS ==========================
 	
-	String PERCEPTRON	= "perceptron";
-	String ADAGRAD		= "adagrad";
-	String ADADELTA		= "adadelta";
+	String PERCEPTRON			= "perceptron";
+	String ADAGRAD				= "adagrad";
+	String ADAGRAD_MINI_BATCH	= "adagrad-mini-batch";
+	String ADADELTA_MINI_BATCH	= "adadelta-mini-batch";
 }

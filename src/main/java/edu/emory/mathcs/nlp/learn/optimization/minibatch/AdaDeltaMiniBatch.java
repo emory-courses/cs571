@@ -13,32 +13,44 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package edu.emory.mathcs.nlp.learn.sgd.perceptron;
+package edu.emory.mathcs.nlp.learn.optimization.minibatch;
 
 import java.util.StringJoiner;
 
-import edu.emory.mathcs.nlp.learn.sgd.StochasticGradientDescent;
+import edu.emory.mathcs.nlp.common.util.MathUtils;
 import edu.emory.mathcs.nlp.learn.weight.WeightVector;
 
 /**
  * @author Jinho D. Choi ({@code jinho.choi@emory.edu})
  */
-public abstract class Perceptron extends StochasticGradientDescent
+public class AdaDeltaMiniBatch extends AdaptiveMiniBatch
 {
-	public Perceptron(WeightVector weightVector, boolean average, double learningRate)
+	protected final double decaying_rate;
+	protected final double growth_rate;
+
+	public AdaDeltaMiniBatch(WeightVector weightVector, double batchRatio, boolean average, double learningRate, double decayingRate)
 	{
-		super(weightVector, average, learningRate);
+		super(weightVector, batchRatio, average, learningRate);
+		decaying_rate = decayingRate;
+		growth_rate   = 1 - decayingRate;
 	}
 	
-	protected void updateWeightVectorMiniBatch() {}
-
+	@Override
+	protected float getDiagonal(float previousDiagonal, float gradient)
+	{
+		return (float)(decaying_rate*previousDiagonal + growth_rate*MathUtils.sq(gradient));
+	}
+	
+	@Override
 	public String toString()
 	{
 		StringJoiner join = new StringJoiner(", ");
 		
-		join.add("average = "+isAveraged());
+		join.add("batch ratio = "+batch_ratio);
+		join.add("average = " + isAveraged());
 		join.add("learning rate = "+learning_rate);
+		join.add("decaying rate = "+decaying_rate);
 		
-		return "Perceptron: "+join.toString();
+		return "AdaDelta: "+join.toString();
 	}
 }

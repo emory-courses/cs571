@@ -30,7 +30,7 @@ import edu.emory.mathcs.nlp.component.util.eval.Eval;
 import edu.emory.mathcs.nlp.component.util.reader.TSVReader;
 import edu.emory.mathcs.nlp.component.util.state.NLPState;
 import edu.emory.mathcs.nlp.learn.model.StringModel;
-import edu.emory.mathcs.nlp.learn.sgd.StochasticGradientDescent;
+import edu.emory.mathcs.nlp.learn.optimization.OnlineOptimizer;
 
 /**
  * Provide instances and methods for training NLP components.
@@ -96,31 +96,32 @@ public abstract class NLPTrain<N,L,S extends NLPState<N,L>>
 		BinUtils.LOG.info("Collecting lexicons:\n");
 		collect(reader, trainFiles, component, configuration);
 		
-		boolean bootstrap = configuration.isBootstrap();
+		Double delta = configuration.getST4SPDelta();
 		StringModel[] models = component.getModels();
 		int i, size = models.length;
 		float[][] prevWeight = new float[size][];
-		double currScore = 0, prevScore;
+		float[][] bestWeight = new float[size][];
+		double bestScore = 0, currScore = 0, prevScore;
 		
 		for (int boot=0; ; boot++)
 		{
-			BinUtils.LOG.info(String.format("\nBootstrapping: %d\n\n", boot));
+			BinUtils.LOG.info((boot == 0) ? "\nTraining:\n\n" : String.format("\nBootstrapping: %d\n\n", boot));
 			component.setFlag(boot == 0 ? NLPFlag.TRAIN : NLPFlag.BOOTSTRAP);
 			iterate(reader, trainFiles, nodes -> component.process(nodes));
 			
 			component.setFlag(NLPFlag.EVALUATE);
 			prevScore = currScore;
 			currScore = train(reader, developFiles, component, configuration);
-			if (!bootstrap) break;
+			if (delta == null) break;
 			
-			if (prevScore <= currScore+0.01)
+			if (prevScore < currScore+delta)
 			{
-				for (i=0; i<size; i++)
-					prevWeight[i] = models[i].getWeightVector().toArray().clone();
+				for (i=0; i<size; i++) prevWeight[i] = models[i].getWeightVector().toArray().clone();
+				if (bestScore < currScore) for (i=0; i<size; i++) bestWeight[i] = prevWeight[i];
 			}
 			else
 			{
-				for (i=0; i<size; i++) models[i].getWeightVector().fromArray(prevWeight[i]);
+				for (i=0; i<size; i++) models[i].getWeightVector().fromArray(bestWeight[i]);
 				break;
 			}
 		}
@@ -130,9 +131,8 @@ public abstract class NLPTrain<N,L,S extends NLPState<N,L>>
 	{
 		Eval eval = component.getEval();
 		StringModel[] models = component.getModels();
-		StochasticGradientDescent[] learners = configuration.getLearners(models);
+		OnlineOptimizer[] learners = configuration.getLearners(models);
 
-		final double delta = 0;
 		int epoch, i, size = models.length;
 		float[][] prevWeight = new float[size][];
 		double[] prevScore = new double[size], currScore = new double[size];
@@ -155,7 +155,7 @@ public abstract class NLPTrain<N,L,S extends NLPState<N,L>>
 				prevScore[i] = currScore[i];
 				currScore[i] = eval.score();
 				
-				if (currScore[i]+delta > prevScore[i])
+				if (currScore[i] > prevScore[i])
 				{
 					prevWeight[i] = models[i].getWeightVector().toArray().clone();
 				}

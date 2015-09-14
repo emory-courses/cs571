@@ -16,7 +16,6 @@
 package edu.emory.mathcs.nlp.component.pos;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
@@ -41,6 +40,5 @@ public class POSConfigTest
 		
 		assertEquals(0.4d, config.getAmbiguityClassThreshold(), 0);
 		assertEquals(Language.ENGLISH, config.getLanguage());
-		assertTrue(config.isBootstrap());
 	}
 }

@@ -13,48 +13,35 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package edu.emory.mathcs.nlp.learn.sgd.adagrad;
+package edu.emory.mathcs.nlp.learn.optimization.minibatch;
 
 import java.util.StringJoiner;
 
 import edu.emory.mathcs.nlp.common.util.MathUtils;
-import edu.emory.mathcs.nlp.learn.sgd.StochasticGradientDescent;
-import edu.emory.mathcs.nlp.learn.vector.IndexValuePair;
-import edu.emory.mathcs.nlp.learn.vector.Vector;
 import edu.emory.mathcs.nlp.learn.weight.WeightVector;
 
 /**
  * @author Jinho D. Choi ({@code jinho.choi@emory.edu})
  */
-public abstract class AdaGrad extends StochasticGradientDescent
+public class AdaGradMiniBatch extends AdaptiveMiniBatch
 {
-	protected final double epsilon = 0.00001;
-	protected WeightVector diagonals;
-	
-	public AdaGrad(WeightVector weightVector, boolean average, double learningRate)
+	public AdaGradMiniBatch(WeightVector weightVector, double batchRatio, boolean average, double learningRate)
 	{
-		super(weightVector, average, learningRate);
-		diagonals = weightVector.createEmptyVector();
+		super(weightVector, batchRatio, average, learningRate);
 	}
 	
-	protected void updateWeightVectorMiniBatch() {}
-	
-	protected void updateDiagonals(Vector x, int label)
+	@Override
+	protected float getDiagonal(float previousDiagonal, float gradient)
 	{
-		for (IndexValuePair p : x)
-			diagonals.add(label, p.getIndex(), MathUtils.sq(p.getValue()));
-	}
-	
-	protected double getGradient(int label, int featureIndex)
-	{
-		return learning_rate / (epsilon + Math.sqrt(diagonals.get(label, featureIndex)));
+		return (float)(previousDiagonal + MathUtils.sq(gradient));
 	}
 	
 	public String toString()
 	{
 		StringJoiner join = new StringJoiner(", ");
 		
-		join.add("average = "+isAveraged());
+		join.add("batch ratio = "+batch_ratio);
+		join.add("average = " + isAveraged());
 		join.add("learning rate = "+learning_rate);
 		
 		return "AdaGrad: "+join.toString();

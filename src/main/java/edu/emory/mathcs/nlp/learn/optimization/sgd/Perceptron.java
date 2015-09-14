@@ -13,7 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package edu.emory.mathcs.nlp.learn.sgd.perceptron;
+package edu.emory.mathcs.nlp.learn.optimization.sgd;
+
+import java.util.StringJoiner;
 
 import edu.emory.mathcs.nlp.learn.util.Instance;
 import edu.emory.mathcs.nlp.learn.vector.Vector;
@@ -22,15 +24,30 @@ import edu.emory.mathcs.nlp.learn.weight.WeightVector;
 /**
  * @author Jinho D. Choi ({@code jinho.choi@emory.edu})
  */
-public class MultinomialPerceptron extends Perceptron
+public class Perceptron extends StochasticGradientDescent
 {
-	public MultinomialPerceptron(WeightVector weightVector, boolean average, double learningRate)
+	public Perceptron(WeightVector weightVector, boolean average, double learningRate)
 	{
 		super(weightVector, average, learningRate);
 	}
-
+	
 	@Override
-	protected void updateWeightVector(Instance instance, int steps)
+	protected void updateBinomial(Instance instance)
+	{
+		Vector x = instance.getVector();
+		int yp = instance.getLabel();
+		int yn = weight_vector.predictBest(x).getLabel();
+		
+		if (yp != yn)
+		{
+			double gradient = learning_rate * yp;
+			weight_vector.update(x, yp, gradient);
+			if (isAveraged()) average_vector.update(x, yp, gradient * steps);
+		}
+	}
+	
+	@Override
+	protected void updateMultinomial(Instance instance)
 	{
 		Vector x = instance.getVector();
 		int yp = instance.getLabel();
@@ -47,5 +64,16 @@ public class MultinomialPerceptron extends Perceptron
 				average_vector.update(x, yn, -learning_rate * steps);
 			}
 		}
+	}
+
+	@Override
+	public String toString()
+	{
+		StringJoiner join = new StringJoiner(", ");
+		
+		join.add("average = "+isAveraged());
+		join.add("learning rate = "+learning_rate);
+		
+		return "Perceptron: "+join.toString();
 	}
 }

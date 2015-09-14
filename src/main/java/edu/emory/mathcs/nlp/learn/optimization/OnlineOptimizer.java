@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package edu.emory.mathcs.nlp.learn.sgd;
+package edu.emory.mathcs.nlp.learn.optimization;
 
 import java.util.Collections;
 import java.util.List;
@@ -28,19 +28,20 @@ import edu.emory.mathcs.nlp.learn.weight.WeightVector;
 /**
  * @author Jinho D. Choi ({@code jinho.choi@emory.edu})
  */
-public abstract class StochasticGradientDescent
+public abstract class OnlineOptimizer
 {
 	protected WeightVector average_vector;
 	protected WeightVector weight_vector;
 	protected final double learning_rate;
-	protected final Random random;
+	protected Random random;
+	protected int steps;
 	
 	/**
 	 * @param weightVector the weight vector to be trained (may contain previously learned weights). 
 	 * @param average if true, use averaged SGD.
 	 * @param learningRate the learning rate.
 	 */
-	public StochasticGradientDescent(WeightVector weightVector, boolean average, double learningRate)
+	public OnlineOptimizer(WeightVector weightVector, boolean average, double learningRate)
 	{
 		average_vector = average ? weightVector.createEmptyVector() : null;
 		weight_vector  = weightVector;
@@ -54,47 +55,10 @@ public abstract class StochasticGradientDescent
 		train(instances, 1);
 	}
 	
-	/**
-	 * Trains the weight vector using the instances for a certain number of epochs.
-	 * If averaged SGD is used, the weights are averaged after all epochs.
-	 * The instances will be shuffled for every epoch.
-	 */
-	public void train(List<Instance> instances, int epochs)
+	/** Shuffles the trainign instances. */
+	public void shuffle(List<Instance> instances)
 	{
-		int steps = 1;
-		
-		for (; epochs>0; epochs--)
-		{
-			Collections.shuffle(instances, random);
-			
-			for (Instance instance : instances)
-				updateWeightVector(instance, steps++);
-		}
-		
-		updateWeightVectorMiniBatch();
-		
-		if (isAveraged() && steps > 0)
-		{
-			average(steps);
-			average_vector.fill(0);
-		}
-	}
-	
-	/**
-	 * Updates the weight vector given the training instance.
-	 * @param steps the total number of instance visited during training.
-	 */
-	protected abstract void updateWeightVector(Instance instance, int steps);
-	protected abstract void updateWeightVectorMiniBatch();
-	
-	protected void average(int steps)
-	{
-		float[] weight  = weight_vector .toArray();
-		float[] average = average_vector.toArray();
-		float   norm    = 1f / steps;
-		
-		for (int i=0; i<weight.length; i++)
-			weight[i] -= average[i] * norm; 
+		Collections.shuffle(instances, random);
 	}
 	
 	/** @return true if averaged SGD is used. */
@@ -103,13 +67,42 @@ public abstract class StochasticGradientDescent
 		return average_vector != null;
 	}
  	
- 	protected int bestBinomialLabelHinge(Vector x)
+ 	/**
+	 * Trains the weight vector using the instances for a certain number of epochs.
+	 * If averaged SGD is used, the weights are averaged after all epochs.
+	 * The instances will be shuffled for every epoch.
+	 */
+ 	public abstract void train(List<Instance> instances, int epochs);
+ 	
+//	============================== UPDATE ==============================
+
+	/** Updates the weight vector given the training instance. */
+	protected void update(Instance instance)
+	{
+		if (weight_vector.isBinomial())
+			updateBinomial(instance);
+		else
+			updateMultinomial(instance);
+	}
+	
+	/**
+	 * Updates the weight vector for binomial classification.
+	 * Called by {@link #update(Instance)}.
+	 */
+	protected abstract void updateBinomial   (Instance instance);
+	/**
+	 * Updates the weight vector for multinomial classification.
+	 * Called by {@link #update(Instance)}.
+	 */
+	protected abstract void updateMultinomial(Instance instance);
+
+	protected int bestHingeBinomial(Vector x)
 	{
 		Prediction p = weight_vector.predictBest(x);
 		return (Math.abs(p.getScore()) >= 0.5) ? p.getLabel() : -p.getLabel();
 	}
  	
- 	protected int bestMultinomialLabelHinge(Instance instance)
+ 	protected int bestHingeMultinomial(Instance instance)
 	{
 		double[] scores = weight_vector.scores(instance.getVector());
 		scores[instance.getLabel()] -= 1;

@@ -13,30 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package edu.emory.mathcs.nlp.benchmark;
-
-import java.util.Arrays;
-
-import org.junit.Test;
+package edu.emory.mathcs.nlp.component.util.node;
 
 /**
  * @author Jinho D. Choi ({@code jinho.choi@emory.edu})
  */
-public class Benchmark
+public enum DirectionType
 {
-	@Test
-	public void speed()
-	{
-		final int iter = 1000;
-		long st, et;
-		
-		double[] f = new double[100000];
-
-		st = System.currentTimeMillis();
-		for (int i=0; i<iter; i++)
-			Arrays.fill(f, 1);
-//			IntStream.range(0, f.length).parallel().forEach(n -> { f[n] = 1; });
-		et = System.currentTimeMillis();
-		System.out.println(et-st);
-	}
+	l,	// left
+	r,	// right
+	u,	// up
+	d,	// down
+	a;	// all
 }

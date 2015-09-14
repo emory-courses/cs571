@@ -28,16 +28,11 @@ import edu.emory.mathcs.nlp.common.util.XMLUtils;
 import edu.emory.mathcs.nlp.component.util.reader.TSVIndex;
 import edu.emory.mathcs.nlp.component.util.reader.TSVReader;
 import edu.emory.mathcs.nlp.learn.model.StringModel;
-import edu.emory.mathcs.nlp.learn.sgd.StochasticGradientDescent;
-import edu.emory.mathcs.nlp.learn.sgd.adadelta.AdaDelta;
-import edu.emory.mathcs.nlp.learn.sgd.adadelta.BinomialAdaDelta;
-import edu.emory.mathcs.nlp.learn.sgd.adadelta.MultinomialAdaDelta;
-import edu.emory.mathcs.nlp.learn.sgd.adagrad.AdaGrad;
-import edu.emory.mathcs.nlp.learn.sgd.adagrad.BinomialAdaGrad;
-import edu.emory.mathcs.nlp.learn.sgd.adagrad.MultinomialAdaGrad;
-import edu.emory.mathcs.nlp.learn.sgd.perceptron.BinomialPerceptron;
-import edu.emory.mathcs.nlp.learn.sgd.perceptron.MultinomialPerceptron;
-import edu.emory.mathcs.nlp.learn.sgd.perceptron.Perceptron;
+import edu.emory.mathcs.nlp.learn.optimization.OnlineOptimizer;
+import edu.emory.mathcs.nlp.learn.optimization.minibatch.AdaDeltaMiniBatch;
+import edu.emory.mathcs.nlp.learn.optimization.minibatch.AdaGradMiniBatch;
+import edu.emory.mathcs.nlp.learn.optimization.sgd.AdaGrad;
+import edu.emory.mathcs.nlp.learn.optimization.sgd.Perceptron;
 
 /**
  * @author Jinho D. Choi ({@code jinho.choi@emory.edu})
@@ -63,9 +58,10 @@ public abstract class NLPConfig<N> implements ConfigXML
 		return Language.getType(language);
 	}
 	
-	public boolean isBootstrap()
+	public Double getST4SPDelta()
 	{
-		return XMLUtils.getBooleanTextContentFromFirstElementByTagName(xml, BOOTSTRAP);
+		Element e = XMLUtils.getFirstElementByTagName(xml, ST4SP);
+		return (e == null) ? null : Double.parseDouble(XMLUtils.getTrimmedAttribute(e, DELTA)); 
 	}
 
 	public TSVReader<N> getTSVReader()
@@ -99,9 +95,9 @@ public abstract class NLPConfig<N> implements ConfigXML
 	
 //	=================================== TRAINER ===================================
 	
-	public StochasticGradientDescent[] getLearners(StringModel[] models)
+	public OnlineOptimizer[] getLearners(StringModel[] models)
 	{
-		StochasticGradientDescent[] trainers = new StochasticGradientDescent[models.length];
+		OnlineOptimizer[] trainers = new OnlineOptimizer[models.length];
 		
 		for (int i=0; i<models.length; i++)
 			trainers[i] = getTrainer(models[i], i);
@@ -109,7 +105,7 @@ public abstract class NLPConfig<N> implements ConfigXML
 		return trainers;
 	}
 	
-	private StochasticGradientDescent getTrainer(StringModel model, int index)
+	private OnlineOptimizer getTrainer(StringModel model, int index)
 	{
 		Element  eTrainer = XMLUtils.getElementByTagName(xml, TRAINER, index);
 		String  algorithm = XMLUtils.getTrimmedAttribute(eTrainer, ALGORITHM);
@@ -117,9 +113,10 @@ public abstract class NLPConfig<N> implements ConfigXML
 		
 		switch (algorithm)
 		{
-		case PERCEPTRON: return getPerceptron(eTrainer, model);
-		case ADAGRAD   : return getAdaGrad   (eTrainer, model);
-		case ADADELTA  : return getAdaDelta  (eTrainer, model);
+		case PERCEPTRON         : return getPerceptron(eTrainer, model);
+		case ADAGRAD            : return getAdaGrad   (eTrainer, model);
+		case ADAGRAD_MINI_BATCH : return getAdaGradMiniBatch (eTrainer, model);
+		case ADADELTA_MINI_BATCH: return getAdaDeltaMiniBatch(eTrainer, model);
 		}
 		
 		throw new IllegalArgumentException(algorithm+" is not a valid algorithm name.");
@@ -138,30 +135,36 @@ public abstract class NLPConfig<N> implements ConfigXML
 	
 	private Perceptron getPerceptron(Element eTrainer, StringModel model)
 	{
-		boolean binomial     = XMLUtils.getBooleanAttribute(eTrainer, BINOMIAL);
 		boolean average      = XMLUtils.getBooleanAttribute(eTrainer, AVERAGE);
 		double  learningRate = XMLUtils.getDoubleAttribute (eTrainer, LEARNING_RATE);
 		
-		return binomial ? new BinomialPerceptron(model.getWeightVector(), average, learningRate) : new MultinomialPerceptron(model.getWeightVector(), average, learningRate);
+		return new Perceptron(model.getWeightVector(), average, learningRate);
 	}
 	
 	private AdaGrad getAdaGrad(Element eTrainer, StringModel model)
 	{
-		boolean binomial     = XMLUtils.getBooleanAttribute(eTrainer, BINOMIAL);
 		boolean average      = XMLUtils.getBooleanAttribute(eTrainer, AVERAGE);
 		double  learningRate = XMLUtils.getDoubleAttribute (eTrainer, LEARNING_RATE);
 		
-		return binomial ? new BinomialAdaGrad(model.getWeightVector(), average, learningRate) : new MultinomialAdaGrad(model.getWeightVector(), average, learningRate);
+		return new AdaGrad(model.getWeightVector(), average, learningRate);
 	}
 	
-	private AdaDelta getAdaDelta(Element eTrainer, StringModel model)
+	private AdaGradMiniBatch getAdaGradMiniBatch(Element eTrainer, StringModel model)
 	{
-		boolean binomial     = XMLUtils.getBooleanAttribute(eTrainer, BINOMIAL);
+		double  batchRatio   = XMLUtils.getDoubleAttribute (eTrainer, BATCH_RATIO);
+		boolean average      = XMLUtils.getBooleanAttribute(eTrainer, AVERAGE);
+		double  learningRate = XMLUtils.getDoubleAttribute (eTrainer, LEARNING_RATE);
+		
+		return new AdaGradMiniBatch(model.getWeightVector(), batchRatio, average, learningRate);
+	}
+	
+	private AdaDeltaMiniBatch getAdaDeltaMiniBatch(Element eTrainer, StringModel model)
+	{
+		double  batchRatio   = XMLUtils.getDoubleAttribute (eTrainer, BATCH_RATIO);
 		boolean average      = XMLUtils.getBooleanAttribute(eTrainer, AVERAGE);
 		double  learningRate = XMLUtils.getDoubleAttribute (eTrainer, LEARNING_RATE);
 		double  decayingRate = XMLUtils.getDoubleAttribute (eTrainer, DECAYING_RATE);
-		int     batchSize    = XMLUtils.getIntegerAttribute(eTrainer, BATCH_SIZE);
-		
-		return binomial ? new BinomialAdaDelta(model.getWeightVector(), average, learningRate, decayingRate, batchSize) : new MultinomialAdaDelta(model.getWeightVector(), average, learningRate, decayingRate, batchSize);
+
+		return new AdaDeltaMiniBatch(model.getWeightVector(), batchRatio, average, learningRate, decayingRate);
 	}
 }

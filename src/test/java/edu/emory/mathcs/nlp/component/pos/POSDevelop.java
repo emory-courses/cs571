@@ -28,8 +28,8 @@ import edu.emory.mathcs.nlp.component.util.eval.AccuracyEval;
 import edu.emory.mathcs.nlp.component.util.eval.Eval;
 import edu.emory.mathcs.nlp.component.util.reader.TSVReader;
 import edu.emory.mathcs.nlp.learn.model.StringModel;
-import edu.emory.mathcs.nlp.learn.sgd.StochasticGradientDescent;
-import edu.emory.mathcs.nlp.learn.sgd.adadelta.MultinomialAdaDelta;
+import edu.emory.mathcs.nlp.learn.optimization.OnlineOptimizer;
+import edu.emory.mathcs.nlp.learn.optimization.minibatch.AdaDeltaMiniBatch;
 import edu.emory.mathcs.nlp.learn.weight.MultinomialWeightVector;
 
 
@@ -43,10 +43,10 @@ public class POSDevelop
 	{
 		final String  root = "/Users/jdchoi/Documents/Data/experiments/wsj/pos/";
 		final boolean average = false;
-		final double  ambiguity_class_threshold = 0.4;
+		final double  ambiguity_class_threshold = 0;
 		final int     epochs = 100;
-		final int     label_cutoff   = 2;
-		final int     feature_cutoff = 2;
+		final int     label_cutoff   = 0;
+		final int     feature_cutoff = 0;
 		
 		TSVReader<POSNode> reader = new TSVReader<>(new POSIndex(0,1));
 		List<String> trainFiles   = FileUtils.getFileList(root+"trn/", "pos");
@@ -69,7 +69,7 @@ public class POSDevelop
 		model.vectorize(label_cutoff, feature_cutoff, false);
 		
 		// train the statistical model using the development data
-		StochasticGradientDescent sgd = new MultinomialAdaDelta(model.getWeightVector(), average, 0.01, 0.2, 100000);
+		OnlineOptimizer sgd = new AdaDeltaMiniBatch(model.getWeightVector(), 0.1, average, 0.01, 0.2);
 		Eval eval = new AccuracyEval();
 		tagger.setFlag(NLPFlag.EVALUATE);
 		tagger.setEval(eval);

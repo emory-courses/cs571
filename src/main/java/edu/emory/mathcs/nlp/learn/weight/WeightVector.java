@@ -106,6 +106,23 @@ public abstract class WeightVector implements Serializable
 		Arrays.fill(weight_vector, value);
 	}
 	
+	public void multiply(double multiplier)
+	{
+		for (int i=0; i<weight_vector.length; i++)
+			weight_vector[i] *= multiplier;
+	}
+	
+	public void add(float[] array)
+	{
+		for (int i=0; i<weight_vector.length; i++)
+			weight_vector[i] += array[i];
+	}
+	
+	public void add(WeightVector vector)
+	{
+		add(vector.toArray());
+	}
+	
 	@Override
 	public String toString()
 	{
