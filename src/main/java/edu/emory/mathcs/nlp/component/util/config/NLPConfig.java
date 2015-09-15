@@ -108,17 +108,17 @@ public abstract class NLPConfig<N> implements ConfigXML
 	
 	private Optimizer getOptimizer(StringModel model, int index)
 	{
-		Element  eOptimizer = XMLUtils.getElementByTagName(xml, OPTIMIZER, index);
-		String  algorithm = XMLUtils.getTrimmedAttribute(eOptimizer, ALGORITHM);
+		Element eOptimizer = XMLUtils.getElementByTagName(xml, OPTIMIZER, index);
+		String  algorithm  = XMLUtils.getTextContentFromFirstElementByTagName(eOptimizer, ALGORITHM);
 		initOptimizer(eOptimizer, model);
 		
 		switch (algorithm)
 		{
-		case PERCEPTRON         : return getPerceptron(eOptimizer, model);
-		case ADAGRAD            : return getAdaGrad   (eOptimizer, model);
+		case PERCEPTRON         : return getPerceptron       (eOptimizer, model);
+		case ADAGRAD            : return getAdaGrad          (eOptimizer, model);
 		case ADAGRAD_MINI_BATCH : return getAdaGradMiniBatch (eOptimizer, model);
 		case ADADELTA_MINI_BATCH: return getAdaDeltaMiniBatch(eOptimizer, model);
-		case LIBLINEAR_L2_SVC   : return getLiblinearL2SVC(eOptimizer, model);
+		case LIBLINEAR_L2_SVC   : return getLiblinearL2SVC   (eOptimizer, model);
 		}
 		
 		throw new IllegalArgumentException(algorithm+" is not a valid algorithm name.");
@@ -126,10 +126,10 @@ public abstract class NLPConfig<N> implements ConfigXML
 	
 	private void initOptimizer(Element eOptimizer, StringModel model)
 	{
-		int labelCutoff   = XMLUtils.getIntegerAttribute(eOptimizer, LABEL_CUTOFF);
-		int featureCutoff = XMLUtils.getIntegerAttribute(eOptimizer, FEATURE_CUTOFF);
-		float bias        = XMLUtils.getFloatAttribute  (eOptimizer, BIAS);
-		boolean reset     = XMLUtils.getBooleanAttribute(eOptimizer, RESET);
+		int labelCutoff   = XMLUtils.getIntegerTextContentFromFirstElementByTagName(eOptimizer, LABEL_CUTOFF);
+		int featureCutoff = XMLUtils.getIntegerTextContentFromFirstElementByTagName(eOptimizer, FEATURE_CUTOFF);
+		float bias        = XMLUtils.getFloatTextContentFromFirstElementByTagName  (eOptimizer, BIAS);
+		boolean reset     = XMLUtils.getBooleanTextContentFromFirstElementByTagName(eOptimizer, RESET_WEIGHTS);
 		
 		model.setBias(bias);
 		model.vectorize(labelCutoff, featureCutoff, reset);
@@ -137,45 +137,45 @@ public abstract class NLPConfig<N> implements ConfigXML
 	
 	private Perceptron getPerceptron(Element eOptimizer, StringModel model)
 	{
-		boolean average      = XMLUtils.getBooleanAttribute(eOptimizer, AVERAGE);
-		double  learningRate = XMLUtils.getDoubleAttribute (eOptimizer, LEARNING_RATE);
+		boolean average      = XMLUtils.getBooleanTextContentFromFirstElementByTagName(eOptimizer, AVERAGE);
+		double  learningRate = XMLUtils.getDoubleTextContentFromFirstElementByTagName (eOptimizer, LEARNING_RATE);
 		
 		return new Perceptron(model.getWeightVector(), average, learningRate);
 	}
 	
 	private AdaGrad getAdaGrad(Element eOptimizer, StringModel model)
 	{
-		boolean average      = XMLUtils.getBooleanAttribute(eOptimizer, AVERAGE);
-		double  learningRate = XMLUtils.getDoubleAttribute (eOptimizer, LEARNING_RATE);
+		boolean average      = XMLUtils.getBooleanTextContentFromFirstElementByTagName(eOptimizer, AVERAGE);
+		double  learningRate = XMLUtils.getDoubleTextContentFromFirstElementByTagName (eOptimizer, LEARNING_RATE);
 		
 		return new AdaGrad(model.getWeightVector(), average, learningRate);
 	}
 	
 	private AdaGradMiniBatch getAdaGradMiniBatch(Element eOptimizer, StringModel model)
 	{
-		double  batchRatio   = XMLUtils.getDoubleAttribute (eOptimizer, BATCH_RATIO);
-		boolean average      = XMLUtils.getBooleanAttribute(eOptimizer, AVERAGE);
-		double  learningRate = XMLUtils.getDoubleAttribute (eOptimizer, LEARNING_RATE);
+		double  batchRatio   = XMLUtils.getDoubleTextContentFromFirstElementByTagName (eOptimizer, BATCH_RATIO);
+		boolean average      = XMLUtils.getBooleanTextContentFromFirstElementByTagName(eOptimizer, AVERAGE);
+		double  learningRate = XMLUtils.getDoubleTextContentFromFirstElementByTagName (eOptimizer, LEARNING_RATE);
 		
 		return new AdaGradMiniBatch(model.getWeightVector(), batchRatio, average, learningRate);
 	}
 	
 	private AdaDeltaMiniBatch getAdaDeltaMiniBatch(Element eOptimizer, StringModel model)
 	{
-		double  batchRatio   = XMLUtils.getDoubleAttribute (eOptimizer, BATCH_RATIO);
-		boolean average      = XMLUtils.getBooleanAttribute(eOptimizer, AVERAGE);
-		double  learningRate = XMLUtils.getDoubleAttribute (eOptimizer, LEARNING_RATE);
-		double  decayingRate = XMLUtils.getDoubleAttribute (eOptimizer, DECAYING_RATE);
+		double  batchRatio   = XMLUtils.getDoubleTextContentFromFirstElementByTagName (eOptimizer, BATCH_RATIO);
+		boolean average      = XMLUtils.getBooleanTextContentFromFirstElementByTagName(eOptimizer, AVERAGE);
+		double  learningRate = XMLUtils.getDoubleTextContentFromFirstElementByTagName (eOptimizer, LEARNING_RATE);
+		double  decayingRate = XMLUtils.getDoubleTextContentFromFirstElementByTagName (eOptimizer, DECAYING_RATE);
 
 		return new AdaDeltaMiniBatch(model.getWeightVector(), batchRatio, average, learningRate, decayingRate);
 	}
 	
 	private LiblinearL2SVC getLiblinearL2SVC(Element eOptimizer, StringModel model)
 	{
-		int    threadSize = XMLUtils.getIntegerAttribute(eOptimizer, THREAD_SIZE);
-		String lossType   = XMLUtils.getTrimmedAttribute(eOptimizer, LOSS_TYPE);
-		double cost       = XMLUtils.getDoubleAttribute (eOptimizer, COST);
-		double tolerance  = XMLUtils.getDoubleAttribute (eOptimizer, TOLERANCE);
+		int    threadSize = XMLUtils.getIntegerTextContentFromFirstElementByTagName(eOptimizer, THREAD_SIZE);
+		String lossType   = XMLUtils.getTextContentFromFirstElementByTagName       (eOptimizer, LOSS_TYPE);
+		double cost       = XMLUtils.getDoubleTextContentFromFirstElementByTagName (eOptimizer, COST);
+		double tolerance  = XMLUtils.getDoubleTextContentFromFirstElementByTagName (eOptimizer, TOLERANCE);
 		
 		return new LiblinearL2SVC(model.getWeightVector(), threadSize, lossType, cost, tolerance);
 	}

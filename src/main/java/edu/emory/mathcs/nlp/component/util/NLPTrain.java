@@ -16,6 +16,7 @@
 package edu.emory.mathcs.nlp.component.util;
 
 import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.util.List;
 import java.util.function.Consumer;
 
@@ -72,6 +73,7 @@ public abstract class NLPTrain<N,L,S extends NLPState<N,L>>
 		NLPComponent<N,L,S> component     = createComponent();
 
 		train(reader, trainFiles, developFiles, configuration, component);
+		if (model_file != null) save(component);
 	}
 	
 	public void train(TSVReader<N> reader, List<String> trainFiles, List<String> developFiles, NLPConfig<N> configuration, NLPComponent<N,L,S> component)
@@ -107,6 +109,8 @@ public abstract class NLPTrain<N,L,S extends NLPState<N,L>>
 				bestScore = currScore;
 			}
 		}
+		
+		BinUtils.LOG.info(String.format("\nFinal score: %5.2f\n", bestScore));
 	}
 	
 	public double train(TSVReader<N> reader, List<String> developFiles, NLPComponent<N,?,?> component, NLPConfig<N> configuration)
@@ -189,5 +193,17 @@ public abstract class NLPTrain<N,L,S extends NLPState<N,L>>
 			}
 			catch (IOException e) {e.printStackTrace();}
 		}
+	}
+	
+	public void save(NLPComponent<N,L,S> component)
+	{
+		ObjectOutputStream out = IOUtils.createObjectXZBufferedOutputStream(model_file);
+		
+		try
+		{
+			out.writeObject(component);
+			out.close();
+		}
+		catch (IOException e) {e.printStackTrace();}
 	}
 }

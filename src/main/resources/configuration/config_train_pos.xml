@@ -2,11 +2,23 @@
     <language>english</language>
 
 	<tsv>
-        <column index="0" field="form"/>
-        <column index="1" field="pos"/>
+        <column index= "0" field="form"/>
+        <column index= "1" field="pos"/>
+        <column index="-1" field="feats"/>
     </tsv>
 
-    <optimizer algorithm="adadelta-mini-batch" label_cutoff="4" feature_cutoff="3" reset="false" average="false" learning_rate="0.01" decaying_rate="0.4" batch_ratio="0.1" bias="0"/>
-	<ambiguity_class_threshold>0.4</ambiguity_class_threshold>
+    <optimizer>
+        <algorithm>adadelta-mini-batch</algorithm>
+        <label_cutoff>4</label_cutoff>
+        <feature_cutoff>3</feature_cutoff>
+        <reset_weights>false</reset_weights>
+        <average>false</average>
+        <batch_ratio>0.1</batch_ratio>
+        <learning_rate>0.01</learning_rate>
+        <decaying_rate>0.4</decaying_rate>
+        <bias>0</bias>
+    </optimizer>
+    
 	<self_training tolerance="0.01"/>
+	<ambiguity_class_threshold>0.4</ambiguity_class_threshold>
 </configuration>

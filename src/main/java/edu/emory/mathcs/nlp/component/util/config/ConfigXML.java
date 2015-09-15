@@ -51,8 +51,8 @@ public interface ConfigXML
 	String ALGORITHM		= "algorithm";
 	String LABEL_CUTOFF		= "label_cutoff";
 	String FEATURE_CUTOFF	= "feature_cutoff";
+	String RESET_WEIGHTS	= "reset_weights";
 	String AVERAGE			= "average";
-	String RESET			= "reset";
 	
 	String LEARNING_RATE	= "learning_rate";
 	String DECAYING_RATE	= "decaying_rate";
