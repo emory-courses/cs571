@@ -28,10 +28,9 @@ import edu.emory.mathcs.nlp.learn.weight.WeightVector;
 /**
  * @author Jinho D. Choi ({@code jinho.choi@emory.edu})
  */
-public abstract class OnlineOptimizer
+public abstract class OnlineOptimizer extends Optimizer
 {
 	protected WeightVector average_vector;
-	protected WeightVector weight_vector;
 	protected final double learning_rate;
 	protected Random random;
 	protected int steps;
@@ -43,8 +42,8 @@ public abstract class OnlineOptimizer
 	 */
 	public OnlineOptimizer(WeightVector weightVector, boolean average, double learningRate)
 	{
+		super(weightVector);
 		average_vector = average ? weightVector.createEmptyVector() : null;
-		weight_vector  = weightVector;
 		learning_rate  = learningRate;
 		random         = new Random(5);
 	}
@@ -89,7 +88,7 @@ public abstract class OnlineOptimizer
 	 * Updates the weight vector for binomial classification.
 	 * Called by {@link #update(Instance)}.
 	 */
-	protected abstract void updateBinomial   (Instance instance);
+	protected abstract void updateBinomial(Instance instance);
 	/**
 	 * Updates the weight vector for multinomial classification.
 	 * Called by {@link #update(Instance)}.

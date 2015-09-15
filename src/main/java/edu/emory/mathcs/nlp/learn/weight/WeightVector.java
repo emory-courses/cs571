@@ -71,6 +71,22 @@ public abstract class WeightVector implements Serializable
 		weight_vector = array;
 	}
 	
+	public float[] getWeights(int label)
+	{
+		float[] w = new float[feature_size];
+		
+		for (int i=0; i<feature_size; i++)
+			w[i] = get(label, i);
+		
+		return w;
+	}
+	
+	public void setWeights(int label, float[] w)
+	{
+		for (int i=0; i<feature_size; i++)
+			weight_vector[indexOf(label, i)] = w[i];
+	}
+	
 	public float get(int label, int featureIndex)
 	{
 		return weight_vector[indexOf(label, featureIndex)];

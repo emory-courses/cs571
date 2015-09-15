@@ -20,6 +20,6 @@ package edu.emory.mathcs.nlp.learn.util;
  */
 public interface BinomialLabel
 {
-	int POSITIVE =  1;
-	int NEGATIVE = -1;
+	byte POSITIVE =  1;
+	byte NEGATIVE = -1;
 }
