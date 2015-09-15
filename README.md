@@ -8,8 +8,6 @@ This is a graduate course in computer science, studying topics in natural Langua
 * [Reading](../../wiki/Reading).
 * [Quizzes](../../wiki/Quizzes).
 
-# Emory NLP
-
 ## Specification
 
 * [Configuration](src/main/resources/md/specification/configuration.md).
