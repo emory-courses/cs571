@@ -23,42 +23,46 @@ public interface ConfigXML
 	String LANGUAGE		= "language";
 	String MODEL		= "model";
 	
-	String FIELD_ID		= "id";
-	String FIELD_FORM	= "form";
-	String FIELD_LEMMA	= "lemma";
-	String FIELD_POS 	= "pos";
-	String FIELD_FEATS 	= "feats";
-	String FIELD_HEADID	= "headId";
-	String FIELD_DEPREL	= "deprel";
-	String FIELD_SHEADS	= "sheads";
-	String FIELD_NAMENT	= "nament";
-	String FIELD_COREF	= "coref";
-	String FIELD_XHEADS	= "xheads";
-	String FIELD_SEQTAG	= "seqtag";
-	
 //	========================== TSV READER ==========================
 
 	String TSV		= "tsv";
 	String COLUMN	= "column";
 	String FIELD	= "field";
 	String INDEX	= "index";
-	
+
+	String FIELD_ID		= "id";
+	String FIELD_FORM	= "form";
+	String FIELD_LEMMA	= "lemma";
+	String FIELD_POS 	= "pos";
+	String FIELD_FEATS 	= "feats";
+	String FIELD_HEADID	= "headID";
+	String FIELD_DEPREL	= "deprel";
+	String FIELD_SHEADS	= "sheads";
+	String FIELD_NAMENT	= "nament";
+	String FIELD_COREF	= "coref";
+	String FIELD_XHEADS	= "xheads";
+	String FIELD_SEQTAG	= "seqtag";
+
 //	========================== TRAINER ==========================
 
-	String TRAINER	= "trainer";
-	String ST4SP	= "st4sp";
-	String DELTA	= "delta";
+	String OPTIMIZER		= "optimizer";
+	String SELF_TRAINING	= "self_training";
 	
 	String ALGORITHM		= "algorithm";
 	String LABEL_CUTOFF		= "label_cutoff";
 	String FEATURE_CUTOFF	= "feature_cutoff";
+	String AVERAGE			= "average";
+	String RESET			= "reset";
+	
 	String LEARNING_RATE	= "learning_rate";
 	String DECAYING_RATE	= "decaying_rate";
 	String BATCH_RATIO		= "batch_ratio";
-	String AVERAGE			= "average";
 	String BIAS				= "bias";
 	String RIDGE			= "ridge";
-	String RESET			= "reset";
+	String COST				= "cost";
+	String TOLERANCE		= "tolerance";
+	String LOSS_TYPE		= "loss_type";
+	String THREAD_SIZE		= "thread_size";
 	
 //	========================== ALGORITHMS ==========================
 	
@@ -66,4 +70,5 @@ public interface ConfigXML
 	String ADAGRAD				= "adagrad";
 	String ADAGRAD_MINI_BATCH	= "adagrad-mini-batch";
 	String ADADELTA_MINI_BATCH	= "adadelta-mini-batch";
+	String LIBLINEAR_L2_SVC		= "liblinear-l2-svc";
 }

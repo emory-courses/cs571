@@ -31,17 +31,20 @@ import edu.emory.mathcs.nlp.learn.weight.WeightVector;
  */
 abstract public class OneVsAllOptimizer extends Optimizer
 {
-	public OneVsAllOptimizer(WeightVector weightVector)
+	protected int thread_size;
+	
+	public OneVsAllOptimizer(WeightVector weightVector, int threadSize)
 	{
-		super(weightVector);
+		super(weightVector, OptimizerType.ONE_VS_ALL);
+		thread_size = threadSize;
 	}
 	
-	public void train(List<Instance> instances, int threadSize)
+	public void train(List<Instance> instances)
 	{	
 		if (weight_vector.isBinomial())
 			trainBinomial(instances);
 		else
-			trainMultinomial(instances, threadSize);
+			trainMultinomial(instances);
 	}
 	
 	private void trainBinomial(List<Instance> instances)
@@ -49,9 +52,9 @@ abstract public class OneVsAllOptimizer extends Optimizer
 		update(instances, BinomialLabel.POSITIVE);
 	}
 	
-	private void trainMultinomial(List<Instance> instances, int threadSize)
+	private void trainMultinomial(List<Instance> instances)
 	{
-		ExecutorService executor = Executors.newFixedThreadPool(threadSize);
+		ExecutorService executor = Executors.newFixedThreadPool(thread_size);
 		int currLabel, size = weight_vector.labelSize();
 		
 		for (currLabel=0; currLabel<size; currLabel++)
@@ -85,6 +88,17 @@ abstract public class OneVsAllOptimizer extends Optimizer
     }
 	
 	abstract public void update(List<Instance> instances, int currLabel);
+	
+	protected byte[] getBinaryLabels(List<Instance> instances, int currLabel)
+	{
+		int i, size = instances.size();
+		byte[] y = new byte[size];
+
+		for (i=0; i<size; i++)
+			y[i] = instances.get(i).isLabel(currLabel) ? BinomialLabel.POSITIVE  : BinomialLabel.NEGATIVE;
+
+		return y;
+	}
 	
 	protected double getScore(Vector x, float[] weight)
 	{

@@ -17,6 +17,7 @@ package edu.emory.mathcs.nlp.learn.optimization.liblinear;
 
 import java.util.List;
 import java.util.Random;
+import java.util.StringJoiner;
 
 import edu.emory.mathcs.nlp.common.util.BinUtils;
 import edu.emory.mathcs.nlp.common.util.DSUtils;
@@ -34,18 +35,21 @@ public class LiblinearL2SVC extends OneVsAllOptimizer
 	private final int MAX_EPOCHS = 1000;
 	private double cost;
 	private double tolerance;
-	private int    loss_type;
+	private String loss_type;
 	
-	public LiblinearL2SVC(WeightVector weightVector, double cost, double tolerance, int lossType)
+	public LiblinearL2SVC(WeightVector weightVector, int threadSize, String lossType, double cost, double tolerance)
 	{
-		super(weightVector);
+		super(weightVector, threadSize);
+		this.cost = cost;
+		this.loss_type = lossType;
+		this.tolerance = tolerance;
 	}
 	
 	@Override
 	public void update(List<Instance> instances, int label)
 	{
-		final float diagonal = (loss_type == 1) ? 0f   : (float)(0.5/cost);
-		final double upper   = (loss_type == 1) ? cost : Double.POSITIVE_INFINITY;
+		final float diagonal = (loss_type.equals("L1")) ? 0f   : (float)(0.5/cost);
+		final double upper   = (loss_type.equals("L1")) ? cost : Double.POSITIVE_INFINITY;
 		final byte[] y = getBinaryLabels(instances, label);
 		final Random rand = new Random(5);
 		final int N = instances.size();
@@ -73,7 +77,7 @@ public class LiblinearL2SVC extends OneVsAllOptimizer
 				QD[i] += MathUtils.sq(p.getValue());
 		}
 		
-		for (epochs=0; epochs<MAX_EPOCHS; epochs++)
+		while (epochs < MAX_EPOCHS)
 		{
 			PGmax_new = Double.NEGATIVE_INFINITY;
 			PGmin_new = Double.POSITIVE_INFINITY;
@@ -139,6 +143,8 @@ public class LiblinearL2SVC extends OneVsAllOptimizer
 				}
 			}
 			
+			epochs++;
+			
 			if (PGmax_new - PGmin_new <= tolerance)
 			{
 				if (active_size == N)
@@ -159,6 +165,18 @@ public class LiblinearL2SVC extends OneVsAllOptimizer
 		}
 		
 		weight_vector.setWeights(label, weight);
-		BinUtils.LOG.info(String.format("- label = %d, epochs = %d\n", label, epochs));
+		BinUtils.LOG.info(String.format("- label =%3d, epochs = %d\n", label, epochs));
     }
+	
+	@Override
+	public String toString()
+	{
+		StringJoiner join = new StringJoiner(", ");
+		
+		join.add("loss = "+loss_type);
+		join.add("cost = "+cost);
+		join.add("tolerance = "+tolerance);
+		
+		return "Liblinear L2-SVC: "+join.toString();
+	}
 }

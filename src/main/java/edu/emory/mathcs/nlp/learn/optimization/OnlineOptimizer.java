@@ -42,12 +42,13 @@ public abstract class OnlineOptimizer extends Optimizer
 	 */
 	public OnlineOptimizer(WeightVector weightVector, boolean average, double learningRate)
 	{
-		super(weightVector);
+		super(weightVector, OptimizerType.ONLINE);
 		average_vector = average ? weightVector.createEmptyVector() : null;
 		learning_rate  = learningRate;
 		random         = new Random(5);
 	}
 	
+	@Override
 	/** Calls {@link #train(List, int)} for 1 epoch. */
 	public void train(List<Instance> instances)
 	{

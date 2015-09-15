@@ -17,6 +17,8 @@ package edu.emory.mathcs.nlp.bin;
 
 import java.util.List;
 
+import org.kohsuke.args4j.Option;
+
 import edu.emory.mathcs.nlp.common.util.BinUtils;
 import edu.emory.mathcs.nlp.common.util.IOUtils;
 import edu.emory.mathcs.nlp.component.pos.AmbiguityClassMap;
@@ -29,6 +31,7 @@ import edu.emory.mathcs.nlp.component.util.NLPComponent;
 import edu.emory.mathcs.nlp.component.util.NLPTrain;
 import edu.emory.mathcs.nlp.component.util.config.NLPConfig;
 import edu.emory.mathcs.nlp.component.util.eval.AccuracyEval;
+import edu.emory.mathcs.nlp.component.util.feature.FeatureTemplate;
 import edu.emory.mathcs.nlp.component.util.reader.TSVReader;
 import edu.emory.mathcs.nlp.learn.model.StringModel;
 import edu.emory.mathcs.nlp.learn.weight.MultinomialWeightVector;
@@ -38,6 +41,9 @@ import edu.emory.mathcs.nlp.learn.weight.MultinomialWeightVector;
  */
 public class POSTrain extends NLPTrain<POSNode,String,POSState<POSNode>>
 {
+	@Option(name="-f", usage="type of the feature template (default: 0)", required=false, metaVar="integer")
+	public int feature_template = 0;
+	
 	public POSTrain(String[] args)
 	{
 		super(args);
@@ -53,7 +59,7 @@ public class POSTrain extends NLPTrain<POSNode,String,POSState<POSNode>>
 	protected NLPComponent<POSNode,String,POSState<POSNode>> createComponent()
 	{
 		POSTagger<POSNode> tagger = new POSTagger<>(new StringModel(new MultinomialWeightVector()));
-		tagger.setFeatureTemplate(new POSFeatureTemplate<>());
+		tagger.setFeatureTemplate(createFeatureTemplate());
 		tagger.setEval(new AccuracyEval());	
 		return tagger;
 	}
@@ -70,6 +76,15 @@ public class POSTrain extends NLPTrain<POSNode,String,POSState<POSNode>>
 		tagger.setAmbiguityClassMap(ac);
 		
 		BinUtils.LOG.info(String.format("- # of ambiguity classes: %d\n", ac.size()));
+	}
+	
+	protected FeatureTemplate<POSNode,POSState<POSNode>> createFeatureTemplate()
+	{
+		switch (feature_template)
+		{
+		case 0: return new POSFeatureTemplate<>();
+		default: throw new IllegalArgumentException("Unknown feature template: "+feature_template);
+		}
 	}
 	
 	static public void main(String[] args)

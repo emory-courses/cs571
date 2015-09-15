@@ -15,29 +15,11 @@
  */
 package edu.emory.mathcs.nlp.learn.optimization;
 
-import java.util.List;
-
-import edu.emory.mathcs.nlp.learn.util.Instance;
-import edu.emory.mathcs.nlp.learn.weight.WeightVector;
-
 /**
  * @author Jinho D. Choi ({@code jinho.choi@emory.edu})
  */
-public abstract class Optimizer
+public enum OptimizerType
 {
-	protected WeightVector weight_vector;
-	private OptimizerType type;
-	
-	public Optimizer(WeightVector weightVector, OptimizerType type)
-	{
-		weight_vector = weightVector;
-		this.type = type;
-	}
-	
-	public OptimizerType getType()
-	{
-		return type;
-	}
-	
-	public abstract void train(List<Instance> instances);
+	ONLINE,
+	ONE_VS_ALL;
 }

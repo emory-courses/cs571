@@ -16,7 +16,6 @@
 package edu.emory.mathcs.nlp.component.util;
 
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.List;
 import java.util.function.Consumer;
 
@@ -30,7 +29,8 @@ import edu.emory.mathcs.nlp.component.util.eval.Eval;
 import edu.emory.mathcs.nlp.component.util.reader.TSVReader;
 import edu.emory.mathcs.nlp.component.util.state.NLPState;
 import edu.emory.mathcs.nlp.learn.model.StringModel;
-import edu.emory.mathcs.nlp.learn.optimization.OnlineOptimizer;
+import edu.emory.mathcs.nlp.learn.optimization.Optimizer;
+import edu.emory.mathcs.nlp.learn.optimization.OptimizerType;
 
 /**
  * Provide instances and methods for training NLP components.
@@ -58,24 +58,7 @@ public abstract class NLPTrain<N,L,S extends NLPState<N,L>>
 		BinUtils.initArgs(args, this);
 	}
 	
-	protected void iterate(TSVReader<N> reader, List<String> inputFiles, Consumer<N[]> f)
-	{
-		N[] nodes;
-		
-		for (String inputFile : inputFiles)
-		{
-			reader.open(IOUtils.createFileInputStream(inputFile));
-			
-			try
-			{
-				while ((nodes = reader.next()) != null)
-					f.accept(nodes);
-			}
-			catch (IOException e) {e.printStackTrace();}
-		}
-	}
-	
-	/** Collects necessary lexicons for the component. */
+	/** Collects necessary lexicons for the component before training. */
 	public abstract void collect(TSVReader<N> reader, List<String> inputFiles, NLPComponent<N,L,S> component, NLPConfig<N> configuration);
 	protected abstract NLPConfig<N> createConfiguration(String filename);
 	protected abstract NLPComponent<N,L,S> createComponent();
@@ -96,83 +79,115 @@ public abstract class NLPTrain<N,L,S extends NLPState<N,L>>
 		BinUtils.LOG.info("Collecting lexicons:\n");
 		collect(reader, trainFiles, component, configuration);
 		
-		Double delta = configuration.getST4SPDelta();
+		Double tolerance = configuration.getSelfTrainingTolerance();
 		StringModel[] models = component.getModels();
 		int i, size = models.length;
-		float[][] prevWeight = new float[size][];
 		float[][] bestWeight = new float[size][];
-		double bestScore = 0, currScore = 0, prevScore;
+		double prevScore, currScore = 0, bestScore = 0;
 		
-		for (int boot=0; ; boot++)
+		for (int iter=0; ; iter++)
 		{
-			BinUtils.LOG.info((boot == 0) ? "\nTraining:\n\n" : String.format("\nBootstrapping: %d\n\n", boot));
-			component.setFlag(boot == 0 ? NLPFlag.TRAIN : NLPFlag.BOOTSTRAP);
-			iterate(reader, trainFiles, nodes -> component.process(nodes));
+			BinUtils.LOG.info(String.format("\nTraining: %d\n\n", iter));
+			component.setFlag(iter == 0 ? NLPFlag.TRAIN : NLPFlag.BOOTSTRAP);
+			iterate(reader, trainFiles, component::process);
 			
 			component.setFlag(NLPFlag.EVALUATE);
 			prevScore = currScore;
 			currScore = train(reader, developFiles, component, configuration);
-			if (delta == null) break;
+			if (tolerance == null) break;	// no self-training
 			
-			if (prevScore < currScore+delta)
-			{
-				for (i=0; i<size; i++) prevWeight[i] = models[i].getWeightVector().toArray().clone();
-				if (bestScore < currScore) for (i=0; i<size; i++) bestWeight[i] = prevWeight[i];
-			}
-			else
+			if (prevScore >= currScore + tolerance)
 			{
 				for (i=0; i<size; i++) models[i].getWeightVector().fromArray(bestWeight[i]);
 				break;
+			}
+			else if (bestScore < currScore)
+			{
+				for (i=0; i<size; i++) bestWeight[i] = models[i].getWeightVector().toArray().clone();
+				bestScore = currScore;
 			}
 		}
 	}
 	
 	public double train(TSVReader<N> reader, List<String> developFiles, NLPComponent<N,?,?> component, NLPConfig<N> configuration)
 	{
-		Eval eval = component.getEval();
 		StringModel[] models = component.getModels();
-		OnlineOptimizer[] learners = configuration.getLearners(models);
-
-		int epoch, i, size = models.length;
-		float[][] prevWeight = new float[size][];
-		double[] prevScore = new double[size], currScore = new double[size];
+		Optimizer[] optimizers = configuration.getOptimizers(models);
+		double score = 0;
 		
-		for (i=0; i<size; i++)
+		for (int i=0; i<optimizers.length; i++)
 		{
-			BinUtils.LOG.info(learners[i].toString()+", bias = "+models[i].getBias()+"\n");
+			BinUtils.LOG.info(optimizers[i].toString()+", bias = "+models[i].getBias()+"\n");
 			BinUtils.LOG.info(models[i].trainInfo()+"\n");
+			
+			if (optimizers[i].getType() == OptimizerType.ONLINE)
+				score = trainOnline(reader, developFiles, component, optimizers[i], models[i]);
+			else
+				score = trainOneVsAll(reader, developFiles, component, optimizers[i], models[i]);
 		}
 		
-		for (epoch=1; ;epoch++)
+		return score;
+	}
+	
+	/** Called by {@link #train(TSVReader, List, NLPComponent, NLPConfig)}. */
+	protected double trainOnline(TSVReader<N> reader, List<String> developFiles, NLPComponent<N,?,?> component, Optimizer optimizer, StringModel model)
+	{
+		Eval eval = component.getEval();
+		double prevScore = 0, currScore;
+		float[] prevWeight = null;
+		
+		for (int epoch=1; ;epoch++)
 		{
-			for (i=0; i<size; i++)
+			eval.clear();
+			optimizer.train(model.getInstanceList());
+			iterate(reader, developFiles, nodes -> component.process(nodes));
+			currScore = eval.score();
+			
+			if (prevScore < currScore)
 			{
-				if (currScore[i] < 0) continue;
-				eval.clear();
-				learners[i].train(models[i].getInstanceList());
-				iterate(reader, developFiles, nodes -> component.process(nodes));
-				
-				prevScore[i] = currScore[i];
-				currScore[i] = eval.score();
-				
-				if (currScore[i] > prevScore[i])
-				{
-					prevWeight[i] = models[i].getWeightVector().toArray().clone();
-				}
-				else
-				{
-					models[i].getWeightVector().fromArray(prevWeight[i]);
-					currScore[i] = -1;
-				}
-				
-				BinUtils.LOG.info(String.format("%4d.%d: %5.2f\n", i, epoch, eval.score()));				
+				prevScore  = currScore;
+				prevWeight = model.getWeightVector().toArray().clone();
+			}
+			else
+			{
+				model.getWeightVector().fromArray(prevWeight);
+				break;
 			}
 			
-			if (Arrays.stream(currScore).allMatch(d -> d < 0)) break; 
+			BinUtils.LOG.info(String.format("%3d: %5.2f\n", epoch, currScore));
 		}
 		
-		double best = Arrays.stream(prevScore).max().getAsDouble();
-		BinUtils.LOG.info(String.format("Best: %5.2f\n", best));
-		return best;
+		return prevScore; 
+	}
+	
+	/** Called by {@link #train(TSVReader, List, NLPComponent, NLPConfig)}. */
+	protected double trainOneVsAll(TSVReader<N> reader, List<String> developFiles, NLPComponent<N,?,?> component, Optimizer optimizer, StringModel model)
+	{
+		Eval eval = component.getEval();
+
+		eval.clear();
+		optimizer.train(model.getInstanceList());
+		iterate(reader, developFiles, nodes -> component.process(nodes));
+		BinUtils.LOG.info(String.format("- score = %5.2f\n", eval.score()));
+		return eval.score();
+	}
+	
+//	=================================== HELPERS ===================================
+	
+	protected void iterate(TSVReader<N> reader, List<String> inputFiles, Consumer<N[]> f)
+	{
+		N[] nodes;
+		
+		for (String inputFile : inputFiles)
+		{
+			reader.open(IOUtils.createFileInputStream(inputFile));
+			
+			try
+			{
+				while ((nodes = reader.next()) != null)
+					f.accept(nodes);
+			}
+			catch (IOException e) {e.printStackTrace();}
+		}
 	}
 }
