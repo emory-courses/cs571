@@ -2,7 +2,7 @@
 
 ## Training
 
-The following describes the common fields in the [configuration files](../src/main/resources/configuration/) used for training.
+The following describes the common fields in the [configuration files](../../src/main/resources/configuration/) used for training.
 
 | Field | Description |
 | :-----: | :---------- |
