@@ -8,7 +8,7 @@
    export MAVEN_OPTS='-Xmx8g -XX:+UseConcMarkSweepGC -XX:MaxPermSize=128m'
    ```
 
-* Compile the Java project using Maven by running the following command from the top directory, where the [`pom.xml`](../../../../../pom.xml) is located. The `target/classes` directory should be created after running this command if it does not already exist.
+* Compile the Java project using Maven by running the following command from the top directory, where the [`pom.xml`](../../pom.xml) is located. The `target/classes` directory should be created after running this command if it does not already exist.
 
    ```
    mvn compile
