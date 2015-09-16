@@ -10,8 +10,8 @@ This is a graduate course in computer science, studying topics in natural Langua
 
 ## Component
 
-* [Part-of-speech tagging]().
+* [Part-of-speech tagging](md/component/part_of_speech_tagging.md).
 
 ## Specification
 
-* [Configuration](src/main/resources/md/specification/configuration.md).
+* [Configuration](md/specification/configuration.md).
