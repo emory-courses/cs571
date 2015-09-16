@@ -103,8 +103,8 @@ public class POSFeatureTemplate<N extends POSNode> extends FeatureTemplate<N,POS
 		case word_shape: return node.getWordShape(2);
 		case pos_tag: return node.getPOSTag();
 		case ambiguity_class: return state.getAmbiguityClass(node);
-		case prefix: return getPrefix(node, (int)item.value);
-		case suffix: return getSuffix(node, (int)item.value);
+		case prefix: return getPrefix(node, (Integer)item.value);
+		case suffix: return getSuffix(node, (Integer)item.value);
 		default: throw new IllegalArgumentException("Unsupported feature: "+item.field);
 		}		
 	}
