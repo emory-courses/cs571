@@ -8,6 +8,11 @@ This is a graduate course in computer science, studying topics in natural Langua
 * [Reading](../../wiki/Reading).
 * [Quizzes](../../wiki/Quizzes).
 
+## Quick Start
+
+* [How to install](md/quickstart/installation.md).
+* [How to decode](md/quickstart/decode.md).
+
 ## Component
 
 * [Part-of-speech tagging](md/component/part_of_speech_tagging.md).
@@ -15,7 +20,3 @@ This is a graduate course in computer science, studying topics in natural Langua
 ## Specification
 
 * [Configuration](md/specification/configuration.md).
-
-## More
-
-* [How to ?](md/specification/how_to.md).
