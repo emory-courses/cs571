@@ -62,13 +62,13 @@ public class POSFeatureTemplate<N extends POSNode> extends FeatureTemplate<N,POS
 		add(new FeatureItem<>( 1, Field.uncapitalized_simplified_word_form), new FeatureItem<>( 2, Field.uncapitalized_simplified_word_form));
 		add(new FeatureItem<>(-1, Field.uncapitalized_simplified_word_form), new FeatureItem<>(+1, Field.uncapitalized_simplified_word_form));
 
-		add(new FeatureItem<>(-2, Field.pos_tag)           , new FeatureItem<>(-1, Field.pos_tag));
-		add(new FeatureItem<>(-1, Field.pos_tag)           , new FeatureItem<>( 1, Field.ambiguity_class));
+		add(new FeatureItem<>(-2, Field.pos_tag)        , new FeatureItem<>(-1, Field.pos_tag));
+		add(new FeatureItem<>(-1, Field.pos_tag)        , new FeatureItem<>( 1, Field.ambiguity_class));
 		add(new FeatureItem<>( 1, Field.ambiguity_class), new FeatureItem<>( 2, Field.ambiguity_class));
 
 		// 3-gram features
-		add(new FeatureItem<>(-2, Field.pos_tag), new FeatureItem<>(-1, Field.pos_tag)           , new FeatureItem<>(0, Field.ambiguity_class));
-		add(new FeatureItem<>(-2, Field.pos_tag), new FeatureItem<>(-1, Field.pos_tag)           , new FeatureItem<>(1, Field.ambiguity_class));
+		add(new FeatureItem<>(-2, Field.pos_tag), new FeatureItem<>(-1, Field.pos_tag)        , new FeatureItem<>(0, Field.ambiguity_class));
+		add(new FeatureItem<>(-2, Field.pos_tag), new FeatureItem<>(-1, Field.pos_tag)        , new FeatureItem<>(1, Field.ambiguity_class));
 		add(new FeatureItem<>(-1, Field.pos_tag), new FeatureItem<>( 0, Field.ambiguity_class), new FeatureItem<>(1, Field.ambiguity_class));
 		add(new FeatureItem<>(-1, Field.pos_tag), new FeatureItem<>( 1, Field.ambiguity_class), new FeatureItem<>(2, Field.ambiguity_class));
 

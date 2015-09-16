@@ -15,3 +15,7 @@ This is a graduate course in computer science, studying topics in natural Langua
 ## Specification
 
 * [Configuration](md/specification/configuration.md).
+
+## More
+
+* Run command lines using Maven.
