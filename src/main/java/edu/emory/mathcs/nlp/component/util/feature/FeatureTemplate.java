@@ -19,6 +19,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.StringJoiner;
 
@@ -30,17 +31,23 @@ import edu.emory.mathcs.nlp.learn.vector.StringVector;
 public abstract class FeatureTemplate<N,S> implements Serializable
 {
 	private static final long serialVersionUID = -6755594173767815098L;
-	protected List<FeatureItem<N,String>[]> feature_list;
-	protected List<FeatureItem<N,String[]>> feature_set;
+	protected List<FeatureItem<?>[]> feature_list;
+	protected List<FeatureItem<?>>   feature_set;
 	protected S state;
 
+	public FeatureTemplate()
+	{
+		feature_list = new ArrayList<>();
+		feature_set  = new ArrayList<>();
+	}
+	
 //	============================== SERIALIZATION ==============================
 	
 	@SuppressWarnings("unchecked")
 	private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException
 	{
-		feature_list = (List<FeatureItem<N,String>[]>)in.readObject();
-		feature_set  = (List<FeatureItem<N,String[]>>)in.readObject();
+		feature_list = (List<FeatureItem<?>[]>)in.readObject();
+		feature_set  = (List<FeatureItem<?>>)  in.readObject();
 	}
 	
 	private void writeObject(ObjectOutputStream out) throws IOException
@@ -51,15 +58,14 @@ public abstract class FeatureTemplate<N,S> implements Serializable
 
 //	============================== INITIALIZATION ==============================
 
-	@SuppressWarnings("unchecked")
-	public void add(FeatureItem<N,String>... items)
+	public void add(FeatureItem<?>... items)
 	{
 		feature_list.add(items);
 	}
 	
-	public void addSet(FeatureItem<N,String[]> item)
+	public void addSet(FeatureItem<?> items)
 	{
-		feature_set.add(item);
+		feature_set.add(items);
 	}
 	
 //	============================== GETTERS & SETTERS ==============================
@@ -103,8 +109,7 @@ public abstract class FeatureTemplate<N,S> implements Serializable
 		return x;
 	}
 	
-	@SuppressWarnings("unchecked")
-	private String getFeature(FeatureItem<N,String>... items)
+	private String getFeature(FeatureItem<?>... items)
 	{
 		String f;
 		
@@ -114,7 +119,7 @@ public abstract class FeatureTemplate<N,S> implements Serializable
 		{
 			StringJoiner join = new StringJoiner("_");
 			
-			for (FeatureItem<N,String> item : items)
+			for (FeatureItem<?> item : items)
 			{
 				f = getFeature(item);
 				if (f == null) return null;
@@ -125,17 +130,6 @@ public abstract class FeatureTemplate<N,S> implements Serializable
 		}
 	}
 	
-	private String getFeature(FeatureItem<N,String> item)
-	{
-		N node = getNode(item);
-		return (node != null) ? item.field.apply(node) : null;
-	}
-	
-	private String[] getFeatures(FeatureItem<N,String[]> item)
-	{
-		N node = getNode(item);
-		return (node != null) ? item.field.apply(node) : null;
-	}
-	
-	protected abstract N getNode(FeatureItem<N,?> item);
+	protected abstract String   getFeature (FeatureItem<?> item);
+	protected abstract String[] getFeatures(FeatureItem<?> item);
 }

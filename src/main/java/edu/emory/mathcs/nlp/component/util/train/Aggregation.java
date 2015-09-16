@@ -13,16 +13,39 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package edu.emory.mathcs.nlp.component.util;
+package edu.emory.mathcs.nlp.component.util.train;
 
 /**
  * @author Jinho D. Choi ({@code jinho.choi@emory.edu})
  */
-public enum NLPFlag
+public class Aggregation
 {
-	COLLECT,
-	TRAIN,
-	AGGREGATE,
-	EVALUATE,
-	DECODE;
+	private double tolerance_delta;
+	private int    max_tolerance;
+	
+	public Aggregation(double delta, int max)
+	{
+		setToleranceDelta(delta);
+		setMaxTolerance(max);
+	}
+
+	public double getToleranceDelta()
+	{
+		return tolerance_delta;
+	}
+
+	public void setToleranceDelta(double delta)
+	{
+		this.tolerance_delta = delta;
+	}
+
+	public int getMaxTolerance()
+	{
+		return max_tolerance;
+	}
+
+	public void setMaxTolerance(int max)
+	{
+		this.max_tolerance = max;
+	}
 }

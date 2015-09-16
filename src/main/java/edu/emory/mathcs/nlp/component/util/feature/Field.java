@@ -13,16 +13,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package edu.emory.mathcs.nlp.component.util;
+package edu.emory.mathcs.nlp.component.util.feature;
+
 
 /**
  * @author Jinho D. Choi ({@code jinho.choi@emory.edu})
  */
-public enum NLPFlag
+public enum Field
 {
-	COLLECT,
-	TRAIN,
-	AGGREGATE,
-	EVALUATE,
-	DECODE;
+	// form features
+	word_form,
+	simplified_word_form,
+	uncapitalized_simplified_word_form,
+	word_shape,
+	orthographic,	// set
+	prefix,
+	suffix,
+
+	// pos features
+	pos_tag,
+	ambiguity_class,
+	
+	// others
+	binary;	// set
 }

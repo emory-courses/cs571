@@ -16,22 +16,29 @@
 package edu.emory.mathcs.nlp.component.util.feature;
 
 import java.io.Serializable;
-import java.util.function.Function;
 
 /**
  * @author Jinho D. Choi ({@code jinho.choi@emory.edu})
  */
-public class FeatureItem<N,F> implements Serializable
+public class FeatureItem<T> implements Serializable
 {
 	private static final long serialVersionUID = 7297765746466162241L;
-	public Source        source;
-	public Relation      relation;
-	public int           window;
-	public Function<N,F> field;
+	public Source    source;
+	public Relation  relation;
+	public int       window;
+	public Field field;
+	public T         value;
 	
-	public FeatureItem(int window, Function<N,F> field)
+	public FeatureItem(int window, Field field)
 	{
 		this.window = window;
 		this.field  = field;
+	}
+	
+	public FeatureItem(int window, Field field, T value)
+	{
+		this.window = window;
+		this.field  = field;
+		this.value  = value;
 	}
 }

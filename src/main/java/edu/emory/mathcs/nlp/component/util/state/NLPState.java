@@ -50,7 +50,7 @@ public abstract class NLPState<N,L>
 	public abstract L getGoldLabel();
 	
 	/** Assigns the specific label to the current state. */
-	public abstract void setLabel(L label);
+	public abstract L setLabel(L label);
 	
 	/** Evaluates all predictions given the current input and the evaluator. */
 	public abstract void evaluate(Eval eval);

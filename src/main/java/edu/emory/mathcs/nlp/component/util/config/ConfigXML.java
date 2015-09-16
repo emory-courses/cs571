@@ -46,7 +46,7 @@ public interface ConfigXML
 //	========================== TRAINER ==========================
 
 	String OPTIMIZER		= "optimizer";
-	String SELF_TRAINING	= "self_training";
+	String AGGREGATE		= "aggregate";
 	
 	String ALGORITHM		= "algorithm";
 	String LABEL_CUTOFF		= "label_cutoff";
@@ -60,7 +60,8 @@ public interface ConfigXML
 	String BIAS				= "bias";
 	String RIDGE			= "ridge";
 	String COST				= "cost";
-	String TOLERANCE		= "tolerance";
+	String TOLERANCE_DELTA	= "tolerance_delta";
+	String MAX_TOLERANCE	= "max_tolerance";
 	String LOSS_TYPE		= "loss_type";
 	String THREAD_SIZE		= "thread_size";
 	

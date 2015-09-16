@@ -27,6 +27,7 @@ import edu.emory.mathcs.nlp.common.util.Language;
 import edu.emory.mathcs.nlp.common.util.XMLUtils;
 import edu.emory.mathcs.nlp.component.util.reader.TSVIndex;
 import edu.emory.mathcs.nlp.component.util.reader.TSVReader;
+import edu.emory.mathcs.nlp.component.util.train.Aggregation;
 import edu.emory.mathcs.nlp.learn.model.StringModel;
 import edu.emory.mathcs.nlp.learn.optimization.Optimizer;
 import edu.emory.mathcs.nlp.learn.optimization.liblinear.LiblinearL2SVC;
@@ -59,10 +60,18 @@ public abstract class NLPConfig<N> implements ConfigXML
 		return Language.getType(language);
 	}
 	
-	public Double getSelfTrainingTolerance()
+	public Aggregation getAggregation()
 	{
-		Element e = XMLUtils.getFirstElementByTagName(xml, SELF_TRAINING);
-		return (e == null) ? null : Double.parseDouble(XMLUtils.getTrimmedAttribute(e, TOLERANCE)); 
+		Element e = XMLUtils.getFirstElementByTagName(xml, AGGREGATE);
+		
+		if (e != null)
+		{
+			double delta = XMLUtils.getDoubleAttribute (e, TOLERANCE_DELTA);
+			int    max   = XMLUtils.getIntegerAttribute(e, MAX_TOLERANCE);
+			return new Aggregation(delta, max);
+		}
+		
+		return null;
 	}
 	
 	public TSVReader<N> getTSVReader()
@@ -175,7 +184,7 @@ public abstract class NLPConfig<N> implements ConfigXML
 		int    threadSize = XMLUtils.getIntegerTextContentFromFirstElementByTagName(eOptimizer, THREAD_SIZE);
 		String lossType   = XMLUtils.getTextContentFromFirstElementByTagName       (eOptimizer, LOSS_TYPE);
 		double cost       = XMLUtils.getDoubleTextContentFromFirstElementByTagName (eOptimizer, COST);
-		double tolerance  = XMLUtils.getDoubleTextContentFromFirstElementByTagName (eOptimizer, TOLERANCE);
+		double tolerance  = XMLUtils.getDoubleTextContentFromFirstElementByTagName (eOptimizer, TOLERANCE_DELTA);
 		
 		return new LiblinearL2SVC(model.getWeightVector(), threadSize, lossType, cost, tolerance);
 	}

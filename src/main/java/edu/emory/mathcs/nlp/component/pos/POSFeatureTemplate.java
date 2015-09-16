@@ -15,12 +15,12 @@
  */
 package edu.emory.mathcs.nlp.component.pos;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 
 import edu.emory.mathcs.nlp.common.util.StringUtils;
 import edu.emory.mathcs.nlp.component.util.feature.FeatureItem;
 import edu.emory.mathcs.nlp.component.util.feature.FeatureTemplate;
+import edu.emory.mathcs.nlp.component.util.feature.Field;
 
 /**
  * @author Jinho D. Choi ({@code jinho.choi@emory.edu})
@@ -34,84 +34,93 @@ public class POSFeatureTemplate<N extends POSNode> extends FeatureTemplate<N,POS
 		init();
 	}
 	
-	@SuppressWarnings("unchecked")
 	protected void init()
 	{
-		feature_list = new ArrayList<>();
-		feature_set  = new ArrayList<>();
-		
 		// 1-gram features 
-		add(new FeatureItem<>(-2, N::getSimplifiedWordForm));
-		add(new FeatureItem<>(-1, N::getSimplifiedWordForm));
-		add(new FeatureItem<>( 0, N::getSimplifiedWordForm));
-		add(new FeatureItem<>( 1, N::getSimplifiedWordForm));
-		add(new FeatureItem<>( 2, N::getSimplifiedWordForm));
+		add(new FeatureItem<>(-2, Field.simplified_word_form));
+		add(new FeatureItem<>(-1, Field.simplified_word_form));
+		add(new FeatureItem<>( 0, Field.simplified_word_form));
+		add(new FeatureItem<>( 1, Field.simplified_word_form));
+		add(new FeatureItem<>( 2, Field.simplified_word_form));
 
-		add(new FeatureItem<>(-1, this::getWordShape));
-		add(new FeatureItem<>( 0, this::getWordShape));
-		add(new FeatureItem<>( 1, this::getWordShape));
+		add(new FeatureItem<>(-1, Field.word_shape));
+		add(new FeatureItem<>( 0, Field.word_shape));
+		add(new FeatureItem<>( 1, Field.word_shape));
 
-		add(new FeatureItem<>(-3, N::getPOSTag));
-		add(new FeatureItem<>(-2, N::getPOSTag));
-		add(new FeatureItem<>(-1, N::getPOSTag));
-		add(new FeatureItem<>( 0, this::getAmbiguityClass));
-		add(new FeatureItem<>( 1, this::getAmbiguityClass));
-		add(new FeatureItem<>( 2, this::getAmbiguityClass));
-		add(new FeatureItem<>( 3, this::getAmbiguityClass));
+		add(new FeatureItem<>(-3, Field.pos_tag));
+		add(new FeatureItem<>(-2, Field.pos_tag));
+		add(new FeatureItem<>(-1, Field.pos_tag));
+		add(new FeatureItem<>( 0, Field.ambiguity_class));
+		add(new FeatureItem<>( 1, Field.ambiguity_class));
+		add(new FeatureItem<>( 2, Field.ambiguity_class));
+		add(new FeatureItem<>( 3, Field.ambiguity_class));
 
 		// 2-gram features
-		add(new FeatureItem<>(-2, this::getUncapitalizedSimplifiedWordForm), new FeatureItem<>(-1, this::getUncapitalizedSimplifiedWordForm));
-		add(new FeatureItem<>(-1, this::getUncapitalizedSimplifiedWordForm), new FeatureItem<>( 0, this::getUncapitalizedSimplifiedWordForm));
-		add(new FeatureItem<>( 0, this::getUncapitalizedSimplifiedWordForm), new FeatureItem<>( 1, this::getUncapitalizedSimplifiedWordForm));
-		add(new FeatureItem<>( 1, this::getUncapitalizedSimplifiedWordForm), new FeatureItem<>( 2, this::getUncapitalizedSimplifiedWordForm));
-		add(new FeatureItem<>(-1, this::getUncapitalizedSimplifiedWordForm), new FeatureItem<>(+1, this::getUncapitalizedSimplifiedWordForm));
+		add(new FeatureItem<>(-2, Field.uncapitalized_simplified_word_form), new FeatureItem<>(-1, Field.uncapitalized_simplified_word_form));
+		add(new FeatureItem<>(-1, Field.uncapitalized_simplified_word_form), new FeatureItem<>( 0, Field.uncapitalized_simplified_word_form));
+		add(new FeatureItem<>( 0, Field.uncapitalized_simplified_word_form), new FeatureItem<>( 1, Field.uncapitalized_simplified_word_form));
+		add(new FeatureItem<>( 1, Field.uncapitalized_simplified_word_form), new FeatureItem<>( 2, Field.uncapitalized_simplified_word_form));
+		add(new FeatureItem<>(-1, Field.uncapitalized_simplified_word_form), new FeatureItem<>(+1, Field.uncapitalized_simplified_word_form));
 
-		add(new FeatureItem<>(-2, N::getPOSTag)           , new FeatureItem<>(-1, N::getPOSTag));
-		add(new FeatureItem<>(-1, N::getPOSTag)           , new FeatureItem<>( 1, this::getAmbiguityClass));
-		add(new FeatureItem<>( 1, this::getAmbiguityClass), new FeatureItem<>( 2, this::getAmbiguityClass));
+		add(new FeatureItem<>(-2, Field.pos_tag)           , new FeatureItem<>(-1, Field.pos_tag));
+		add(new FeatureItem<>(-1, Field.pos_tag)           , new FeatureItem<>( 1, Field.ambiguity_class));
+		add(new FeatureItem<>( 1, Field.ambiguity_class), new FeatureItem<>( 2, Field.ambiguity_class));
 
 		// 3-gram features
-		add(new FeatureItem<>(-2, N::getPOSTag), new FeatureItem<>(-1, N::getPOSTag)           , new FeatureItem<>(0, this::getAmbiguityClass));
-		add(new FeatureItem<>(-2, N::getPOSTag), new FeatureItem<>(-1, N::getPOSTag)           , new FeatureItem<>(1, this::getAmbiguityClass));
-		add(new FeatureItem<>(-1, N::getPOSTag), new FeatureItem<>( 0, this::getAmbiguityClass), new FeatureItem<>(1, this::getAmbiguityClass));
-		add(new FeatureItem<>(-1, N::getPOSTag), new FeatureItem<>( 1, this::getAmbiguityClass), new FeatureItem<>(2, this::getAmbiguityClass));
+		add(new FeatureItem<>(-2, Field.pos_tag), new FeatureItem<>(-1, Field.pos_tag)           , new FeatureItem<>(0, Field.ambiguity_class));
+		add(new FeatureItem<>(-2, Field.pos_tag), new FeatureItem<>(-1, Field.pos_tag)           , new FeatureItem<>(1, Field.ambiguity_class));
+		add(new FeatureItem<>(-1, Field.pos_tag), new FeatureItem<>( 0, Field.ambiguity_class), new FeatureItem<>(1, Field.ambiguity_class));
+		add(new FeatureItem<>(-1, Field.pos_tag), new FeatureItem<>( 1, Field.ambiguity_class), new FeatureItem<>(2, Field.ambiguity_class));
 
 		// affix features
-		add(new FeatureItem<>(0, n -> getPrefix(n, 2)));
-		add(new FeatureItem<>(0, n -> getPrefix(n, 3)));
-		add(new FeatureItem<>(0, n -> getSuffix(n, 1)));
-		add(new FeatureItem<>(0, n -> getSuffix(n, 2)));
-		add(new FeatureItem<>(0, n -> getSuffix(n, 3)));
-		add(new FeatureItem<>(0, n -> getSuffix(n, 4)));
+		add(new FeatureItem<>(0, Field.prefix, 2));
+		add(new FeatureItem<>(0, Field.prefix, 3));
+		add(new FeatureItem<>(0, Field.suffix, 1));
+		add(new FeatureItem<>(0, Field.suffix, 2));
+		add(new FeatureItem<>(0, Field.suffix, 3));
+		add(new FeatureItem<>(0, Field.suffix, 4));
 		
 		// orthographic features
-		addSet(new FeatureItem<>(0, this::getOrthographicFeatures));
+		addSet(new FeatureItem<>(0, Field.orthographic));
 		
 		// boolean features
-		addSet(new FeatureItem<>(0, this::getBooleanFeatures));
-	}
-	
-	@Override
-	protected N getNode(FeatureItem<N,?> item)
-	{
-		return state.getNode(item.window);
+		addSet(new FeatureItem<>(0, Field.binary));
 	}
 	
 //	========================= FEATURE EXTRACTORS =========================
-
-	protected String getUncapitalizedSimplifiedWordForm(N node)
+	
+	@Override
+	protected String getFeature(FeatureItem<?> item)
 	{
-		return StringUtils.toLowerCase(node.getSimplifiedWordForm());
+		N node = state.getNode(item.window);
+		if (node == null) return null;
+		
+		switch (item.field)
+		{
+		case word_form: return node.getWordForm();
+		case simplified_word_form: return node.getSimplifiedWordForm();
+		case uncapitalized_simplified_word_form: return StringUtils.toLowerCase(node.getSimplifiedWordForm());
+		case word_shape: return node.getWordShape(2);
+		case pos_tag: return node.getPOSTag();
+		case ambiguity_class: return state.getAmbiguityClass(node);
+		case prefix: return getPrefix(node, (int)item.value);
+		case suffix: return getSuffix(node, (int)item.value);
+		default: throw new IllegalArgumentException("Unsupported feature: "+item.field);
+		}		
 	}
 	
-	protected String getWordShape(N node)
+	@Override
+	protected String[] getFeatures(FeatureItem<?> item)
 	{
-		return node.getWordShape(2);
-	}
-	
-	protected String getAmbiguityClass(N node)
-	{
-		return state.getAmbiguityClass(node);
+		N node = state.getNode(item.window);
+		if (node == null) return null;
+		
+		switch (item.field)
+		{
+		case orthographic: return getOrthographicFeatures(node);
+		case binary: return getBinaryFeatures(node);
+		default: throw new IllegalArgumentException("Unsupported feature: "+item.field);
+		}
 	}
 	
 	/** The prefix cannot be the entire word (e.g., getPrefix("abc", 3) -> null). */
@@ -134,7 +143,7 @@ public class POSFeatureTemplate<N extends POSNode> extends FeatureTemplate<N,POS
 		return t.length == 0 ? null : t;
 	}
 	
-	protected String[] getBooleanFeatures(N node)
+	protected String[] getBinaryFeatures(N node)
 	{
 		String[] values = new String[2];
 		int index = 0;

@@ -16,8 +16,6 @@
 package edu.emory.mathcs.nlp.component.util.state;
 
 import java.util.Arrays;
-import java.util.function.BiFunction;
-import java.util.function.Function;
 
 import edu.emory.mathcs.nlp.component.util.eval.AccuracyEval;
 
@@ -26,26 +24,18 @@ import edu.emory.mathcs.nlp.component.util.eval.AccuracyEval;
  */
 public abstract class L2RState<N> extends NLPState<N,String>
 {
-	protected BiFunction<N,String,String> setter;
-	protected Function<N,String> getter;
 	protected String[] gold;
 	protected int index = 0;
 	
-	/**
-	 * @param getter (node) -> (label) 
-	 * @param setter (node, new label) -> (old label)
-	 */
-	public L2RState(N[] nodes, Function<N,String> getter, BiFunction<N,String,String> setter)
+	public L2RState(N[] nodes)
 	{
 		super(nodes);
-		this.getter = getter;
-		this.setter = setter;
 	}
 	
 	@Override
 	public void clearGoldLabels()
 	{
-		gold = Arrays.stream(nodes).map(n -> setter.apply(n, null)).toArray(String[]::new);
+		gold = Arrays.stream(nodes).map(n -> setLabel(n, null)).toArray(String[]::new);
 	}
 	
 	@Override
@@ -67,10 +57,13 @@ public abstract class L2RState<N> extends NLPState<N,String>
 	}
 	
 	@Override
-	public void setLabel(String label)
+	public String setLabel(String label)
 	{
-		setter.apply(nodes[index], label);
+		return setLabel(nodes[index], label);
 	}
+
+	protected abstract String setLabel(N node, String label);
+	protected abstract String getLabel(N node);
 	
 	public N getNode(int window)
 	{
@@ -92,7 +85,7 @@ public abstract class L2RState<N> extends NLPState<N,String>
 		int correct = 0;
 		
 		for (int i=0; i<nodes.length; i++)
-			if (gold[i].equals(getter.apply(nodes[i])))
+			if (gold[i].equals(getLabel(nodes[i])))
 				correct++;
 		
 		eval.add(correct, nodes.length);

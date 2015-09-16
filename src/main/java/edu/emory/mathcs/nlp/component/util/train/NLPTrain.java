@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package edu.emory.mathcs.nlp.component.util;
+package edu.emory.mathcs.nlp.component.util.train;
 
 import java.io.IOException;
 import java.io.ObjectOutputStream;
@@ -25,8 +25,11 @@ import org.kohsuke.args4j.Option;
 import edu.emory.mathcs.nlp.common.util.BinUtils;
 import edu.emory.mathcs.nlp.common.util.FileUtils;
 import edu.emory.mathcs.nlp.common.util.IOUtils;
+import edu.emory.mathcs.nlp.component.util.NLPComponent;
+import edu.emory.mathcs.nlp.component.util.NLPFlag;
 import edu.emory.mathcs.nlp.component.util.config.NLPConfig;
 import edu.emory.mathcs.nlp.component.util.eval.Eval;
+import edu.emory.mathcs.nlp.component.util.feature.FeatureTemplate;
 import edu.emory.mathcs.nlp.component.util.reader.TSVReader;
 import edu.emory.mathcs.nlp.component.util.state.NLPState;
 import edu.emory.mathcs.nlp.learn.model.StringModel;
@@ -49,7 +52,9 @@ public abstract class NLPTrain<N,L,S extends NLPState<N,L>>
 	public String develop_path;
 	@Option(name="-de", usage="development file extension (default: *)", required=false, metaVar="<string>")
 	public String develop_ext = "*";
-	@Option(name="-m", usage="model filename (optional)", required=false, metaVar="<filename>")
+	@Option(name="-f", usage="feature template ID (default: 0)", required=false, metaVar="integer")
+	public int feature_template = 0;
+	@Option(name="-m", usage="model file (optional)", required=false, metaVar="<filename>")
 	public String model_file = null;
 	
 	public NLPTrain() {};
@@ -62,7 +67,9 @@ public abstract class NLPTrain<N,L,S extends NLPState<N,L>>
 	/** Collects necessary lexicons for the component before training. */
 	public abstract void collect(TSVReader<N> reader, List<String> inputFiles, NLPComponent<N,L,S> component, NLPConfig<N> configuration);
 	protected abstract NLPConfig<N> createConfiguration(String filename);
+	protected abstract FeatureTemplate<N,S> createFeatureTemplate();
 	protected abstract NLPComponent<N,L,S> createComponent();
+	protected abstract Eval createEvaluator();
 	
 	public void train()
 	{
@@ -71,6 +78,9 @@ public abstract class NLPTrain<N,L,S extends NLPState<N,L>>
 		NLPConfig<N>        configuration = createConfiguration(configuration_file);
 		TSVReader<N>        reader        = configuration.getTSVReader();
 		NLPComponent<N,L,S> component     = createComponent();
+		
+		component.setFeatureTemplate(createFeatureTemplate());
+		component.setEval(createEvaluator());
 
 		train(reader, trainFiles, developFiles, configuration, component);
 		if (model_file != null) save(component);
@@ -81,24 +91,24 @@ public abstract class NLPTrain<N,L,S extends NLPState<N,L>>
 		BinUtils.LOG.info("Collecting lexicons:\n");
 		collect(reader, trainFiles, component, configuration);
 		
-		Double tolerance = configuration.getSelfTrainingTolerance();
+		Aggregation dagger = configuration.getAggregation();
 		StringModel[] models = component.getModels();
-		int i, size = models.length;
+		int i, size = models.length, bestIter = 0;
 		float[][] bestWeight = new float[size][];
-		double prevScore, currScore = 0, bestScore = 0;
+		double prevScore, currScore = -1, bestScore = -1;
 		
 		for (int iter=0; ; iter++)
 		{
 			BinUtils.LOG.info(String.format("\nTraining: %d\n\n", iter));
-			component.setFlag(iter == 0 ? NLPFlag.TRAIN : NLPFlag.BOOTSTRAP);
+			component.setFlag(iter == 0 ? NLPFlag.TRAIN : NLPFlag.AGGREGATE);
 			iterate(reader, trainFiles, component::process);
 			
 			component.setFlag(NLPFlag.EVALUATE);
 			prevScore = currScore;
 			currScore = train(reader, developFiles, component, configuration);
-			if (tolerance == null) break;	// no self-training
+			if (dagger == null) break;	// no aggregating
 			
-			if (prevScore >= currScore + tolerance)
+			if (prevScore >= currScore + dagger.getToleranceDelta() || iter - dagger.getMaxTolerance() > bestIter)
 			{
 				for (i=0; i<size; i++) models[i].getWeightVector().fromArray(bestWeight[i]);
 				break;
@@ -107,6 +117,7 @@ public abstract class NLPTrain<N,L,S extends NLPState<N,L>>
 			{
 				for (i=0; i<size; i++) bestWeight[i] = models[i].getWeightVector().toArray().clone();
 				bestScore = currScore;
+				bestIter  = iter;
 			}
 		}
 		

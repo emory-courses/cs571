@@ -8,6 +8,10 @@ This is a graduate course in computer science, studying topics in natural Langua
 * [Reading](../../wiki/Reading).
 * [Quizzes](../../wiki/Quizzes).
 
+## Component
+
+* [Part-of-speech tagging]().
+
 ## Specification
 
 * [Configuration](src/main/resources/md/specification/configuration.md).

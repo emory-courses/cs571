@@ -105,14 +105,14 @@ public abstract class NLPComponent<N,L,S extends NLPState<N,L>> implements Seria
 		return flag == NLPFlag.TRAIN;
 	}
 	
-	public boolean isBootstrap()
+	public boolean isAggregate()
 	{
-		return flag == NLPFlag.BOOTSTRAP;
+		return flag == NLPFlag.AGGREGATE;
 	}
 	
-	public boolean isTrainOrBootstrap()
+	public boolean isTrainOrAggregate()
 	{
-		return isTrain() || isBootstrap();
+		return isTrain() || isAggregate();
 	}
 	
 	public boolean isDecode()
@@ -155,7 +155,7 @@ public abstract class NLPComponent<N,L,S extends NLPState<N,L>> implements Seria
 		while (!state.isTerminate())
 		{
 			StringVector vector = extractFeatures(state);
-			if (isTrainOrBootstrap()) addInstance(state.getGoldLabel(), vector);
+			if (isTrainOrAggregate()) addInstance(state.getGoldLabel(), vector);
 			L label = getLabel(state, vector);
 			state.setLabel(label);
 			state.next();
