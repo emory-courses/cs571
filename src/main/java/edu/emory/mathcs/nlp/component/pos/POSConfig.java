@@ -48,9 +48,10 @@ public class POSConfig extends NLPConfig<POSNode>
 		
 		int form  = map.get(FIELD_FORM);
 		int pos   = map.get(FIELD_POS);
-		int feats = map.get(FIELD_FEATS);
+		int lemma = map.getOrDefault(FIELD_LEMMA, -1);
+		int feats = map.getOrDefault(FIELD_FEATS, -1);
 		
-		return new POSIndex(form, pos, feats);
+		return new POSIndex(form, lemma, pos, feats);
 	}
 	
 	public double getAmbiguityClassThreshold()

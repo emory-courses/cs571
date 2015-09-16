@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package edu.emory.mathcs.nlp.component.pos;
+package edu.emory.mathcs.nlp.component.dep;
 
 import java.util.List;
 
@@ -23,49 +23,66 @@ import edu.emory.mathcs.nlp.component.util.reader.TSVIndex;
 /**
  * @author Jinho D. Choi ({@code jinho.choi@emory.edu})
  */
-public class POSIndex implements TSVIndex<POSNode>
+public class DEPIndex implements TSVIndex<DEPNode>
 {
 	public int form;
 	public int lemma;
 	public int pos;
 	public int feats;
+	public int head_id;
+	public int deprel;
 	
-	public POSIndex(int form, int pos)
+	public DEPIndex(int form, int lemma, int pos, int feats)
 	{
-		set(form, -1, pos, -1);
+		set(form, lemma, pos, feats, -1, -1);
 	}
 	
-	public POSIndex(int form, int lemma, int pos, int feats)
+	public DEPIndex(int form, int lemma, int pos, int feats, int headID, int deprel)
 	{
-		set(form, lemma, pos, feats);
+		set(form, lemma, pos, feats, headID, deprel);
 	}
 	
-	public void set(int form, int lemma, int pos, int feats)
+	public void set(int form, int lemma, int pos, int feats, int headID, int deprel)
 	{
-		this.form  = form;
-		this.lemma = lemma;
-		this.pos   = pos;
-		this.feats = feats;
+		this.form    = form;
+		this.lemma   = lemma;
+		this.pos     = pos;
+		this.feats   = feats;
+		this.head_id = headID;
+		this.deprel  = deprel;
 	}
 
 	@Override
-	public POSNode[] toNodeList(List<String[]> values)
+	public DEPNode[] toNodeList(List<String[]> values)
 	{
 		int i, size = values.size();
-		POSNode[] nodes = new POSNode[size];
+		DEPNode[] nodes = new DEPNode[size];
 		
 		for (i=0; i<size; i++)
 			nodes[i] = create(values.get(i), i+1);
 		
+		if (head_id >= 0)
+		{
+			for (i=0; i<size; i++)
+				initHead(i, nodes, values.get(i));
+		}
+		
 		return nodes;
 	}
 	
-	private POSNode create(String[] values, int id)
+	private DEPNode create(String[] values, int id)
 	{
 		String  f = (form  >= 0) ? values[form]  : null;
 		String  l = (lemma >= 0) ? values[lemma] : null;
 		String  p = (pos   >= 0) ? values[pos]   : null;
 		FeatMap m = (feats >= 0) ? new FeatMap(values[feats]) : new FeatMap();
-		return new POSNode(id, f, l, p, m);
+		return new DEPNode(id, f, l, p, m);
+	}
+	
+	private void initHead(int id, DEPNode[] nodes, String[] values)
+	{
+		int headID = Integer.parseInt(values[head_id]) - 1;
+		DEPNode head = (headID >= 0) ? nodes[headID] : DEPNode.ROOT;
+		nodes[id].setHead(head, values[deprel]);
 	}
 }

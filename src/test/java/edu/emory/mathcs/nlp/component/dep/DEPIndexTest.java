@@ -13,34 +13,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package edu.emory.mathcs.nlp.component.util.feature;
+package edu.emory.mathcs.nlp.component.dep;
 
+import org.junit.Test;
+
+import edu.emory.mathcs.nlp.common.util.IOUtils;
+import edu.emory.mathcs.nlp.common.util.Joiner;
+import edu.emory.mathcs.nlp.component.util.reader.TSVIndex;
+import edu.emory.mathcs.nlp.component.util.reader.TSVReader;
 
 /**
  * @author Jinho D. Choi ({@code jinho.choi@emory.edu})
  */
-public enum Field
+public class DEPIndexTest
 {
-	// form features
-	word_form,
-	simplified_word_form,
-	uncapitalized_simplified_word_form,
-	word_shape,
-	orthographic,	// set
-	prefix,
-	suffix,
-
-	// part-of-speech tagging features
-	lemma,
-	pos_tag,
-	ambiguity_class,
-	
-	// dependency parsing features
-	dependency_label,
-	distance,
-	
-	
-	// more
-	feats,
-	binary;	// set
+	@Test
+	public void test() throws Exception
+	{
+		TSVIndex<DEPNode> index = new DEPIndex(1, 2, 3, 4, 5, 6);
+		TSVReader<DEPNode> reader = new TSVReader<DEPNode>(index);
+		reader.open(IOUtils.createFileInputStream("src/main/resources/dat/wsj_0001.dep"));
+		DEPNode[] nodes = reader.next();
+		System.out.println(Joiner.join(nodes, "\n"));
+	}
 }

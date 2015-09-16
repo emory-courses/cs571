@@ -43,9 +43,9 @@ public class POSFeatureTemplate<N extends POSNode> extends FeatureTemplate<N,POS
 		add(new FeatureItem<>( 1, Field.simplified_word_form));
 		add(new FeatureItem<>( 2, Field.simplified_word_form));
 
-		add(new FeatureItem<>(-1, Field.word_shape));
-		add(new FeatureItem<>( 0, Field.word_shape));
-		add(new FeatureItem<>( 1, Field.word_shape));
+		add(new FeatureItem<>(-1, Field.word_shape, 2));
+		add(new FeatureItem<>( 0, Field.word_shape, 2));
+		add(new FeatureItem<>( 1, Field.word_shape, 2));
 
 		add(new FeatureItem<>(-3, Field.pos_tag));
 		add(new FeatureItem<>(-2, Field.pos_tag));
@@ -100,13 +100,15 @@ public class POSFeatureTemplate<N extends POSNode> extends FeatureTemplate<N,POS
 		case word_form: return node.getWordForm();
 		case simplified_word_form: return node.getSimplifiedWordForm();
 		case uncapitalized_simplified_word_form: return StringUtils.toLowerCase(node.getSimplifiedWordForm());
-		case word_shape: return node.getWordShape(2);
+		case word_shape: return node.getWordShape((Integer)item.value);
+		case lemma: return node.getLemma();
+		case feats: return node.getFeat((String)item.value);
 		case pos_tag: return node.getPOSTag();
 		case ambiguity_class: return state.getAmbiguityClass(node);
 		case prefix: return getPrefix(node, (Integer)item.value);
 		case suffix: return getSuffix(node, (Integer)item.value);
 		default: throw new IllegalArgumentException("Unsupported feature: "+item.field);
-		}		
+		}
 	}
 	
 	@Override

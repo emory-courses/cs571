@@ -2,9 +2,8 @@
     <language>english</language>
 
 	<tsv>
-        <column index="2" field="form"/>
-        <column index="4" field="pos"/>
-        <column index="5" field="feats"/>
+        <column index="0" field="form"/>
+        <column index="1" field="pos"/>
     </tsv>
 
     <optimizer>

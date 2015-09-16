@@ -23,6 +23,7 @@ import edu.emory.mathcs.nlp.common.constant.CharConst;
 import edu.emory.mathcs.nlp.common.constant.MetaConst;
 import edu.emory.mathcs.nlp.common.util.CharUtils;
 import edu.emory.mathcs.nlp.common.util.StringUtils;
+import edu.emory.mathcs.nlp.component.util.feature.Field;
 
 /**
  * @author Jinho D. Choi ({@code jinho.choi@emory.edu})
@@ -30,14 +31,25 @@ import edu.emory.mathcs.nlp.common.util.StringUtils;
 public class NLPNode implements Serializable
 {
 	private static final long serialVersionUID = 5522467283393796925L;
-	protected String simplified_word_form;
-	protected String word_form;
-	protected int    id;
+	protected String  simplified_word_form;
+	protected String  word_form;
+	protected FeatMap feat_map;
+	protected int     id;
 	
 	public NLPNode(String form)
 	{
 		setWordForm(form);
+		setFeatMap(new FeatMap());
 	}
+	
+	public NLPNode(int id, String form, FeatMap map)
+	{
+		setID(id);
+		setWordForm(form);
+		setFeatMap(map);
+	}
+	
+//	============================== ID ==============================
 	
 	public int getID()
 	{
@@ -49,6 +61,46 @@ public class NLPNode implements Serializable
 		this.id = id;
 	}
 	
+//	============================== FEATURE MAP ==============================
+	
+	public FeatMap getFeatMap()
+	{
+		return feat_map;
+	}
+	
+	public void setFeatMap(FeatMap map)
+	{
+		feat_map = map;
+	}
+	
+	public String getFeat(String key)
+	{
+		return feat_map.get(key);
+	}
+	
+	public String putFeat(String key, String value)
+	{
+		return feat_map.put(key, value);
+	}
+	
+	public String removeFeat(String key)
+	{
+		return feat_map.remove(key);
+	}
+	
+//	============================== WORD FORM ==============================
+	
+	/** @return the word-form. */
+	public String getWordForm()
+	{
+		return word_form;
+	}
+	
+	public boolean isWordForm(String form)
+	{
+		return form.equals(word_form);
+	}
+	
 	/** @return the old word-form. */
 	public String setWordForm(String form)
 	{
@@ -58,19 +110,17 @@ public class NLPNode implements Serializable
 		return t;
 	}
 	
-	/** @return the word-form. */
-	public String getWordForm()
-	{
-		return word_form;
-	}
+//	============================== WORD FORM VARIATIONS ==============================
 	
-	/**
-	 * @return the simplified word form.
-	 * @see StringUtils#toSimplifiedForm(String).
-	 */
+	/** @see StringUtils#toSimplifiedForm(String). */
 	public String getSimplifiedWordForm()
 	{
 		return simplified_word_form;
+	}
+	
+	public boolean isSimplifiedWordForm(String form)
+	{
+		return form.equals(simplified_word_form);
 	}
 	
 	/**
@@ -189,5 +239,22 @@ public class NLPNode implements Serializable
 		
 		if (!allPunct && !hasPeriod && !hasHyphen && hasPunct)
 			list.add(Orthographic.HAS_OTHER_PUNCT);
+	}
+	
+	public String getValue(Field field)
+	{
+		switch (field)
+		{
+		case word_form: return getWordForm();
+		case simplified_word_form: return getSimplifiedWordForm();
+		case uncapitalized_simplified_word_form: return StringUtils.toLowerCase(getSimplifiedWordForm());
+		default: return null;
+		}
+	}
+
+	@Override
+	public String toString()
+	{
+		return word_form;
 	}
 }

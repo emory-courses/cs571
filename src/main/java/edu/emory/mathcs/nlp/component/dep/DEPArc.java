@@ -13,34 +13,31 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package edu.emory.mathcs.nlp.component.util.feature;
+package edu.emory.mathcs.nlp.component.dep;
 
+import edu.emory.mathcs.nlp.component.util.node.AbstractArc;
 
 /**
  * @author Jinho D. Choi ({@code jinho.choi@emory.edu})
  */
-public enum Field
+public class DEPArc extends AbstractArc<DEPNode>
 {
-	// form features
-	word_form,
-	simplified_word_form,
-	uncapitalized_simplified_word_form,
-	word_shape,
-	orthographic,	// set
-	prefix,
-	suffix,
+	private static final long serialVersionUID = -9099516205158258095L;
 
-	// part-of-speech tagging features
-	lemma,
-	pos_tag,
-	ambiguity_class,
+	public DEPArc(DEPNode node, String label)
+	{
+		set(node, label);
+	}
+
+	@Override
+	public String toString()
+	{
+		return n_node.getID() + DELIM + s_label;
+	}
 	
-	// dependency parsing features
-	dependency_label,
-	distance,
-	
-	
-	// more
-	feats,
-	binary;	// set
+	@Override
+	public int compareTo(AbstractArc<DEPNode> arc)
+	{
+		return n_node.compareTo(arc.getNode());
+	}
 }
