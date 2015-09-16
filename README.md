@@ -18,4 +18,4 @@ This is a graduate course in computer science, studying topics in natural Langua
 
 ## More
 
-* Run command lines using Maven.
+* [How to ?](md/specification/how_to.md).

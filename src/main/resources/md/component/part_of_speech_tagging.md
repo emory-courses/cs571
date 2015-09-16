@@ -29,7 +29,7 @@ $ java -Xmx1g -XX:+UseConcMarkSweepGC java edu.emory.mathcs.nlp.bin.POSTrain -c 
 ```
 
 * Use the [`-XX:+UseConcMarkSweepGC`](http://www.oracle.com/technetwork/java/tuning-139912.html) option for JVM, which reduces the memory usage into a half.
-* Add the log4j configuration file ([log4j.properties](../../configuration/log4j.properties)) to your classpath.
+* Add [`log4j.properties`](../../configuration/log4j.properties) to your path, or copy it to your current directory.
 
 ## Configuration
 
