@@ -18,6 +18,7 @@ package edu.emory.mathcs.nlp.learn.model;
 import java.io.Serializable;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Deque;
 import java.util.List;
 
@@ -69,6 +70,12 @@ public class StringModel implements Serializable
 		instance_deque.add(instance);
 	}
 	
+	public void addInstances(Collection<StringInstance> instances)
+	{
+		for (StringInstance instance : instances)
+			addInstance(instance);
+	}
+	
 	public List<Instance> getInstanceList()
 	{
 		return instance_list;
@@ -100,15 +107,10 @@ public class StringModel implements Serializable
 			labelIndex = label_map.indexOf(instance.getLabel());
 			
 			if (labelIndex >= 0)
-				instance_list.add(new Instance(getLabel(labelIndex), toSparseVector(instance.getVector())));
+				instance_list.add(new Instance(labelIndex, toSparseVector(instance.getVector())));
 		}
 		
 		instance_deque = new ArrayDeque<>();
-	}
-	
-	private int getLabel(int index)
-	{
-		return weight_vector.isBinomial() ? index*2 - 1 : index;
 	}
 	
 	public SparseVector toSparseVector(StringVector vector)

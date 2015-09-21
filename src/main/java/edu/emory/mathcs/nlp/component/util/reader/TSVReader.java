@@ -21,6 +21,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import edu.emory.mathcs.nlp.common.constant.StringConst;
 import edu.emory.mathcs.nlp.common.util.IOUtils;
 import edu.emory.mathcs.nlp.common.util.Splitter;
 
@@ -29,6 +30,7 @@ import edu.emory.mathcs.nlp.common.util.Splitter;
  */
 public class TSVReader<N>
 {
+	static public String BLANK = StringConst.UNDERSCORE;
 	private BufferedReader reader;
 	private TSVIndex<N>    index;
 	

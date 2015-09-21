@@ -17,6 +17,7 @@ package edu.emory.mathcs.nlp.learn.optimization;
 
 import java.util.List;
 
+import edu.emory.mathcs.nlp.common.util.DSUtils;
 import edu.emory.mathcs.nlp.learn.util.Instance;
 import edu.emory.mathcs.nlp.learn.weight.WeightVector;
 
@@ -40,4 +41,18 @@ public abstract class Optimizer
 	}
 	
 	public abstract void train(List<Instance> instances);
+
+	protected int binomialBestHingeLoss(Instance instance)
+	{
+		double score = weight_vector.scores(instance.getVector())[0];
+		int    label = (score < 0) ? 0 : 1;
+		return Math.abs(score) < 0.5 ? (label+1)%2 : label;
+	}
+	
+	protected int multinomialBestHingeLoss(Instance instance)
+	{
+		double[] scores = weight_vector.scores(instance.getVector());
+		scores[instance.getLabel()] -= 1;
+		return DSUtils.maxIndex(scores);
+	}
 }

@@ -17,66 +17,31 @@ package edu.emory.mathcs.nlp.learn.optimization.sgd;
 
 import java.util.StringJoiner;
 
-import edu.emory.mathcs.nlp.common.util.MathUtils;
 import edu.emory.mathcs.nlp.learn.util.Instance;
-import edu.emory.mathcs.nlp.learn.vector.IndexValuePair;
-import edu.emory.mathcs.nlp.learn.vector.Vector;
 import edu.emory.mathcs.nlp.learn.weight.WeightVector;
 
 /**
  * @author Jinho D. Choi ({@code jinho.choi@emory.edu})
  */
-public class AdaGrad extends SGDClassification
+public class AdaGradRegression extends StochasticGradientDescent
 {
-	protected final double epsilon = 0.00001;
-	protected WeightVector diagonals;
-	
-	public AdaGrad(WeightVector weightVector, boolean average, double learningRate)
+	public AdaGradRegression(WeightVector weightVector, boolean average, double learningRate)
 	{
 		super(weightVector, average, learningRate);
-		diagonals = weightVector.createEmptyVector();
 	}
-	
+
 	@Override
 	protected void updateBinomial(Instance instance)
 	{
-		Vector x = instance.getVector();
-		int   yp = instance.getLabel();	
-		int   yn = binomialBestHingeLoss(instance);
+		// TODO Auto-generated method stub
 		
-		if (yp != yn)
-		{
-			yp *= 2 - 1; // yp = {0, 1} -> {-1, 1}
-			updateDiagonals(yp, x);
-			update(yp, x);
-		}
 	}
 
 	@Override
 	protected void updateMultinomial(Instance instance)
 	{
-		Vector x = instance.getVector();
-		int   yp = instance.getLabel();
-		int   yn = multinomialBestHingeLoss(instance);
+		// TODO Auto-generated method stub
 		
-		if (yp != yn)
-		{
-			updateDiagonals(yp, x);
-			updateDiagonals(yn, x);
-			update(yp, yn, x);
-		}
-	}
-	
-	private void updateDiagonals(int y, Vector x)
-	{
-		for (IndexValuePair p : x)
-			diagonals.add(y, p.getIndex(), MathUtils.sq(p.getValue()));
-	}
-	
-	@Override
-	protected double getGradient(int y, int xi)
-	{
-		return learning_rate / (epsilon + Math.sqrt(diagonals.get(y, xi)));
 	}
 	
 	@Override
@@ -87,6 +52,7 @@ public class AdaGrad extends SGDClassification
 		join.add("average = "+isAveraged());
 		join.add("learning rate = "+learning_rate);
 		
-		return "AdaGrad: "+join.toString();
+		return "AdaGrad regression: "+join.toString();
 	}
+
 }

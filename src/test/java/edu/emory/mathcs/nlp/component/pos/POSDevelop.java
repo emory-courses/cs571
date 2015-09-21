@@ -19,8 +19,6 @@ import java.io.IOException;
 import java.util.List;
 import java.util.function.Consumer;
 
-import org.junit.Test;
-
 import edu.emory.mathcs.nlp.common.util.FileUtils;
 import edu.emory.mathcs.nlp.common.util.IOUtils;
 import edu.emory.mathcs.nlp.component.util.NLPFlag;
@@ -38,7 +36,7 @@ import edu.emory.mathcs.nlp.learn.weight.MultinomialWeightVector;
  */
 public class POSDevelop
 {
-	@Test
+//	@Test
 	public void develop() throws IOException
 	{
 		final String  root = "/Users/jdchoi/Documents/Data/experiments/wsj/pos/";

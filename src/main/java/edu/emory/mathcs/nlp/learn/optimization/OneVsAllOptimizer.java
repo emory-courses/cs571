@@ -20,7 +20,6 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
-import edu.emory.mathcs.nlp.learn.util.BinomialLabel;
 import edu.emory.mathcs.nlp.learn.util.Instance;
 import edu.emory.mathcs.nlp.learn.vector.IndexValuePair;
 import edu.emory.mathcs.nlp.learn.vector.Vector;
@@ -49,7 +48,7 @@ abstract public class OneVsAllOptimizer extends Optimizer
 	
 	private void trainBinomial(List<Instance> instances)
 	{
-		update(instances, BinomialLabel.POSITIVE);
+		update(instances, 1);
 	}
 	
 	private void trainMultinomial(List<Instance> instances)
@@ -95,7 +94,7 @@ abstract public class OneVsAllOptimizer extends Optimizer
 		byte[] y = new byte[size];
 
 		for (i=0; i<size; i++)
-			y[i] = instances.get(i).isLabel(currLabel) ? BinomialLabel.POSITIVE  : BinomialLabel.NEGATIVE;
+			y[i] = instances.get(i).isLabel(currLabel) ? (byte)1 : (byte)-1;
 
 		return y;
 	}

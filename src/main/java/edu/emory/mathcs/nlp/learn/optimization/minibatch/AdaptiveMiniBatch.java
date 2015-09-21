@@ -20,6 +20,7 @@ import java.util.List;
 import edu.emory.mathcs.nlp.common.util.MathUtils;
 import edu.emory.mathcs.nlp.learn.optimization.OnlineOptimizer;
 import edu.emory.mathcs.nlp.learn.util.Instance;
+import edu.emory.mathcs.nlp.learn.vector.IndexValuePair;
 import edu.emory.mathcs.nlp.learn.vector.Vector;
 import edu.emory.mathcs.nlp.learn.weight.WeightVector;
 
@@ -147,22 +148,30 @@ public abstract class AdaptiveMiniBatch extends OnlineOptimizer
 	 {
 		 Vector x = instance.getVector();
 		 int yp = instance.getLabel();
-		 int yn = bestHingeBinomial(x);
+		 int yn = binomialBestHingeLoss(instance);
 
 		 if (yp != yn)
-			 gradients.update(x, yp, yp);
+		 {
+			 yp *= 2 - 1; // yp = {0, 1} -> {-1, 1}
+			 
+			 for (IndexValuePair xi : x)
+				 gradients.add(yp, xi.getIndex(), yp);
+		 }
 	 }
 	
 	 protected void updateGradientsHingeMultinomial(Instance instance)
 	 {
 		 Vector x = instance.getVector();
 		 int yp = instance.getLabel();
-		 int yn = bestHingeMultinomial(instance);
+		 int yn = multinomialBestHingeLoss(instance);
 
 		 if (yp != yn)
 		 {
-			 gradients.update(x, yp,  1);
-			 gradients.update(x, yn, -1);
+			 for (IndexValuePair xi : x)
+			 {
+				 gradients.add(yp, xi.getIndex(),  1);
+				 gradients.add(yn, xi.getIndex(), -1);
+			 }
 		 }
 	 }
 }

@@ -59,6 +59,11 @@ public class StringInstance implements Serializable
 		setVector(vector);
 	}
 	
+	public boolean isLabel(String label)
+	{
+		return label.equals(this.label);
+	}
+	
 	@Override
 	public String toString()
 	{

@@ -36,6 +36,7 @@ import edu.emory.mathcs.nlp.component.pos.POSNode;
 import edu.emory.mathcs.nlp.component.util.feature.Field;
 import edu.emory.mathcs.nlp.component.util.node.DirectionType;
 import edu.emory.mathcs.nlp.component.util.node.FeatMap;
+import edu.emory.mathcs.nlp.component.util.reader.TSVReader;
 
 
 /**
@@ -44,7 +45,8 @@ import edu.emory.mathcs.nlp.component.util.node.FeatMap;
 public class DEPNode extends POSNode implements Comparable<DEPNode>
 {
 	private static final long serialVersionUID = 3794720014142939766L;
-	static DEPNode ROOT = new DEPNode(0, "@#r$%", "@#r$%", "@#r$%", new FeatMap(), null, "@#r$%");
+	static final String ROOT_TAG = "@#r$%";
+	static final DEPNode ROOT = new DEPNode(0, ROOT_TAG, ROOT_TAG, ROOT_TAG, new FeatMap(), null, ROOT_TAG);
 
 	/** The dependency label of this node. */
 	protected String dependency_label;
@@ -77,28 +79,21 @@ public class DEPNode extends POSNode implements Comparable<DEPNode>
 		setLabel(label);
 	}
 	
-	/** Clear all dependencies(head, label, and sibling relations) of the node. */
-	void clearDependencies()
-	{
-		head_node  = null;
-		dependency_label = null;
-		sibling_id = 0;
-		dependent_list.clear();
-	}
-	
 //	====================================== GETTERS ======================================
 	
+	/** @return the dependency label of this node if exists; otherwise, null. */
 	public String getLabel()
 	{
 		return dependency_label;
 	}
 	
+	/** @return the dependency head of this node if exists; otherwise, null. */
 	public DEPNode getHead()
 	{
 		return head_node;
 	}
 
-	/** @return the dependency grand-head of the node if exists; otherwise, {@code null}. */
+	/** @return the dependency grand-head of the node if exists; otherwise, null. */
 	public DEPNode getGrandHead()
 	{
 		DEPNode head = getHead();
@@ -112,9 +107,8 @@ public class DEPNode extends POSNode implements Comparable<DEPNode>
 	}
 	
 	/**
-	 * Get the left sibling node with input displacement (0 - leftmost, 1 - second leftmost, etc.).
-	 * @param order left displacement
-	 * @return the left sibling node with input displacement
+	 * @return the left sibling node with input displacement.
+	 * @param order left displacement (0 - leftmost, 1 - second leftmost, etc.).
 	 */
 	public DEPNode getLeftNearestSibling(int order)
 	{
@@ -285,36 +279,20 @@ public class DEPNode extends POSNode implements Comparable<DEPNode>
 		int index = dependent_list.getInsertIndex(this) + order;
 		return (index < getDependentSize()) ? getDependent(index) : null;
 	}
-	
-	public DEPNode getFirstDependent(BiPredicate<DEPNode,String> p, String tag)
+
+	/**
+	 * @param predicate takes a dependency node and compares the specific tag with the referenced function.
+	 * @return the first-dependent with the specific label.
+	 */
+	public DEPNode getFirstDependent(String label, BiPredicate<DEPNode,String> predicate)
 	{
 		for (DEPNode node : dependent_list)
 		{
-			if (p.test(node, tag))
+			if (predicate.test(node, label))
 				return node;
 		}
 		
 		return null;
-	}
-	
-	/**
-	 * Get the first dependency node of the node by label.
-	 * @param label string label of the first-dependency node
-	 * @return the first-dependency node of the specific label
-	 */
-	public DEPNode getFirstDependentByLabel(String label)
-	{
-		return getFirstDependent((n, t) -> n.isLabel(t), label);
-	}
-	
-	public DEPNode getFirstDependentByPOS(String label)
-	{
-		return getFirstDependent((n, t) -> n.isPOSTag(t), label);
-	}
-	
-	public DEPNode getFirstDependentByLemma(String lemma)
-	{
-		return getFirstDependent((n, t) -> n.isLemma(t), lemma);
 	}
 	
 	/**
@@ -849,31 +827,15 @@ public class DEPNode extends POSNode implements Comparable<DEPNode>
 		return null;
 	}
 	
-	@Override
-	public String getValue(Field field)
-	{
-		switch (field)
-		{
-		case dependency_label: return getLabel();
-		default: return super.getValue(field);
-		}
-	}
-	
 //	====================================== Setters ======================================
 
-	/** 
-	 * Sets the dependency label of this node with the specific label.
-	 * @param label label of the node 
-	 */
+	/** Sets the dependency label. */
 	public void setLabel(String label)
 	{
 		dependency_label = label;
 	}
 	
-	/** 
-	 * Sets the dependency head of this node with the specific node.
-	 * @param node head node of the node 
-	 */
+	/** Sets the dependency head. */
 	public void setHead(DEPNode node)
 	{
 		if (hasHead())
@@ -885,173 +847,133 @@ public class DEPNode extends POSNode implements Comparable<DEPNode>
 		head_node = node;
 	}
 	
-	/** 
-	 * Sets the dependency head of this node with the specific node and the label.
-	 * @param node head node of the node
-	 * @param label label of the node 
-	 */
+	/** Sets the dependency head of this node with the specific label. */
 	public void setHead(DEPNode node, String label)
 	{
 		setHead (node);
 		setLabel(label);
 	}
 	
-	/**
-	 * Add the node as a dependent to a specified node.
-	 * @param node head node that you wish to add the node as a dependent to
-	 */
+	/** Add the specific node as a dependent. */
 	public void addDependent(DEPNode node)
 	{
 		node.setHead(this);
 	}
 	
-	/**
-	 * Add the node as a dependent to a specified node and set the label of the node.
-	 * @param node head node that you wish to add the node as a dependent to
-	 * @param label label of the node
-	 */
+	/** Add the specific node as a dependent with the specific label. */
 	public void addDependent(DEPNode node, String label)
 	{
 		node.setHead(this, label);
 	}
 	
+	/** Clear out all dependencies (head, label, and sibling relations) of the node. */
+	public void clearDependencies()
+	{
+		head_node  = null;
+		dependency_label = null;
+		sibling_id = 0;
+		dependent_list.clear();
+	}
+	
 //	====================================== Booleans ======================================
 	
-	/**
-	 * Check if the node has a head node.
-	 * @return {@code true} if this node has the dependency head; otherwise {@code false} if head is {@code null}. 
-	 */
+	/** @return true if this node has the dependency head; otherwise, false. */
 	public boolean hasHead()
 	{
 		return head_node != null;
 	}
 	
-	/**
-	 * Check if the node contain another as dependent.
-	 * @param node dependent code for check
-	 * @return {@code true} if the node has the input DEPNode as a dependent
-	 */
+	/** @return true if the node has the specific node as a dependent. */
 	public boolean containsDependent(DEPNode node)
 	{
 		return dependent_list.contains(node);
 	}
 	
 	/**
-	 * Check if the node has the label for its first dependent.
-	 * @param label label of the node for check
-	 * @return {@code true} if the node's first dependent has the input label
+	 * @return true if this node has a dependent with the specific label.
+	 * @see #getFirstDependent(String, BiPredicate).
 	 */
-	public boolean containsDependent(String label)
+	public boolean containsDependent(String label, BiPredicate<DEPNode,String> predicate)
 	{
-		return getFirstDependentByLabel(label) != null;
-	}
-	
-	public boolean containsDependentPOS(String tag)
-	{
-		return getFirstDependentByPOS(tag) != null;
-	}
-	
-	public boolean containsDependentLemma(String lemma)
-	{
-		return getFirstDependentByLemma(lemma) != null;
+		return getFirstDependent(label, predicate) != null;
 	}
 	
 	/**
-	 * Check if the node has the pattern for its first dependent.
-	 * @param pattern pattern of the node for check
-	 * @return {@code true} if the node's first dependent has the input pattern
+	 * @return true if this node has a dependent with the specific pattern.
+	 * @see #getFirstDependentByLabel(Pattern).
 	 */
-	public boolean containsDependent(Pattern pattern)
+	public boolean containsDependentByLabel(Pattern pattern)
 	{
 		return getFirstDependentByLabel(pattern) != null;
 	}
 	
-	/**
-	 * Check if the node has the label as the input string.
-	 * @param label label string for check
-	 * @return {@code true} if the dependency label of this node equals to the specific label 
-	 */
+	/** @return true if the dependency label of this node equals to the specific label. */
 	public boolean isLabel(String label)
 	{
 		return label.equals(dependency_label);
 	}
 	
-	/**
-	 * Check if the node has the label as any label in the input strings array.
-	 * @param labels label string array for check
-	 * @return {@code true} if the dependency label of this node equals to any of the specific labels
-	 */
+	/** @return true if the dependency label of this node equals to any of the specific labels. */
 	public boolean isLabelAny(String... labels)
 	{
 		for (String label : labels)
 		{
-			if (label.equals(dependency_label))
+			if (isLabel(label))
 				return true;
 		}
 		
 		return false;
 	}
 	
-	/**
-	 * Check if the node has the label as the input label pattern.
-	 * @param pattern label pattern for check
-	 * @return {@code true} if the dependency label of this node matches the specific pattern
-	 */
+	/** @return true if the dependency label of this node matches the specific pattern. */
 	public boolean isLabel(Pattern pattern)
 	{
 		return pattern.matcher(dependency_label).find();
 	}
 	
-	/** 
-	 * Check if the node has the input dependent node. 
-	 * @param node dependent node for check
-	 * @return {@code true} if this node is a dependent of the specific node 
-	 */
+	/** @return true if this node is a dependent of the specific node. */
 	public boolean isDependentOf(DEPNode node)
 	{
 		return head_node == node;
 	}
 	
-	/**
-	 * Check if the node has the input dependent node and the input label string. 
-	 * @param node dependent node for check
-	 * @param label label string for check
-	 * @return @return {@code true} if the node has the specific dependent node and the specific label string
-	 */
+	/** {@link #isDependentOf(DEPNode)} && {@link #isLabel(String)}. */
 	public boolean isDependentOf(DEPNode node, String label)
 	{
 		return isDependentOf(node) && isLabel(label);
 	}
 	
-	/**
-	 * Check if the node is the descendant of the input head node. 
-	 * @param label label string for check
-	 * @return {@code true} if the node is the dependent of the specific node
-	 */
+	/** @return true if the node is a descendant of the specific node. */
 	public boolean isDescendantOf(DEPNode node)
 	{
 		DEPNode head = getHead();
 		
 		while (head != null)
 		{
-			if (head == node)	return true;
+			if (head == node) return true;
 			head = head.getHead();
 		}
 		
 		return false;
 	}
 	
-	/**
-	 * Check if the node has the sibling node.
-	 * @param node sibling node of the node for check
-	 * @return {@code true} if the node has the sibling node
-	 */
+	/** @return true if this node is a sibling of the specific node. */
 	public boolean isSiblingOf(DEPNode node)
 	{
 		return hasHead() && node.isDependentOf(head_node);
 	}
 
 //	====================================== Helpers ======================================
+	
+	@Override
+	public String getValue(Field field)
+	{
+		switch (field)
+		{
+		case dependency_label: return getLabel();
+		default: return super.getValue(field);
+		}
+	}
 	
 	@Override
 	public String toString()
@@ -1071,8 +993,8 @@ public class DEPNode extends POSNode implements Comparable<DEPNode>
 		}
 		else
 		{
-			join.add(StringConst.UNDERSCORE);
-			join.add(StringConst.UNDERSCORE);
+			join.add(TSVReader.BLANK);
+			join.add(TSVReader.BLANK);
 		}
 		
 		return join.toString();

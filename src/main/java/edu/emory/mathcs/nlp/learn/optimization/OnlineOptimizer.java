@@ -19,10 +19,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
-import edu.emory.mathcs.nlp.common.util.DSUtils;
 import edu.emory.mathcs.nlp.learn.util.Instance;
-import edu.emory.mathcs.nlp.learn.util.Prediction;
-import edu.emory.mathcs.nlp.learn.vector.Vector;
 import edu.emory.mathcs.nlp.learn.weight.WeightVector;
 
 /**
@@ -95,17 +92,4 @@ public abstract class OnlineOptimizer extends Optimizer
 	 * Called by {@link #update(Instance)}.
 	 */
 	protected abstract void updateMultinomial(Instance instance);
-
-	protected int bestHingeBinomial(Vector x)
-	{
-		Prediction p = weight_vector.predictBest(x);
-		return (Math.abs(p.getScore()) >= 0.5) ? p.getLabel() : -p.getLabel();
-	}
- 	
- 	protected int bestHingeMultinomial(Instance instance)
-	{
-		double[] scores = weight_vector.scores(instance.getVector());
-		scores[instance.getLabel()] -= 1;
-		return DSUtils.maxIndex(scores);
-	}
 }

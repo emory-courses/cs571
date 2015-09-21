@@ -13,25 +13,36 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package edu.emory.mathcs.nlp.component.dep;
+package edu.emory.mathcs.nlp.component.util.node;
 
-import edu.emory.mathcs.nlp.common.util.IOUtils;
-import edu.emory.mathcs.nlp.common.util.Joiner;
-import edu.emory.mathcs.nlp.component.util.reader.TSVIndex;
+import static org.junit.Assert.assertEquals;
+
+import org.junit.Test;
+
 import edu.emory.mathcs.nlp.component.util.reader.TSVReader;
 
 /**
  * @author Jinho D. Choi ({@code jinho.choi@emory.edu})
  */
-public class DEPIndexTest
+public class FeatMapTest
 {
-//	@Test
-	public void test() throws Exception
+	@Test
+	public void testDEPFeat()
 	{
-		TSVIndex<DEPNode> index = new DEPIndex(1, 2, 3, 4, 5, 6);
-		TSVReader<DEPNode> reader = new TSVReader<DEPNode>(index);
-		reader.open(IOUtils.createFileInputStream("src/main/resources/dat/wsj_0001.dep"));
-		DEPNode[] nodes = reader.next();
-		System.out.println(Joiner.join(nodes, "\n"));
+		FeatMap feat = new FeatMap();
+		assertEquals(TSVReader.BLANK, feat.toString());
+		
+		feat = new FeatMap(TSVReader.BLANK);
+		assertEquals(TSVReader.BLANK, feat.toString());
+		
+		feat.add("lst=choi|fst=jinho");
+		assertEquals("fst=jinho|lst=choi", feat.toString());
+		
+		assertEquals("choi" , feat.get("lst"));
+		assertEquals("jinho", feat.get("fst"));
+		assertEquals(null   , feat.get("mid"));
+		
+		feat.add(TSVReader.BLANK);
+		assertEquals("fst=jinho|lst=choi", feat.toString());
 	}
 }

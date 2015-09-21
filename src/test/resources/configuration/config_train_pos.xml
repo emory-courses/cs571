@@ -1,0 +1,11 @@
+<configuration>
+    <language>english</language>
+
+	<tsv>
+        <column index="1" field="form"/>
+        <column index="3" field="pos"/>
+    </tsv>
+    
+	<aggregate tolerance_delta="0.01" max_tolerance="5"/>
+	<ambiguity_class_threshold>0.4</ambiguity_class_threshold>
+</configuration>

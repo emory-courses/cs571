@@ -17,8 +17,8 @@ package edu.emory.mathcs.nlp.component.util.node;
 
 import java.util.HashMap;
 
-import edu.emory.mathcs.nlp.common.constant.StringConst;
 import edu.emory.mathcs.nlp.common.util.Splitter;
+import edu.emory.mathcs.nlp.component.util.reader.TSVReader;
 
 
 /**
@@ -53,7 +53,7 @@ public class FeatMap extends HashMap<String,String>
 	 */
 	public void add(String feats)
 	{
-		if (feats.equals(StringConst.UNDERSCORE)) return;
+		if (feats.equals(TSVReader.BLANK)) return;
 		String key, value;
 		int    idx;
 		
@@ -73,7 +73,7 @@ public class FeatMap extends HashMap<String,String>
 	@Override
 	public String toString()
 	{
-		if (isEmpty())	return StringConst.UNDERSCORE;
+		if (isEmpty())	return TSVReader.BLANK;
 		StringBuilder build = new StringBuilder();
 		
 		for (Entry<String, String> entry : entrySet())

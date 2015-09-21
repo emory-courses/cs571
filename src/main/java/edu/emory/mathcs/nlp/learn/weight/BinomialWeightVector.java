@@ -17,8 +17,6 @@ package edu.emory.mathcs.nlp.learn.weight;
 
 import java.util.Arrays;
 
-import edu.emory.mathcs.nlp.common.collection.tuple.Pair;
-import edu.emory.mathcs.nlp.learn.util.BinomialLabel;
 import edu.emory.mathcs.nlp.learn.util.Prediction;
 import edu.emory.mathcs.nlp.learn.vector.IndexValuePair;
 import edu.emory.mathcs.nlp.learn.vector.Vector;
@@ -61,6 +59,12 @@ public class BinomialWeightVector extends WeightVector
 		return false;
 	}
 	
+	@Override
+	public int indexOf(int y, int xi)
+	{
+		return xi;
+	}
+	
 	public double score(Vector x)
 	{
 		double score = 0;
@@ -71,42 +75,36 @@ public class BinomialWeightVector extends WeightVector
 				score += weight_vector[p.getIndex()] * p.getValue();
 		}
 		
-		return score;
-	}
-	
-	@Override
-	public int indexOf(int label, int featureIndex)
-	{
-		return featureIndex;
+		return isRegression() ? sigmoid_table.get(score) : score;
 	}
 	
 	@Override
 	public double[] scores(Vector x)
 	{
 		double score = score(x);
-		return new double[]{score, -score};
+		return new double[]{score, score};
 	}
-
+	
 	@Override
 	public Prediction predictBest(Vector x)
 	{
 		double score = score(x);
-		int    label = (score >= 0) ? BinomialLabel.POSITIVE : BinomialLabel.NEGATIVE;
+		double bound = 0;
+		double upper = 0;
+		int    label = 1;
+		
+		if (isRegression())
+		{
+			bound = 0.5;
+			upper = 1;
+		}
+		
+		if (score < bound)
+		{
+			label = 0;
+			score = upper - score;
+		}
+		
 		return new Prediction(label, score);
-	}
-
-	@Override
-	public Pair<Prediction,Prediction> predictTop2(Vector x)
-	{
-		Prediction fst = predictBest(x);
-		Prediction snd = new Prediction(-fst.getLabel(), -fst.getScore());
-		return new Pair<>(fst, snd);
-	}
-
-	@Override
-	public Prediction[] predictAll(Vector x)
-	{
-		Pair<Prediction,Prediction> top2 = predictTop2(x);
-		return new Prediction[]{top2.o1, top2.o2};
 	}
 }

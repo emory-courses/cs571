@@ -55,7 +55,7 @@ public class POSIndex implements TSVIndex<POSNode>
 		POSNode[] nodes = new POSNode[size];
 		
 		for (i=0; i<size; i++)
-			nodes[i] = create(values.get(i), i+1);
+			nodes[i] = create(values.get(i), i);
 		
 		return nodes;
 	}

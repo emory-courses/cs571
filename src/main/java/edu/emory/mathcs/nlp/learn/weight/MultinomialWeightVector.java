@@ -17,7 +17,6 @@ package edu.emory.mathcs.nlp.learn.weight;
 
 import java.util.Arrays;
 
-import edu.emory.mathcs.nlp.common.collection.tuple.Pair;
 import edu.emory.mathcs.nlp.common.util.DSUtils;
 import edu.emory.mathcs.nlp.learn.util.Prediction;
 import edu.emory.mathcs.nlp.learn.vector.IndexValuePair;
@@ -75,14 +74,14 @@ public class MultinomialWeightVector extends WeightVector
 	}
 	
 	@Override
-	public int indexOf(int label, int featureIndex)
+	public int indexOf(int y, int xi)
 	{
-		return label + indexOf(featureIndex);
+		return y + indexOf(xi);
 	}
 	
-	private int indexOf(int featureIndex)
+	private int indexOf(int xi)
 	{
-		return featureIndex * label_size;
+		return xi * label_size;
 	}
 
 	@Override
@@ -102,9 +101,23 @@ public class MultinomialWeightVector extends WeightVector
 			}
 		}
 		
+		if (isRegression())
+		{
+			double sum = 0;
+			
+			for (i=0; i<label_size; i++)
+			{
+				scores[i] = Math.exp(scores[i]);
+				sum += scores[i];
+			}
+			
+			for (i=0; i<label_size; i++)
+				scores[i] /= (1 + sum);
+		}
+		
 		return scores;
 	}
-
+	
 	@Override
 	public Prediction predictBest(Vector x)
 	{
@@ -112,47 +125,47 @@ public class MultinomialWeightVector extends WeightVector
 		int      label  = DSUtils.maxIndex(scores);
 		return new Prediction(label, scores[label]);
 	}
-
-	@Override
-	public Pair<Prediction,Prediction> predictTop2(Vector x)
-	{
-		double[] scores = scores(x);
-		Prediction fst, snd;
-		
-		if (scores[0] < scores[1])
-		{
-			fst = new Prediction(1, scores[1]);
-			snd = new Prediction(0, scores[0]);
-		}
-		else
-		{
-			fst = new Prediction(0, scores[0]);			
-			snd = new Prediction(1, scores[1]);
-		}
-		
-		for (int i=2; i<label_size; i++)
-		{
-			if (fst.getScore() < scores[i])
-			{
-				snd.copy(fst);
-				fst.set(i, scores[i]);
-			}
-			else if (snd.getScore() < scores[i])
-				snd.set(i, scores[i]);
-		}
-		
-		return new Pair<Prediction,Prediction>(fst, snd);
-	}
-
-	@Override
-	public Prediction[] predictAll(Vector x)
-	{
-		double[] scores = scores(x);
-		Prediction[] ps = new Prediction[label_size];
-		
-		for (int i=0; i<label_size; i++)
-			ps[i] = new Prediction(i, scores[i]);
-		
-		return ps;
-	}
+	
+//	@Override
+//	public Pair<Prediction,Prediction> predictTop2(Vector x)
+//	{
+//		double[] scores = scores(x);
+//		Prediction fst, snd;
+//		
+//		if (scores[0] < scores[1])
+//		{
+//			fst = new Prediction(1, scores[1]);
+//			snd = new Prediction(0, scores[0]);
+//		}
+//		else
+//		{
+//			fst = new Prediction(0, scores[0]);			
+//			snd = new Prediction(1, scores[1]);
+//		}
+//		
+//		for (int i=2; i<label_size; i++)
+//		{
+//			if (fst.getScore() < scores[i])
+//			{
+//				snd.copy(fst);
+//				fst.set(i, scores[i]);
+//			}
+//			else if (snd.getScore() < scores[i])
+//				snd.set(i, scores[i]);
+//		}
+//		
+//		return new Pair<Prediction,Prediction>(fst, snd);
+//	}
+//
+//	@Override
+//	public Prediction[] predictAll(Vector x)
+//	{
+//		double[] scores = scores(x);
+//		Prediction[] ps = new Prediction[label_size];
+//		
+//		for (int i=0; i<label_size; i++)
+//			ps[i] = new Prediction(i, scores[i]);
+//		
+//		return ps;
+//	}
 }

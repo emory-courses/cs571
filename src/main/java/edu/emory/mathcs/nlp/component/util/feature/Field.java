@@ -32,6 +32,7 @@ public enum Field
 
 	// part-of-speech tagging features
 	lemma,
+	feats,
 	pos_tag,
 	ambiguity_class,
 	
@@ -39,8 +40,6 @@ public enum Field
 	dependency_label,
 	distance,
 	
-	
 	// more
-	feats,
 	binary;	// set
 }

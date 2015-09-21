@@ -90,24 +90,23 @@ public class NLPNode implements Serializable
 	
 //	============================== WORD FORM ==============================
 	
-	/** @return the word-form. */
 	public String getWordForm()
 	{
 		return word_form;
 	}
 	
-	public boolean isWordForm(String form)
-	{
-		return form.equals(word_form);
-	}
-	
-	/** @return the old word-form. */
+	/** @return the previous word-form. */
 	public String setWordForm(String form)
 	{
 		simplified_word_form = StringUtils.toSimplifiedForm(form);
 		String t = word_form;
 		word_form = form;
 		return t;
+	}
+
+	public boolean isWordForm(String form)
+	{
+		return form.equals(word_form);
 	}
 	
 //	============================== WORD FORM VARIATIONS ==============================
@@ -241,6 +240,7 @@ public class NLPNode implements Serializable
 			list.add(Orthographic.HAS_OTHER_PUNCT);
 	}
 	
+	/** @return the value of the specific field. */
 	public String getValue(Field field)
 	{
 		switch (field)

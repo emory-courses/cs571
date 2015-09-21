@@ -21,6 +21,7 @@ import org.junit.Test;
 
 import edu.emory.mathcs.nlp.common.util.IOUtils;
 import edu.emory.mathcs.nlp.common.util.Language;
+import edu.emory.mathcs.nlp.component.util.train.Aggregation;
 
 /**
  * @author Jinho D. Choi ({@code jinho.choi@emory.edu})
@@ -30,15 +31,20 @@ public class POSConfigTest
 	@Test
 	public void test()
 	{
-		String filename = "src/main/resources/configuration/config_train_pos.xml";
+		String filename = "src/test/resources/configuration/config_train_pos.xml";
 		POSConfig config = new POSConfig(IOUtils.createFileInputStream(filename));
 		POSIndex index = (POSIndex)config.getTSVIndex();
 
-		assertEquals( 0, index.form);
-		assertEquals( 1, index.pos);
+		assertEquals( 1, index.form);
+		assertEquals( 3, index.pos);
+		assertEquals(-1, index.lemma);
 		assertEquals(-1, index.feats);
 		
-		assertEquals(0.4d, config.getAmbiguityClassThreshold(), 0);
+		assertEquals(0.4, config.getAmbiguityClassThreshold(), 0);
 		assertEquals(Language.ENGLISH, config.getLanguage());
+		
+		Aggregation agg = config.getAggregation();
+		assertEquals(0.01, agg.getToleranceDelta(), 0);
+		assertEquals(5   , agg.getMaxTolerance());
 	}
 }
