@@ -25,9 +25,9 @@ import edu.emory.mathcs.nlp.learn.weight.WeightVector;
 /**
  * @author Jinho D. Choi ({@code jinho.choi@emory.edu})
  */
-public class SoftmaxRegression extends StochasticGradientDescent
+public class LogisticRegression extends StochasticGradientDescent
 {
-	public SoftmaxRegression(WeightVector weightVector, boolean average, double learningRate)
+	public LogisticRegression(WeightVector weightVector, boolean average, double learningRate)
 	{
 		super(weightVector, average, learningRate);
 	}

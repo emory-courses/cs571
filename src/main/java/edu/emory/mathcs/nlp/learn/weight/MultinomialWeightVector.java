@@ -17,6 +17,8 @@ package edu.emory.mathcs.nlp.learn.weight;
 
 import java.util.Arrays;
 
+import org.apache.commons.math3.util.FastMath;
+
 import edu.emory.mathcs.nlp.common.util.DSUtils;
 import edu.emory.mathcs.nlp.learn.util.Prediction;
 import edu.emory.mathcs.nlp.learn.vector.IndexValuePair;
@@ -107,12 +109,12 @@ public class MultinomialWeightVector extends WeightVector
 			
 			for (i=0; i<label_size; i++)
 			{
-				scores[i] = Math.exp(scores[i]);
+				scores[i] = FastMath.exp(scores[i]);
 				sum += scores[i];
 			}
 			
 			for (i=0; i<label_size; i++)
-				scores[i] /= (1 + sum);
+				scores[i] /= sum;
 		}
 		
 		return scores;

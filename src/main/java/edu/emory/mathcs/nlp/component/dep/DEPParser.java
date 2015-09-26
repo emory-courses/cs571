@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package edu.emory.mathcs.nlp.component.pos;
+package edu.emory.mathcs.nlp.component.dep;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -28,12 +28,11 @@ import edu.emory.mathcs.nlp.learn.vector.StringVector;
 /**
  * @author Jinho D. Choi ({@code jinho.choi@emory.edu})
  */
-public class POSTagger<N extends POSNode> extends NLPComponent<N,POSState<N>>
+public class DEPParser<N extends DEPNode> extends NLPComponent<N,DEPState<N>>
 {
-	private static final long serialVersionUID = -7926217238116337203L;
-	private AmbiguityClassMap ambiguity_class_map;
-	
-	public POSTagger(StringModel model)
+	private static final long serialVersionUID = 7031031976396726276L;
+
+	public DEPParser(StringModel model)
 	{
 		super(new StringModel[]{model});
 	}
@@ -41,37 +40,21 @@ public class POSTagger<N extends POSNode> extends NLPComponent<N,POSState<N>>
 //	============================== LEXICONS ==============================
 
 	@Override
-	protected void readLexicons(ObjectInputStream in) throws IOException, ClassNotFoundException
-	{
-		ambiguity_class_map = (AmbiguityClassMap)in.readObject();
-	}
+	protected void readLexicons(ObjectInputStream in) throws IOException, ClassNotFoundException {}
 
 	@Override
-	protected void writeLexicons(ObjectOutputStream out) throws IOException
-	{
-		out.writeObject(ambiguity_class_map);
-	}
-	
-	public AmbiguityClassMap getAmbiguityClassMap()
-	{
-		return ambiguity_class_map;
-	}
-	
-	public void setAmbiguityClassMap(AmbiguityClassMap map)
-	{
-		ambiguity_class_map = map;
-	}
+	protected void writeLexicons(ObjectOutputStream out) throws IOException {}
 	
 //	============================== PROCESS ==============================
 	
 	@Override
-	protected POSState<N> createState(N[] nodes)
+	protected DEPState<N> createState(N[] nodes)
 	{
-		return new POSState<>(nodes, ambiguity_class_map);
+		return new DEPState<>(nodes);
 	}
 
 	@Override
-	protected StringPrediction getModelPrediction(POSState<N> state, StringVector vector)
+	protected StringPrediction getModelPrediction(DEPState<N> state, StringVector vector)
 	{
 		return models[0].predictBest(vector);
 	}

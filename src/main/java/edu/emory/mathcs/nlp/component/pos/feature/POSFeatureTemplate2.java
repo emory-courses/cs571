@@ -13,17 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package edu.emory.mathcs.nlp.benchmark.pos;
+package edu.emory.mathcs.nlp.component.pos.feature;
 
 import edu.emory.mathcs.nlp.component.pos.POSFeatureTemplate;
-import edu.emory.mathcs.nlp.component.pos.POSNode;
 import edu.emory.mathcs.nlp.component.util.feature.FeatureItem;
 import edu.emory.mathcs.nlp.component.util.feature.Field;
 
 /**
+ * Minimum features.
  * @author Jinho D. Choi ({@code jinho.choi@emory.edu})
  */
-public class POSFeatureTemplate0<N extends POSNode> extends POSFeatureTemplate<N>
+public class POSFeatureTemplate2 extends POSFeatureTemplate
 {
 	private static final long serialVersionUID = 8265193521014290387L;
 

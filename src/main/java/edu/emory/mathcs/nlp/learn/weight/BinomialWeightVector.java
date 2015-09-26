@@ -17,6 +17,7 @@ package edu.emory.mathcs.nlp.learn.weight;
 
 import java.util.Arrays;
 
+import edu.emory.mathcs.nlp.common.util.MathUtils;
 import edu.emory.mathcs.nlp.learn.util.Prediction;
 import edu.emory.mathcs.nlp.learn.vector.IndexValuePair;
 import edu.emory.mathcs.nlp.learn.vector.Vector;
@@ -75,7 +76,7 @@ public class BinomialWeightVector extends WeightVector
 				score += weight_vector[p.getIndex()] * p.getValue();
 		}
 		
-		return isRegression() ? sigmoid_table.get(score) : score;
+		return isRegression() ? MathUtils.sigmoid(score) : score;
 	}
 	
 	@Override

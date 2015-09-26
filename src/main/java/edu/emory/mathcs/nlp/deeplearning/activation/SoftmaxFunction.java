@@ -13,34 +13,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package edu.emory.mathcs.nlp.component.util.feature;
+package edu.emory.mathcs.nlp.deeplearning.activation;
 
+import org.apache.commons.math3.util.FastMath;
 
 /**
  * @author Jinho D. Choi ({@code jinho.choi@emory.edu})
  */
-public enum Field
+public class SoftmaxFunction implements ActivationFunction
 {
-	// form features
-	word_form,
-	simplified_word_form,
-	uncapitalized_simplified_word_form,
-	word_shape,
-	orthographic,	// set
-	prefix,
-	suffix,
-
-	// part-of-speech tagging features
-	lemma,
-	feats,
-	pos_tag,
-	ambiguity_class,
-	
-	// dependency parsing features
-	dependency_label,
-	distance,
-	valency,
-	
-	// more
-	binary;	// set
+	@Override
+	public void transform(double[] scores)
+	{
+		double sum = 0;
+		
+		for (int i=0; i<scores.length; i++)
+		{
+			scores[i] = FastMath.exp(scores[i]);
+			sum += scores[i];
+		}
+		
+		for (int i=0; i<scores.length; i++)
+			scores[i] /= sum;
+	}
 }

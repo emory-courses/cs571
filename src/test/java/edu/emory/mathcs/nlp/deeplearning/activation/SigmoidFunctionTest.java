@@ -13,16 +13,30 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package edu.emory.mathcs.nlp.component.util.node;
+package edu.emory.mathcs.nlp.deeplearning.activation;
+
 
 /**
  * @author Jinho D. Choi ({@code jinho.choi@emory.edu})
  */
-public enum DirectionType
+public class SigmoidFunctionTest
 {
-	l,	// left
-	r,	// right
-	u,	// up
-	d,	// down
-	a;	// all
+//	@Test
+	public void test()
+	{
+		SigmoidFunction s1 = new SigmoidFunction(3500, -6, 6);
+		double d1, d2, diff, sum = 0; int t = 0;
+		
+		for (double d=-3; d<=3; d+=0.01)
+		{
+			d1 = s1.get(d);
+			d2 = 1d / (1d + Math.exp(-d));
+			diff = Math.abs(d1 - d2);
+			sum += diff; t++;
+			System.out.printf("%10.4f: %5.4f %5.4f %5.4f\n", d, diff, d2, d1);
+		}
+		
+		System.out.println(s1.get(0));
+		System.out.println(sum/t);
+	}
 }

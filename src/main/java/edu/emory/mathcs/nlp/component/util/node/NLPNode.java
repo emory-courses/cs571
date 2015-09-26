@@ -36,6 +36,8 @@ public class NLPNode implements Serializable
 	protected FeatMap feat_map;
 	protected int     id;
 	
+	public NLPNode() {}
+	
 	public NLPNode(String form)
 	{
 		setWordForm(form);

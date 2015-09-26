@@ -13,37 +13,34 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package edu.emory.mathcs.nlp.component.util.eval;
+package edu.emory.mathcs.nlp.component.dep;
 
 import edu.emory.mathcs.nlp.common.util.MathUtils;
+import edu.emory.mathcs.nlp.component.util.eval.Eval;
 
 /**
  * @author Jinho D. Choi ({@code jinho.choi@emory.edu})
  */
-public class AccuracyEval implements Eval
+public class DEPEval implements Eval
 {
-	private int correct;
+	private int las, uas;
 	private int total;
 	
-	public AccuracyEval()
+	public DEPEval()
 	{
 		clear();
 	}
 	
-	public void add(int correct, int total)
+	public void add(int las, int uas, int total)
 	{
-		this.correct += correct;
-		this.total   += total;
+		this.las   += las;
+		this.uas   += uas;
+		this.total += total;
 	}
 	
 	public void clear()
 	{
-		correct = total = 0;
-	}
-	
-	public int correct()
-	{
-		return correct;
+		las = uas = total = 0;
 	}
 	
 	public int total()
@@ -51,15 +48,25 @@ public class AccuracyEval implements Eval
 		return total;
 	}
 	
+	public double getLAS()
+	{
+		return MathUtils.accuracy(las, total);
+	}
+	
+	public double getUAS()
+	{
+		return MathUtils.accuracy(uas, total);
+	}
+	
 	@Override
 	public double score()
 	{
-		return MathUtils.accuracy(correct, total);
+		return getLAS();
 	}
 	
 	@Override
 	public String toString()
 	{
-		return String.format("ACC = %5.2f", score());
+		return String.format("LAS = %5.2f, UAS = %5.2f", getLAS(), getUAS());
 	}
 }

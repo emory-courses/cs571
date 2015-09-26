@@ -24,12 +24,13 @@ import edu.emory.mathcs.nlp.component.util.eval.Eval;
 import edu.emory.mathcs.nlp.component.util.feature.FeatureTemplate;
 import edu.emory.mathcs.nlp.component.util.state.NLPState;
 import edu.emory.mathcs.nlp.learn.model.StringModel;
+import edu.emory.mathcs.nlp.learn.util.StringPrediction;
 import edu.emory.mathcs.nlp.learn.vector.StringVector;
 
 /**
  * @author Jinho D. Choi ({@code jinho.choi@emory.edu})
  */
-public abstract class NLPComponent<N,L,S extends NLPState<N,L>> implements Serializable
+public abstract class NLPComponent<N,S extends NLPState<N>> implements Serializable
 {
 	private static final long serialVersionUID = 4546728532759275929L;
 	protected FeatureTemplate<N,S> feature_template;
@@ -141,27 +142,32 @@ public abstract class NLPComponent<N,L,S extends NLPState<N,L>> implements Seria
 	
 	/** @return the processing state for the input nodes. */
 	protected abstract S createState(N[] nodes);
-	/** @return the gold-standard label for training; otherwise, the predicted label. */
-	protected abstract L getLabel(S state, StringVector vector);
+	/** @return the prediction made by the statistical model(s). */
+	protected abstract StringPrediction getModelPrediction(S state, StringVector vector);
 	/** Adds a training instance (label, x) to the statistical model. */
-	protected abstract void addInstance(L label, StringVector vector);
+	protected abstract void addInstance(String label, StringVector vector);
 	
 	public void process(N[] nodes)
 	{
 		S state = createState(nodes);
 		feature_template.setState(state);
-		if (!isDecode()) state.clearGoldLabels();
+		if (!isDecode()) state.saveOracle();
 		
 		while (!state.isTerminate())
 		{
 			StringVector vector = extractFeatures(state);
-			if (isTrainOrAggregate()) addInstance(state.getGoldLabel(), vector);
-			L label = getLabel(state, vector);
-			state.setLabel(label);
-			state.next();
+			if (isTrainOrAggregate()) addInstance(state.getOraclePrediction(), vector);
+			StringPrediction label = getPrediction(state, vector);
+			state.next(label);
 		}
 		
 		if (isEvaluate()) state.evaluate(eval);
+	}
+	
+	/** @return the oracle prediction for training; otherwise, the model predict. */
+	protected StringPrediction getPrediction(S state, StringVector vector)
+	{
+		return isTrain() ? new StringPrediction(state.getOraclePrediction(), 1) : getModelPrediction(state, vector);
 	}
 	
 	/** @return the vector consisting of all features extracted from the state. */

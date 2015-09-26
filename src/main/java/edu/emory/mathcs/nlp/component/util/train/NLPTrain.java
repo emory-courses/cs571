@@ -40,7 +40,7 @@ import edu.emory.mathcs.nlp.learn.optimization.OptimizerType;
  * Provide instances and methods for training NLP components.
  * @author Jinho D. Choi ({@code jinho.choi@emory.edu})
  */
-public abstract class NLPTrain<N,L,S extends NLPState<N,L>>
+public abstract class NLPTrain<N,S extends NLPState<N>>
 {
 	@Option(name="-c", usage="confinguration file (required)", required=true, metaVar="<filename>")
 	public String configuration_file;
@@ -65,19 +65,19 @@ public abstract class NLPTrain<N,L,S extends NLPState<N,L>>
 	}
 	
 	/** Collects necessary lexicons for the component before training. */
-	public abstract void collect(TSVReader<N> reader, List<String> inputFiles, NLPComponent<N,L,S> component, NLPConfig<N> configuration);
+	public abstract void collect(TSVReader<N> reader, List<String> inputFiles, NLPComponent<N,S> component, NLPConfig<N> configuration);
 	protected abstract NLPConfig<N> createConfiguration(String filename);
 	protected abstract FeatureTemplate<N,S> createFeatureTemplate();
-	protected abstract NLPComponent<N,L,S> createComponent();
+	protected abstract NLPComponent<N,S> createComponent();
 	protected abstract Eval createEvaluator();
 	
 	public void train()
 	{
-		List<String>        trainFiles    = FileUtils.getFileList(train_path  , train_ext);
-		List<String>        developFiles  = FileUtils.getFileList(develop_path, develop_ext);
-		NLPConfig<N>        configuration = createConfiguration(configuration_file);
-		TSVReader<N>        reader        = configuration.getTSVReader();
-		NLPComponent<N,L,S> component     = createComponent();
+		List<String>      trainFiles    = FileUtils.getFileList(train_path  , train_ext);
+		List<String>      developFiles  = FileUtils.getFileList(develop_path, develop_ext);
+		NLPConfig<N>      configuration = createConfiguration(configuration_file);
+		TSVReader<N>      reader        = configuration.getTSVReader();
+		NLPComponent<N,S> component     = createComponent();
 		
 		component.setFeatureTemplate(createFeatureTemplate());
 		component.setEval(createEvaluator());
@@ -86,7 +86,7 @@ public abstract class NLPTrain<N,L,S extends NLPState<N,L>>
 		if (model_file != null) save(component);
 	}
 	
-	public void train(TSVReader<N> reader, List<String> trainFiles, List<String> developFiles, NLPConfig<N> configuration, NLPComponent<N,L,S> component)
+	public void train(TSVReader<N> reader, List<String> trainFiles, List<String> developFiles, NLPConfig<N> configuration, NLPComponent<N,S> component)
 	{
 		BinUtils.LOG.info("Collecting lexicons:\n");
 		collect(reader, trainFiles, component, configuration);
@@ -124,7 +124,7 @@ public abstract class NLPTrain<N,L,S extends NLPState<N,L>>
 		BinUtils.LOG.info(String.format("\nFinal score: %5.2f\n", bestScore));
 	}
 	
-	public double train(TSVReader<N> reader, List<String> developFiles, NLPComponent<N,?,?> component, NLPConfig<N> configuration)
+	public double train(TSVReader<N> reader, List<String> developFiles, NLPComponent<N,?> component, NLPConfig<N> configuration)
 	{
 		StringModel[] models = component.getModels();
 		Optimizer[] optimizers = configuration.getOptimizers(models);
@@ -145,7 +145,7 @@ public abstract class NLPTrain<N,L,S extends NLPState<N,L>>
 	}
 	
 	/** Called by {@link #train(TSVReader, List, NLPComponent, NLPConfig)}. */
-	protected double trainOnline(TSVReader<N> reader, List<String> developFiles, NLPComponent<N,?,?> component, Optimizer optimizer, StringModel model)
+	protected double trainOnline(TSVReader<N> reader, List<String> developFiles, NLPComponent<N,?> component, Optimizer optimizer, StringModel model)
 	{
 		Eval eval = component.getEval();
 		double prevScore = 0, currScore;
@@ -176,14 +176,14 @@ public abstract class NLPTrain<N,L,S extends NLPState<N,L>>
 	}
 	
 	/** Called by {@link #train(TSVReader, List, NLPComponent, NLPConfig)}. */
-	protected double trainOneVsAll(TSVReader<N> reader, List<String> developFiles, NLPComponent<N,?,?> component, Optimizer optimizer, StringModel model)
+	protected double trainOneVsAll(TSVReader<N> reader, List<String> developFiles, NLPComponent<N,?> component, Optimizer optimizer, StringModel model)
 	{
 		Eval eval = component.getEval();
 
 		eval.clear();
 		optimizer.train(model.getInstanceList());
 		iterate(reader, developFiles, nodes -> component.process(nodes));
-		BinUtils.LOG.info(String.format("- score = %5.2f\n", eval.score()));
+		BinUtils.LOG.info(String.format("- %s\n", eval.toString()));
 		return eval.score();
 	}
 	
@@ -206,7 +206,7 @@ public abstract class NLPTrain<N,L,S extends NLPState<N,L>>
 		}
 	}
 	
-	public void save(NLPComponent<N,L,S> component)
+	public void save(NLPComponent<N,S> component)
 	{
 		ObjectOutputStream out = IOUtils.createObjectXZBufferedOutputStream(model_file);
 		

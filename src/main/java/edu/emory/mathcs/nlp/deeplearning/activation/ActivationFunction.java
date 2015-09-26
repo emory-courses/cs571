@@ -13,34 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package edu.emory.mathcs.nlp.component.util.feature;
-
+package edu.emory.mathcs.nlp.deeplearning.activation;
 
 /**
  * @author Jinho D. Choi ({@code jinho.choi@emory.edu})
  */
-public enum Field
+public interface ActivationFunction
 {
-	// form features
-	word_form,
-	simplified_word_form,
-	uncapitalized_simplified_word_form,
-	word_shape,
-	orthographic,	// set
-	prefix,
-	suffix,
-
-	// part-of-speech tagging features
-	lemma,
-	feats,
-	pos_tag,
-	ambiguity_class,
-	
-	// dependency parsing features
-	dependency_label,
-	distance,
-	valency,
-	
-	// more
-	binary;	// set
+	/** Transforms all values in the array according to this activation function. */
+	public void transform(double[] scores);
 }

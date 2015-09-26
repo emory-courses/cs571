@@ -21,6 +21,7 @@ import java.util.function.Consumer;
 
 import edu.emory.mathcs.nlp.common.util.FileUtils;
 import edu.emory.mathcs.nlp.common.util.IOUtils;
+import edu.emory.mathcs.nlp.component.pos.feature.POSFeatureTemplate1;
 import edu.emory.mathcs.nlp.component.util.NLPFlag;
 import edu.emory.mathcs.nlp.component.util.eval.AccuracyEval;
 import edu.emory.mathcs.nlp.component.util.eval.Eval;
@@ -62,7 +63,7 @@ public class POSDevelop
 		POSTagger<POSNode> tagger = new POSTagger<>(model);
 		tagger.setFlag(NLPFlag.TRAIN);
 		tagger.setAmbiguityClassMap(ambi);
-		tagger.setFeatureTemplate(new POSFeatureTemplate<>());
+		tagger.setFeatureTemplate(new POSFeatureTemplate1());
 		iterate(reader, trainFiles, nodes -> tagger.process(nodes));
 		model.vectorize(label_cutoff, feature_cutoff, false);
 		

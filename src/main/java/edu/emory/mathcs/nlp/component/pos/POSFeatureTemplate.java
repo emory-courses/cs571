@@ -20,12 +20,11 @@ import java.util.Arrays;
 import edu.emory.mathcs.nlp.common.util.StringUtils;
 import edu.emory.mathcs.nlp.component.util.feature.FeatureItem;
 import edu.emory.mathcs.nlp.component.util.feature.FeatureTemplate;
-import edu.emory.mathcs.nlp.component.util.feature.Field;
 
 /**
  * @author Jinho D. Choi ({@code jinho.choi@emory.edu})
  */
-public class POSFeatureTemplate<N extends POSNode> extends FeatureTemplate<N,POSState<N>>
+public abstract class POSFeatureTemplate extends FeatureTemplate<POSNode,POSState<POSNode>>
 {
 	private static final long serialVersionUID = -243334323533999837L;
 	
@@ -34,65 +33,14 @@ public class POSFeatureTemplate<N extends POSNode> extends FeatureTemplate<N,POS
 		init();
 	}
 	
-	protected void init()
-	{
-		// 1-gram features 
-		add(new FeatureItem<>(-2, Field.simplified_word_form));
-		add(new FeatureItem<>(-1, Field.simplified_word_form));
-		add(new FeatureItem<>( 0, Field.simplified_word_form));
-		add(new FeatureItem<>( 1, Field.simplified_word_form));
-		add(new FeatureItem<>( 2, Field.simplified_word_form));
-
-		add(new FeatureItem<>(-1, Field.word_shape, 2));
-		add(new FeatureItem<>( 0, Field.word_shape, 2));
-		add(new FeatureItem<>( 1, Field.word_shape, 2));
-
-		add(new FeatureItem<>(-3, Field.pos_tag));
-		add(new FeatureItem<>(-2, Field.pos_tag));
-		add(new FeatureItem<>(-1, Field.pos_tag));
-		add(new FeatureItem<>( 0, Field.ambiguity_class));
-		add(new FeatureItem<>( 1, Field.ambiguity_class));
-		add(new FeatureItem<>( 2, Field.ambiguity_class));
-		add(new FeatureItem<>( 3, Field.ambiguity_class));
-
-		// 2-gram features
-		add(new FeatureItem<>(-2, Field.uncapitalized_simplified_word_form), new FeatureItem<>(-1, Field.uncapitalized_simplified_word_form));
-		add(new FeatureItem<>(-1, Field.uncapitalized_simplified_word_form), new FeatureItem<>( 0, Field.uncapitalized_simplified_word_form));
-		add(new FeatureItem<>( 0, Field.uncapitalized_simplified_word_form), new FeatureItem<>( 1, Field.uncapitalized_simplified_word_form));
-		add(new FeatureItem<>( 1, Field.uncapitalized_simplified_word_form), new FeatureItem<>( 2, Field.uncapitalized_simplified_word_form));
-		add(new FeatureItem<>(-1, Field.uncapitalized_simplified_word_form), new FeatureItem<>(+1, Field.uncapitalized_simplified_word_form));
-
-		add(new FeatureItem<>(-2, Field.pos_tag)        , new FeatureItem<>(-1, Field.pos_tag));
-		add(new FeatureItem<>(-1, Field.pos_tag)        , new FeatureItem<>( 1, Field.ambiguity_class));
-		add(new FeatureItem<>( 1, Field.ambiguity_class), new FeatureItem<>( 2, Field.ambiguity_class));
-
-		// 3-gram features
-		add(new FeatureItem<>(-2, Field.pos_tag), new FeatureItem<>(-1, Field.pos_tag)        , new FeatureItem<>(0, Field.ambiguity_class));
-		add(new FeatureItem<>(-2, Field.pos_tag), new FeatureItem<>(-1, Field.pos_tag)        , new FeatureItem<>(1, Field.ambiguity_class));
-		add(new FeatureItem<>(-1, Field.pos_tag), new FeatureItem<>( 0, Field.ambiguity_class), new FeatureItem<>(1, Field.ambiguity_class));
-		add(new FeatureItem<>(-1, Field.pos_tag), new FeatureItem<>( 1, Field.ambiguity_class), new FeatureItem<>(2, Field.ambiguity_class));
-
-		// affix features
-		add(new FeatureItem<>(0, Field.prefix, 2));
-		add(new FeatureItem<>(0, Field.prefix, 3));
-		add(new FeatureItem<>(0, Field.suffix, 1));
-		add(new FeatureItem<>(0, Field.suffix, 2));
-		add(new FeatureItem<>(0, Field.suffix, 3));
-		add(new FeatureItem<>(0, Field.suffix, 4));
-		
-		// orthographic features
-		addSet(new FeatureItem<>(0, Field.orthographic));
-		
-		// boolean features
-		addSet(new FeatureItem<>(0, Field.binary));
-	}
+	protected abstract void init();
 	
 //	========================= FEATURE EXTRACTORS =========================
 	
 	@Override
 	protected String getFeature(FeatureItem<?> item)
 	{
-		N node = state.getNode(item.window);
+		POSNode node = state.getNode(item.window);
 		if (node == null) return null;
 		
 		switch (item.field)
@@ -114,7 +62,7 @@ public class POSFeatureTemplate<N extends POSNode> extends FeatureTemplate<N,POS
 	@Override
 	protected String[] getFeatures(FeatureItem<?> item)
 	{
-		N node = state.getNode(item.window);
+		POSNode node = state.getNode(item.window);
 		if (node == null) return null;
 		
 		switch (item.field)
@@ -126,26 +74,26 @@ public class POSFeatureTemplate<N extends POSNode> extends FeatureTemplate<N,POS
 	}
 	
 	/** The prefix cannot be the entire word (e.g., getPrefix("abc", 3) -> null). */
-	protected String getPrefix(N node, int n)
+	protected String getPrefix(POSNode node, int n)
 	{
 		String s = node.getSimplifiedWordForm();
 		return (n < s.length()) ? StringUtils.toLowerCase(s.substring(0, n)) : null;
 	}
 	
 	/** The suffix cannot be the entire word (e.g., getSuffix("abc", 3) -> null). */
-	protected String getSuffix(N node, int n)
+	protected String getSuffix(POSNode node, int n)
 	{
 		String s = node.getSimplifiedWordForm();
 		return (n < s.length()) ? StringUtils.toLowerCase(s.substring(s.length()-n)) : null;
 	}
 	
-	protected String[] getOrthographicFeatures(N node)
+	protected String[] getOrthographicFeatures(POSNode node)
 	{
 		String[] t = node.getOrthographic(state.isFirst(node));
 		return t.length == 0 ? null : t;
 	}
 	
-	protected String[] getBinaryFeatures(N node)
+	protected String[] getBinaryFeatures(POSNode node)
 	{
 		String[] values = new String[2];
 		int index = 0;

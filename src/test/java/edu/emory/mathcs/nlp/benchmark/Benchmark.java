@@ -15,7 +15,7 @@
  */
 package edu.emory.mathcs.nlp.benchmark;
 
-import java.util.Arrays;
+import java.util.Random;
 
 import org.junit.Test;
 
@@ -27,16 +27,18 @@ public class Benchmark
 	@Test
 	public void speed()
 	{
-		final int iter = 1000;
-		long st, et;
+		Random rand = new Random();
 		
-		double[] f = new double[100000];
-
-		st = System.currentTimeMillis();
-		for (int i=0; i<iter; i++)
-			Arrays.fill(f, 1);
-//			IntStream.range(0, f.length).parallel().forEach(n -> { f[n] = 1; });
-		et = System.currentTimeMillis();
-		System.out.println(et-st);
+		for (int i=0; i<10; i++)
+		{
+			for (int j=0; j<20; j++)
+			{
+				System.out.print((int)Math.abs(rand.nextInt())%2);
+			}
+			
+			System.out.println();
+			
+		}
+		
 	}
 }

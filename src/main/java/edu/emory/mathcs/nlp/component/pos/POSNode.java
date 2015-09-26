@@ -31,6 +31,8 @@ public class POSNode extends NLPNode
 	protected String pos_tag;
 	protected String lemma;
 	
+	public POSNode() {}
+	
 	public POSNode(String form)
 	{
 		super(form);
@@ -91,7 +93,7 @@ public class POSNode extends NLPNode
 	
 	public boolean isLemma(String lemma)
 	{
-		return lemma.equals(lemma);
+		return lemma.equals(this.lemma);
 	}
 	
 //	============================== HELPERS ==============================

@@ -32,11 +32,6 @@ public class DEPIndex implements TSVIndex<DEPNode>
 	public int head_id;
 	public int deprel;
 	
-	public DEPIndex(int form, int lemma, int pos, int feats)
-	{
-		set(form, lemma, pos, feats, -1, -1);
-	}
-	
 	public DEPIndex(int form, int lemma, int pos, int feats, int headID, int deprel)
 	{
 		set(form, lemma, pos, feats, headID, deprel);
@@ -56,15 +51,17 @@ public class DEPIndex implements TSVIndex<DEPNode>
 	public DEPNode[] toNodeList(List<String[]> values)
 	{
 		int i, size = values.size();
-		DEPNode[] nodes = new DEPNode[size];
+		DEPNode[] nodes = new DEPNode[size+1];
 		
-		for (i=0; i<size; i++)
-			nodes[i] = create(values.get(i), i+1);
+		nodes[0] = new DEPNode();
+		
+		for (i=1; i<=size; i++)
+			nodes[i] = create(values.get(i-1), i);
 		
 		if (head_id >= 0)
 		{
-			for (i=0; i<size; i++)
-				initHead(i, nodes, values.get(i));
+			for (i=1; i<=size; i++)
+				initHead(i, nodes, values.get(i-1));
 		}
 		
 		return nodes;
@@ -81,8 +78,7 @@ public class DEPIndex implements TSVIndex<DEPNode>
 	
 	private void initHead(int id, DEPNode[] nodes, String[] values)
 	{
-		int headID = Integer.parseInt(values[head_id]) - 1;
-		DEPNode head = (headID >= 0) ? nodes[headID] : DEPNode.ROOT;
-		nodes[id].setHead(head, values[deprel]);
+		int headID = Integer.parseInt(values[head_id]);
+		nodes[id].setHead(nodes[headID], values[deprel]);
 	}
 }

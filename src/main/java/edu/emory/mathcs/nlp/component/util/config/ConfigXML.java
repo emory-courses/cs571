@@ -41,7 +41,6 @@ public interface ConfigXML
 	String FIELD_NAMENT	= "nament";
 	String FIELD_COREF	= "coref";
 	String FIELD_XHEADS	= "xheads";
-	String FIELD_SEQTAG	= "seqtag";
 
 //	========================== TRAINER ==========================
 

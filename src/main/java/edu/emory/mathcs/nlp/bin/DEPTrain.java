@@ -17,15 +17,12 @@ package edu.emory.mathcs.nlp.bin;
 
 import java.util.List;
 
-import edu.emory.mathcs.nlp.common.util.BinUtils;
 import edu.emory.mathcs.nlp.common.util.IOUtils;
-import edu.emory.mathcs.nlp.component.pos.AmbiguityClassMap;
-import edu.emory.mathcs.nlp.component.pos.POSConfig;
-import edu.emory.mathcs.nlp.component.pos.POSNode;
-import edu.emory.mathcs.nlp.component.pos.POSState;
-import edu.emory.mathcs.nlp.component.pos.POSTagger;
-import edu.emory.mathcs.nlp.component.pos.feature.POSFeatureTemplate1;
-import edu.emory.mathcs.nlp.component.pos.feature.POSFeatureTemplate0;
+import edu.emory.mathcs.nlp.component.dep.DEPConfig;
+import edu.emory.mathcs.nlp.component.dep.DEPNode;
+import edu.emory.mathcs.nlp.component.dep.DEPParser;
+import edu.emory.mathcs.nlp.component.dep.DEPState;
+import edu.emory.mathcs.nlp.component.dep.feature.DEPFeatureTemplate0;
 import edu.emory.mathcs.nlp.component.util.NLPComponent;
 import edu.emory.mathcs.nlp.component.util.config.NLPConfig;
 import edu.emory.mathcs.nlp.component.util.eval.AccuracyEval;
@@ -39,17 +36,17 @@ import edu.emory.mathcs.nlp.learn.weight.MultinomialWeightVector;
 /**
  * @author Jinho D. Choi ({@code jinho.choi@emory.edu})
  */
-public class POSTrain extends NLPTrain<POSNode,POSState<POSNode>>
+public class DEPTrain extends NLPTrain<DEPNode,DEPState<DEPNode>>
 {
-	public POSTrain(String[] args)
+	public DEPTrain(String[] args)
 	{
 		super(args);
 	}
 
 	@Override
-	protected NLPConfig<POSNode> createConfiguration(String filename)
+	protected NLPConfig<DEPNode> createConfiguration(String filename)
 	{
-		return new POSConfig(IOUtils.createFileInputStream(filename));
+		return new DEPConfig(IOUtils.createFileInputStream(filename));
 	}
 	
 	@Override
@@ -59,38 +56,26 @@ public class POSTrain extends NLPTrain<POSNode,POSState<POSNode>>
 	}
 	
 	@Override
-	protected NLPComponent<POSNode,POSState<POSNode>> createComponent()
+	protected NLPComponent<DEPNode,DEPState<DEPNode>> createComponent()
 	{
-		return new POSTagger<>(new StringModel(new MultinomialWeightVector()));
+		return new DEPParser<>(new StringModel(new MultinomialWeightVector()));
 	}
 	
 	@Override
-	protected FeatureTemplate<POSNode,POSState<POSNode>> createFeatureTemplate()
+	protected FeatureTemplate<DEPNode,DEPState<DEPNode>> createFeatureTemplate()
 	{
 		switch (feature_template)
 		{
-		case 0: return new POSFeatureTemplate0();
-		case 1: return new POSFeatureTemplate1();
+		case 0: return new DEPFeatureTemplate0();
 		default: throw new IllegalArgumentException("Unknown feature template: "+feature_template);
 		}
 	}
 	
 	@Override
-	public void collect(TSVReader<POSNode> reader, List<String> inputFiles, NLPComponent<POSNode,POSState<POSNode>> component, NLPConfig<POSNode> configuration)
-	{
-		POSTagger<POSNode> tagger = (POSTagger<POSNode>)component;
-		POSConfig config = (POSConfig)configuration;
-		AmbiguityClassMap ac = new AmbiguityClassMap();
-		
-		iterate(reader, inputFiles, nodes -> ac.add(nodes));
-		ac.expand(config.getAmbiguityClassThreshold());
-		tagger.setAmbiguityClassMap(ac);
-		
-		BinUtils.LOG.info(String.format("- # of ambiguity classes: %d\n", ac.size()));
-	}
+	public void collect(TSVReader<DEPNode> reader, List<String> inputFiles, NLPComponent<DEPNode,DEPState<DEPNode>> component, NLPConfig<DEPNode> configuration) {}
 	
 	static public void main(String[] args)
 	{
-		new POSTrain(args).train();
+		new DEPTrain(args).train();
 	}
 }

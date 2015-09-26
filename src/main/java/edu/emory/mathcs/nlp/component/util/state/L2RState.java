@@ -18,57 +18,71 @@ package edu.emory.mathcs.nlp.component.util.state;
 import java.util.Arrays;
 
 import edu.emory.mathcs.nlp.component.util.eval.AccuracyEval;
+import edu.emory.mathcs.nlp.learn.util.StringPrediction;
 
 /**
  * @author Jinho D. Choi ({@code jinho.choi@emory.edu})
  */
-public abstract class L2RState<N> extends NLPState<N,String>
+public abstract class L2RState<N> extends NLPState<N>
 {
-	protected String[] gold;
-	protected int index = 0;
+	protected String[] oracle;
+	protected int input = 0;
 	
 	public L2RState(N[] nodes)
 	{
 		super(nodes);
 	}
 	
+//	============================== ORACLE ==============================
+	
 	@Override
-	public void clearGoldLabels()
+	public void saveOracle()
 	{
-		gold = Arrays.stream(nodes).map(n -> setLabel(n, null)).toArray(String[]::new);
+		oracle = Arrays.stream(nodes).map(n -> setLabel(n, null)).toArray(String[]::new);
 	}
 	
 	@Override
-	public void next()
+	public String getOraclePrediction()
 	{
-		index++;
+		return oracle[input];
+	}
+	
+	protected abstract String setLabel(N node, String label);
+	protected abstract String getLabel(N node);
+	
+//	============================== TRANSITION ==============================
+
+	@Override
+	public void next(StringPrediction prediction)
+	{
+		setLabel(nodes[input++], prediction.getLabel());
 	}
 	
 	@Override
 	public boolean isTerminate()
 	{
-		return index >= nodes.length;
+		return input >= nodes.length;
 	}
-	
-	@Override
-	public String getGoldLabel()
-	{
-		return gold[index];
-	}
-	
-	@Override
-	public String setLabel(String label)
-	{
-		return setLabel(nodes[index], label);
-	}
-
-	protected abstract String setLabel(N node, String label);
-	protected abstract String getLabel(N node);
 	
 	public N getNode(int window)
 	{
-		return getNode(index, window);
+		return getNode(input, window);
 	}
+	
+//	============================== EVALUATION ==============================
+	
+	public void evaluateTokens(AccuracyEval eval)
+	{
+		int correct = 0;
+		
+		for (int i=0; i<nodes.length; i++)
+			if (oracle[i].equals(getLabel(nodes[i])))
+				correct++;
+		
+		eval.add(correct, nodes.length);
+	}
+	
+//	============================== UTILITIES ==============================
 	
 	public boolean isFirst(N node)
 	{
@@ -78,16 +92,5 @@ public abstract class L2RState<N> extends NLPState<N,String>
 	public boolean isLast(N node)
 	{
 		return nodes[nodes.length-1] == node;
-	}
-	
-	public void evaluateTokens(AccuracyEval eval)
-	{
-		int correct = 0;
-		
-		for (int i=0; i<nodes.length; i++)
-			if (gold[i].equals(getLabel(nodes[i])))
-				correct++;
-		
-		eval.add(correct, nodes.length);
 	}
 }

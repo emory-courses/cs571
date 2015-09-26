@@ -17,11 +17,12 @@ package edu.emory.mathcs.nlp.component.util.state;
 
 import edu.emory.mathcs.nlp.common.util.DSUtils;
 import edu.emory.mathcs.nlp.component.util.eval.Eval;
+import edu.emory.mathcs.nlp.learn.util.StringPrediction;
 
 /**
  * @author Jinho D. Choi ({@code jinho.choi@emory.edu})
  */
-public abstract class NLPState<N,L>
+public abstract class NLPState<N>
 {
 	protected N[] nodes;
 
@@ -30,28 +31,25 @@ public abstract class NLPState<N,L>
 		this.nodes = nodes;
 	}
 	
+	/** Clears and saves the gold-standard labels in the input nodes if available. */
+	public abstract void saveOracle();
+	
+	/** @return the oracle prediction of the current state. */
+	public abstract String getOraclePrediction();
+	
+	/** Applies the prediction and moves onto the next state */
+	public abstract void next(StringPrediction prediction);
+	
+	/** @return true if no more state can be processed; otherwise, false. */
+	public abstract boolean isTerminate();
+	
+	/** Evaluates all predictions given the current input and the evaluator. */
+	public abstract void evaluate(Eval eval);
+
 	/** @return the node in the (index+window) position of {@link #nodes} if exists; otherwise, null. */
 	public N getNode(int index, int window)
 	{
 		index += window;
 		return DSUtils.isRange(nodes, index) ? nodes[index] : null;
 	}
-
-	/** Clears and saves the gold-standard labels in the input nodes if available. */
-	public abstract void clearGoldLabels();
-	
-	/** Moves onto the next state */
-	public abstract void next();
-	
-	/** @return true if no more state can be processed; otherwise, false. */
-	public abstract boolean isTerminate();
-	
-	/** @return the gold standard label for the current state. */
-	public abstract L getGoldLabel();
-	
-	/** Assigns the specific label to the current state. */
-	public abstract L setLabel(L label);
-	
-	/** Evaluates all predictions given the current input and the evaluator. */
-	public abstract void evaluate(Eval eval);
 }
