@@ -17,17 +17,17 @@ package edu.emory.mathcs.nlp.component.dep;
 
 import java.util.Arrays;
 
+import edu.emory.mathcs.nlp.component.util.feature.Direction;
 import edu.emory.mathcs.nlp.component.util.feature.FeatureItem;
 import edu.emory.mathcs.nlp.component.util.feature.FeatureTemplate;
-import edu.emory.mathcs.nlp.component.util.node.Direction;
 
 /**
  * @author Jinho D. Choi ({@code jinho.choi@emory.edu})
  */
 public abstract class DEPFeatureTemplate extends FeatureTemplate<DEPNode,DEPState<DEPNode>>
 {
-	private static final long serialVersionUID = -243334323533999837L;
-	
+	private static final long serialVersionUID = -2218894375050796569L;
+
 	public DEPFeatureTemplate()	
 	{
 		init();
@@ -46,13 +46,38 @@ public abstract class DEPFeatureTemplate extends FeatureTemplate<DEPNode,DEPStat
 		switch (item.field)
 		{
 		case word_form: return node.getWordForm();
+		case simplified_word_form: return node.getSimplifiedWordForm();
 		case lemma: return node.getLemma();
 		case pos_tag: return node.getPOSTag();
 		case feats: return node.getFeat((String)item.value);
 		case dependency_label: return node.getLabel();
-		case valency: return node.getValency(Direction.a);
+		case valency: return node.getValency((Direction)item.value);
 		default: throw new IllegalArgumentException("Unsupported feature: "+item.field);
 		}
+	}
+	
+	@Override
+	protected String[] getFeatures(FeatureItem<?> item)
+	{
+		DEPNode node = getNode(item);
+		if (node == null) return null;
+		
+		switch (item.field)
+		{
+		case binary: return getBinaryFeatures(node);
+		default: throw new IllegalArgumentException("Unsupported feature: "+item.field);
+		}
+	}
+	
+	protected String[] getBinaryFeatures(DEPNode node)
+	{
+		String[] values = new String[2];
+		int index = 0;
+		
+		if (state.isFirst(node)) values[index++] = "0";
+		if (state.isLast (node)) values[index++] = "1";
+		
+		return (index == 0) ? null : (index == values.length) ? values : Arrays.copyOf(values, index);
 	}
 	
 	protected DEPNode getNode(FeatureItem<?> item)
@@ -93,29 +118,5 @@ public abstract class DEPFeatureTemplate extends FeatureTemplate<DEPNode,DEPStat
 		}
 		
 		return null;
-	}
-	
-	@Override
-	protected String[] getFeatures(FeatureItem<?> item)
-	{
-		DEPNode node = getNode(item);
-		if (node == null) return null;
-		
-		switch (item.field)
-		{
-		case binary: return getBinaryFeatures(node);
-		default: throw new IllegalArgumentException("Unsupported feature: "+item.field);
-		}
-	}
-	
-	protected String[] getBinaryFeatures(DEPNode node)
-	{
-		String[] values = new String[2];
-		int index = 0;
-		
-		if (state.isFirst(node)) values[index++] = "0";
-		if (state.isLast (node)) values[index++] = "1";
-		
-		return (index == 0) ? null : (index == values.length) ? values : Arrays.copyOf(values, index);
 	}
 }

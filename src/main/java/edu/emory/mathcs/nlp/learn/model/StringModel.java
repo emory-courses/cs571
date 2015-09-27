@@ -76,6 +76,11 @@ public class StringModel implements Serializable
 			addInstance(instance);
 	}
 	
+	public Deque<StringInstance> getStringInstanceDeque()
+	{
+		return instance_deque;
+	}
+	
 	public List<Instance> getInstanceList()
 	{
 		return instance_list;

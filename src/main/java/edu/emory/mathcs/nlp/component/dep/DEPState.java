@@ -42,7 +42,7 @@ public class DEPState<N extends DEPNode> extends NLPState<N>
 		super(nodes);
 		stack = new IntArrayList();
 		input = 0;
-		stack.push(input++);
+		shift();
 	}
 	
 //	====================================== ORACLE ======================================
@@ -69,10 +69,24 @@ public class DEPState<N extends DEPNode> extends NLPState<N>
 			return RIGHT_ARC + o.getLabel();
 		
 		// reduce: stack has the head
-		if (getStack(0).hasHead())
+		if (isOracleReduce())
 			return REDUCE;
 		
 		return SHIFT;
+	}
+	
+	private boolean isOracleReduce()
+	{
+		DEPNode stack = getStack(0);
+		if (!stack.hasHead()) return false;
+		
+		for (int i=input+1; i<nodes.length; i++)
+		{
+			if (oracle[i].isNode(stack))
+				return false;
+		}
+		
+		return true;
 	}
 	
 //	====================================== TRANSITION ======================================
@@ -81,22 +95,22 @@ public class DEPState<N extends DEPNode> extends NLPState<N>
 	public void next(StringPrediction prediction)
 	{
 		String label = prediction.getLabel();
-		String transition = label.length() < 2 ? label : label.substring(0,2);
+//		System.out.println(label+" "+stack.toString()+" "+input);
 		
-		if (label.equals(LEFT_ARC))
+		if (label.startsWith(LEFT_ARC))
 		{
 			DEPNode s = getStack(0);
 			DEPNode i = getInput(0);
 			
-			if (!i.isDescendantOf(s))
+			if (s != nodes[0] && !i.isDescendantOf(s))
 			{
 				s.setHead(i, label.substring(3));
-				transition = REDUCE;
+				label = REDUCE;
 			}
 			else
-				transition = SHIFT;
+				label = SHIFT;
 		}
-		else if (label.equals(RIGHT_ARC))
+		else if (label.startsWith(RIGHT_ARC))
 		{
 			DEPNode s = getStack(0);
 			DEPNode i = getInput(0);
@@ -104,14 +118,29 @@ public class DEPState<N extends DEPNode> extends NLPState<N>
 			if (!s.isDescendantOf(i))
 				i.setHead(s, label.substring(3));
 
-			transition = SHIFT;
+			label = SHIFT;
+		}
+		else if (label.equals(REDUCE))
+		{
+			if (stack.size() == 1)
+				label = SHIFT;
 		}
 		
-		switch (transition)
+		switch (label)
 		{
-		case SHIFT : stack.push(input++); break;
-		case REDUCE: stack.pop(); break;
+		case SHIFT : shift();  break;
+		case REDUCE: reduce(); break;
 		}
+	}
+	
+	public void shift()
+	{
+		stack.add(input++);
+	}
+	
+	public void reduce()
+	{
+		stack.pop();
 	}
 	
 	@Override

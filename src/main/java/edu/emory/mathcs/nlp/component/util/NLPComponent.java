@@ -160,7 +160,7 @@ public abstract class NLPComponent<N,S extends NLPState<N>> implements Serializa
 			StringPrediction label = getPrediction(state, vector);
 			state.next(label);
 		}
-		
+	
 		if (isEvaluate()) state.evaluate(eval);
 	}
 	

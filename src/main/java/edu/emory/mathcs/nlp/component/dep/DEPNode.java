@@ -33,8 +33,8 @@ import edu.emory.mathcs.nlp.common.collection.list.SortedArrayList;
 import edu.emory.mathcs.nlp.common.constant.StringConst;
 import edu.emory.mathcs.nlp.common.util.DSUtils;
 import edu.emory.mathcs.nlp.component.pos.POSNode;
+import edu.emory.mathcs.nlp.component.util.feature.Direction;
 import edu.emory.mathcs.nlp.component.util.feature.Field;
-import edu.emory.mathcs.nlp.component.util.node.Direction;
 import edu.emory.mathcs.nlp.component.util.node.FeatMap;
 import edu.emory.mathcs.nlp.component.util.reader.TSVReader;
 
@@ -615,9 +615,9 @@ public class DEPNode extends POSNode implements Comparable<DEPNode>
 	{
 		switch (direction)
 		{
-		case  l: return getLeftValency();
-		case  r: return getRightValency();
-		case  a: return getLeftValency()+"-"+getRightValency();
+		case  left: return getLeftValency();
+		case  right: return getRightValency();
+		case  all: return getLeftValency()+"-"+getRightValency();
 		default: return null;
 		}
 	}
@@ -670,9 +670,9 @@ public class DEPNode extends POSNode implements Comparable<DEPNode>
 	{
 		switch (direction)
 		{
-		case l: return getLeftSubcategorization (field);
-		case r: return getRightSubcategorization(field);
-		case a:
+		case left: return getLeftSubcategorization (field);
+		case right: return getRightSubcategorization(field);
+		case all:
 			String left = getLeftSubcategorization(field);
 			if (left == null) return getRightSubcategorization(field);
 			String right = getRightSubcategorization(field);

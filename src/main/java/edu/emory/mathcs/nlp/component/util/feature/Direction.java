@@ -13,16 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package edu.emory.mathcs.nlp.component.util.node;
+package edu.emory.mathcs.nlp.component.util.feature;
 
 /**
  * @author Jinho D. Choi ({@code jinho.choi@emory.edu})
  */
 public enum Direction
 {
-	l,	// left
-	r,	// right
-	u,	// up
-	d,	// down
-	a;	// all
+	left,
+	right,
+	up,
+	down,
+	all;
 }

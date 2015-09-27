@@ -80,6 +80,7 @@ public abstract class FeatureTemplate<N,S> implements Serializable
 		this.state = state;
 	}
 	
+	
 	public int size()
 	{
 		return feature_list.size() + feature_set.size();

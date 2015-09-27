@@ -19,13 +19,14 @@ import java.util.List;
 
 import edu.emory.mathcs.nlp.common.util.IOUtils;
 import edu.emory.mathcs.nlp.component.dep.DEPConfig;
+import edu.emory.mathcs.nlp.component.dep.DEPEval;
 import edu.emory.mathcs.nlp.component.dep.DEPNode;
 import edu.emory.mathcs.nlp.component.dep.DEPParser;
 import edu.emory.mathcs.nlp.component.dep.DEPState;
 import edu.emory.mathcs.nlp.component.dep.feature.DEPFeatureTemplate0;
+import edu.emory.mathcs.nlp.component.dep.feature.DEPFeatureTemplate2;
 import edu.emory.mathcs.nlp.component.util.NLPComponent;
 import edu.emory.mathcs.nlp.component.util.config.NLPConfig;
-import edu.emory.mathcs.nlp.component.util.eval.AccuracyEval;
 import edu.emory.mathcs.nlp.component.util.eval.Eval;
 import edu.emory.mathcs.nlp.component.util.feature.FeatureTemplate;
 import edu.emory.mathcs.nlp.component.util.reader.TSVReader;
@@ -52,7 +53,7 @@ public class DEPTrain extends NLPTrain<DEPNode,DEPState<DEPNode>>
 	@Override
 	protected Eval createEvaluator()
 	{
-		return new AccuracyEval();
+		return new DEPEval();
 	}
 	
 	@Override
@@ -67,6 +68,7 @@ public class DEPTrain extends NLPTrain<DEPNode,DEPState<DEPNode>>
 		switch (feature_template)
 		{
 		case 0: return new DEPFeatureTemplate0();
+		case 2: return new DEPFeatureTemplate2();
 		default: throw new IllegalArgumentException("Unknown feature template: "+feature_template);
 		}
 	}
