@@ -18,7 +18,9 @@ package edu.emory.mathcs.nlp.deeplearning.network;
 import java.io.Serializable;
 
 import edu.emory.mathcs.nlp.common.util.DSUtils;
+import edu.emory.mathcs.nlp.common.util.MathUtils;
 import edu.emory.mathcs.nlp.deeplearning.activation.ActivationFunction;
+import edu.emory.mathcs.nlp.learn.util.Instance;
 import edu.emory.mathcs.nlp.learn.util.Prediction;
 import edu.emory.mathcs.nlp.learn.vector.IndexValuePair;
 import edu.emory.mathcs.nlp.learn.vector.Vector;
@@ -47,6 +49,9 @@ public class FeedForwardNeuralNetwork implements Serializable
 	 */
 	public void init(ActivationFunction function, int input, int output, int... hidden)
 	{
+		// initialize activation function
+		activation_function = function;
+		
 		// initialize dimensions
 		int hsize = hidden.length;
 		dimensions = new int[hsize+2];
@@ -59,9 +64,6 @@ public class FeedForwardNeuralNetwork implements Serializable
 		
 		for (int i=1; i<dimensions.length; i++)
 			weight_vectors[i-1] = new float[dimensions[i-1] * dimensions[i]];
-		
-		// initialize activation function
-		activation_function = function;
 	}
 	
 //	============================== GETTERS / SETTERS ==============================
@@ -86,16 +88,6 @@ public class FeedForwardNeuralNetwork implements Serializable
 		weight_vectors[index] = weightVector;
 	}
 	
-	public ActivationFunction getActivationFunction()
-	{
-		return activation_function;
-	}
-	
-	public void setActivationFunction(ActivationFunction function)
-	{
-		activation_function = function;
-	}
-	
 //	============================== SCORES ==============================
 	
 	public double[] scores(Vector x)
@@ -105,6 +97,7 @@ public class FeedForwardNeuralNetwork implements Serializable
 		for (int i=1; i<dimensions.length-1; i++)
 			scores = scoresRest(scores, i);
 	
+		MathUtils.softmax(scores);
 		return scores;
 	}
 	
@@ -155,6 +148,11 @@ public class FeedForwardNeuralNetwork implements Serializable
 	}
 
 //	============================== OPERATIONS ==============================
+	
+	public void learn(Instance instance)
+	{
+		// TODO:
+	}
 	
 	public String toString()
 	{

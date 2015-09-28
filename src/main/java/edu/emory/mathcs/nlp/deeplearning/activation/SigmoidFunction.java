@@ -23,7 +23,7 @@ public class SigmoidFunction implements ActivationFunction
 	private final float[] table;
 	private final float   floor, ceiling;
 	private final float   table_multiply;
-	private final int      table_adjust;
+	private final int     table_adjust;
 	
 	/** Calls {@link #SigmoidFunction(int, float, float)}, where size = 3500, floor = -6, ceiling = 6. */
 	public SigmoidFunction()
