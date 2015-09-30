@@ -15,6 +15,8 @@
  */
 package edu.emory.mathcs.nlp.deeplearning.activation;
 
+import edu.emory.mathcs.nlp.common.util.Sigmoid;
+
 
 /**
  * @author Jinho D. Choi ({@code jinho.choi@emory.edu})
@@ -24,7 +26,7 @@ public class SigmoidFunctionTest
 //	@Test
 	public void test()
 	{
-		SigmoidFunction s1 = new SigmoidFunction(3500, -6, 6);
+		Sigmoid s1 = new Sigmoid(3500, -6, 6);
 		double d1, d2, diff, sum = 0; int t = 0;
 		
 		for (double d=-3; d<=3; d+=0.01)

@@ -73,6 +73,8 @@ public class POSTagger<N extends POSNode> extends NLPComponent<N,POSState<N>>
 	@Override
 	protected StringPrediction getModelPrediction(POSState<N> state, StringVector vector)
 	{
+//		Prediction p = POSNeuralNetwork.nn.predictBest(models[0].toSparseVector(vector));
+//		return new StringPrediction(models[0].getLabel(p.getLabel()), p.getScore());
 		return models[0].predictBest(vector);
 	}
 

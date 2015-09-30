@@ -28,6 +28,7 @@ import edu.emory.mathcs.nlp.vsm.util.Vocabulary;
  */
 public abstract class Reader<N>
 {
+	static public final int VOCAB_REDUCE_SIZE = 21000000;
 	public abstract void add(Vocabulary vocab, N[] nodes);
 	public abstract void open(InputStream in);
 	public abstract void close();
@@ -36,18 +37,17 @@ public abstract class Reader<N>
 	/**
 	 * All words in the training files are first added then sorted by their counts in descending order.
 	 * @param minCount words whose counts are less than this are discarded. 
-	 * @param reduceSize if the vocabulary becomes larger than this, it gets reduced.
 	 * @return the total number of word tokens learned.
 	 */
-	public long learn(List<String> filenames, Vocabulary vocab, int minCount, int reduceSize) throws IOException
+	public long learn(List<String> inputFiles, Vocabulary vocab, int minCount) throws IOException
 	{
 		N[] nodes;
 		
-		for (String filename : filenames)
+		for (String inputFile : inputFiles)
 		{
-			open(new BufferedInputStream(new FileInputStream(filename)));
+			open(new BufferedInputStream(new FileInputStream(inputFile)));
 			while ((nodes = next()) != null) add(vocab, nodes);
-			if (vocab.size() >= reduceSize) vocab.reduce();
+			if (vocab.size() > VOCAB_REDUCE_SIZE) vocab.reduce();
 			close();
 		}
 		

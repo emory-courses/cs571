@@ -40,6 +40,7 @@ import edu.emory.mathcs.nlp.component.util.reader.TSVReader;
 import edu.emory.mathcs.nlp.learn.model.StringModel;
 import edu.emory.mathcs.nlp.learn.optimization.OnlineOptimizer;
 import edu.emory.mathcs.nlp.learn.optimization.sgd.AdaGrad;
+import edu.emory.mathcs.nlp.learn.optimization.sgd.LogisticRegression;
 import edu.emory.mathcs.nlp.learn.optimization.sgd.Perceptron;
 import edu.emory.mathcs.nlp.learn.weight.MultinomialWeightVector;
 import edu.emory.mathcs.nlp.learn.weight.WeightVector;
@@ -53,7 +54,7 @@ public class POSBenchmark
 	@Test
 	public void baseline() throws IOException
 	{
-		run(new POSFeatureTemplate0(), 1, true);
+		run(new POSFeatureTemplate0(), 2, true);
 		
 		DEPNode[] nodes = null;
 		AmbiguityClassMap map = new AmbiguityClassMap();
@@ -98,6 +99,7 @@ public class POSBenchmark
 		{
 		case 0: sgd = new Perceptron(weight, average, learning_rate); break;
 		case 1: sgd = new AdaGrad   (weight, average, learning_rate); break;
+		case 2: sgd = new LogisticRegression(weight, average, learning_rate); break;
 		}
 		
 		Eval eval = new AccuracyEval();

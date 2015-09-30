@@ -141,6 +141,16 @@ public class StringModel implements Serializable
 		return weight_vector;
 	}
 	
+	public void setWeightVector(WeightVector vector)
+	{
+		weight_vector = vector;
+	}
+	
+	public String getLabel(int index)
+	{
+		return label_map.getLabel(index);
+	}
+	
 	public StringPrediction predictBest(StringVector x)
 	{
 		Prediction p = weight_vector.predictBest(toSparseVector(x));

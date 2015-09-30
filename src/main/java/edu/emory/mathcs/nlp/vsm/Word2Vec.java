@@ -33,7 +33,7 @@ import edu.emory.mathcs.nlp.common.util.BinUtils;
 import edu.emory.mathcs.nlp.common.util.FileUtils;
 import edu.emory.mathcs.nlp.common.util.IOUtils;
 import edu.emory.mathcs.nlp.common.util.MathUtils;
-import edu.emory.mathcs.nlp.deeplearning.activation.SigmoidFunction;
+import edu.emory.mathcs.nlp.common.util.Sigmoid;
 import edu.emory.mathcs.nlp.vsm.optimizer.HierarchicalSoftmax;
 import edu.emory.mathcs.nlp.vsm.optimizer.NegativeSampling;
 import edu.emory.mathcs.nlp.vsm.optimizer.Optimizer;
@@ -74,11 +74,10 @@ public class Word2Vec
 	@Option(name="-cbow", usage="If set, use the continuous bag-of-words model instead of the skip-gram model.", required=false, metaVar="<boolean>")
 	boolean cbow = false;
 	
-	final int VOCAB_REDUCE_SIZE = 21000000;
-	final int MAX_CODE_LENGTH   = 40;
-	final double ALPHA_MIN_RATE = 0.0001;      
+	final double ALPHA_MIN_RATE  = 0.0001;      
+	final int    MAX_CODE_LENGTH = 40;
 	
-	SigmoidFunction sigmoid;
+	Sigmoid sigmoid;
 	Vocabulary vocab;
 	long word_count_train;
 	double subsample_size;
@@ -86,13 +85,13 @@ public class Word2Vec
 	
 	volatile long word_count_global;	// word count dynamically updated by all threads
 	volatile double alpha_global;		// learning rate dynamically updated by all threads
-	volatile public float[] syn0;		// weights between the input and the hidden layers
-	volatile public float[] syn1;		// weights between the hidden and the output layers
+	volatile public float[] W;			// weights between the input and the hidden layers
+	volatile public float[] V;			// weights between the hidden and the output layers
 	
 	public Word2Vec(String[] args)
 	{
 		BinUtils.initArgs(args, this);
-		sigmoid = new SigmoidFunction();
+		sigmoid = new Sigmoid();
 
 		try
 		{
@@ -107,8 +106,8 @@ public class Word2Vec
 	{
 		BinUtils.LOG.info("Reading vocabulary:\n");
 		vocab = new Vocabulary();
-		word_count_train = new SentenceReader().learn(filenames, vocab, min_count, VOCAB_REDUCE_SIZE);
-		BinUtils.LOG.info(String.format("- types = %d, words = %d\n", vocab.size(), word_count_train));
+		word_count_train = new SentenceReader().learn(filenames, vocab, min_count);
+		BinUtils.LOG.info(String.format("- types = %d, tokens = %d\n", vocab.size(), word_count_train));
 		
 		BinUtils.LOG.info("Initializing neural network.\n");
 		initNeuralNetwork();
@@ -154,9 +153,8 @@ public class Word2Vec
 			float[] neu1  = cbow ? new float[vector_size] : null;
 			float[] neu1e = new float[vector_size];
 			int     iter  = 0;
-			
-			int index, window;
-			int[] words;
+			int     index, window;
+			int[]   words;
 			
 			while (true)
 			{
@@ -199,20 +197,20 @@ public class Word2Vec
 		{
 			if (i == 0 || words.length <= j || j < 0) continue;
 			l = words[j] * vector_size;
-			for (k=0; k<vector_size; k++) neu1[k] += syn0[k+l];
+			for (k=0; k<vector_size; k++) neu1[k] += W[k+l];
 			wc++;
 		}
 		
 		if (wc == 0) return;
 		for (k=0; k<vector_size; k++) neu1[k] /= wc;
-		optimizer.learnBagOfWords(rand, word, syn0, neu1, neu1e, alpha_global);
+		optimizer.learnBagOfWords(rand, word, W, neu1, neu1e, alpha_global);
 		
 		// hidden -> input
 		for (i=-window,j=index+i; i<=window; i++,j++)
 		{
 			if (i == 0 || words.length <= j || j < 0) continue;
 			l = words[j] * vector_size;
-			for (k=0; k<vector_size; k++) syn0[k+l] += neu1e[k];
+			for (k=0; k<vector_size; k++) W[k+l] += neu1e[k];
 		}
 	}
 	
@@ -225,10 +223,10 @@ public class Word2Vec
 			if (i == 0 || words.length <= j || j < 0) continue;
 			l1 = words[j] * vector_size;
 			Arrays.fill(neu1e, 0);
-			optimizer.learnSkipGram(rand, word, syn0, syn1, neu1e, alpha_global, l1);
+			optimizer.learnSkipGram(rand, word, W, V, neu1e, alpha_global, l1);
 			
 			// input -> hidden
-			for (k=0; k<vector_size; k++) syn0[l1+k] += neu1e[k];
+			for (k=0; k<vector_size; k++) W[l1+k] += neu1e[k];
 		}
 	}
 	
@@ -245,11 +243,11 @@ public class Word2Vec
 		int size = vocab.size() * vector_size;
 		Random rand = new XORShiftRandom(1);
 
-		syn0 = new float[size];
-		syn1 = new float[size];
+		W = new float[size];
+		V = new float[size];
 		
 		for (int i=0; i<size; i++)
-			syn0[i] = (float)((rand.nextDouble() - 0.5) / vector_size);
+			W[i] = (float)((rand.nextDouble() - 0.5) / vector_size);
 	}
 	
 	int[] next(SentenceReader reader, Random rand)
@@ -294,13 +292,13 @@ public class Word2Vec
 		
 		for (i=0; i<vocab.size(); i++)
 		{
-			out.print(vocab.get(i).word);
+			out.print(vocab.get(i).form);
 			l = i * vector_size;
 			
 			for (j=0; j<vector_size; j++)
 			{
-				if (binary)	out.print(" "+Long.toBinaryString(Double.doubleToRawLongBits(syn0[j+l])));
-				else		out.print(" "+syn0[j+l]);
+				if (binary)	out.print(" "+Long.toBinaryString(Double.doubleToRawLongBits(W[j+l])));
+				else		out.print(" "+W[j+l]);
 			}
 			
 			out.println();

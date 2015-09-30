@@ -25,24 +25,24 @@ import edu.emory.mathcs.nlp.common.util.MathUtils;
 public class Word implements Serializable, Comparable<Word>
 {
 	private static final long serialVersionUID = -8359884564426852692L;
-	public String word;
+	public String form;
 	public long   count;
 	public byte[] code;		// binary codes from Huffman tree
 	public int[]  point;	// pointers to the ancestors
 	
-	public Word(String word)
+	public Word(String form)
 	{
-		set(word, 0);
+		set(form, 0);
 	}
 	
-	public Word(String word, int count)
+	public Word(String form, int count)
 	{
-		set(word, count);
+		set(form, count);
 	}
 	
-	public void set(String word, int count)
+	public void set(String form, int count)
 	{
-		this.word  = word;
+		this.form  = form;
 		this.count = count;
 	}
 	
@@ -65,6 +65,6 @@ public class Word implements Serializable, Comparable<Word>
 	@Override
 	public String toString()
 	{
-		return word+":"+count;
+		return form+":"+count;
 	}
 }

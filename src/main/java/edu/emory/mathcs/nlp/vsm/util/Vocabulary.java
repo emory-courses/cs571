@@ -34,8 +34,8 @@ public class Vocabulary implements Serializable
 	public static final int MAX_CODE_LENGTH = 40;
 	
 	private Object2IntMap<String> index_map;
-	private List<Word> word_list;
-	private int min_reduce;
+	private List<Word>            word_list;
+	private int                   min_reduce;
 	
 	public Vocabulary()
 	{
@@ -125,7 +125,7 @@ public class Vocabulary implements Serializable
 		list.trimToSize(); word_list = list;
 		
 		index_map = new Object2IntOpenHashMap<>(size());
-		for (int i=0; i<size(); i++) index_map.put(get(i).word, i);
+		for (int i=0; i<size(); i++) index_map.put(get(i).form, i);
 		return count;
 	}
 	

@@ -17,7 +17,7 @@ package edu.emory.mathcs.nlp.vsm.optimizer;
 
 import java.util.Random;
 
-import edu.emory.mathcs.nlp.deeplearning.activation.SigmoidFunction;
+import edu.emory.mathcs.nlp.common.util.Sigmoid;
 import edu.emory.mathcs.nlp.vsm.util.Vocabulary;
 
 /**
@@ -25,7 +25,7 @@ import edu.emory.mathcs.nlp.vsm.util.Vocabulary;
  */
 public class HierarchicalSoftmax extends Optimizer
 {
-	public HierarchicalSoftmax(Vocabulary vocab, SigmoidFunction sigmoid, int vectorSize)
+	public HierarchicalSoftmax(Vocabulary vocab, Sigmoid sigmoid, int vectorSize)
 	{
 		super(vocab, sigmoid, vectorSize);
 		vocab.generateHuffmanCodes();
