@@ -111,10 +111,10 @@ public abstract class NLPComponent<N,S extends NLPState<N>> implements Serializa
 		return flag == NLPFlag.AGGREGATE;
 	}
 	
-	public boolean isTrainOrAggregate()
-	{
-		return isTrain() || isAggregate();
-	}
+//	public boolean isValidate()
+//	{
+//		return flag == NLPFlag.VALIDATE;
+//	}
 	
 	public boolean isDecode()
 	{
@@ -156,7 +156,7 @@ public abstract class NLPComponent<N,S extends NLPState<N>> implements Serializa
 		while (!state.isTerminate())
 		{
 			StringVector vector = extractFeatures(state);
-			if (isTrainOrAggregate()) addInstance(state.getOraclePrediction(), vector);
+			if (isTrain() || isAggregate()) addInstance(state.getOraclePrediction(), vector);
 			StringPrediction label = getPrediction(state, vector);
 			state.next(label);
 		}

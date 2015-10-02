@@ -38,9 +38,13 @@
   </developers>
 
   <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <nd4j.version>0.4-rc3.5</nd4j.version>
+    <dl4j.version>0.4-rc3.4</dl4j.version>
+    <canova.version>0.0.0.11</canova.version>
+    <jackson.version>2.5.1</jackson.version>
   </properties>
 
   <build>
@@ -118,11 +122,6 @@
       <groupId>edu.emory.mathcs.nlp</groupId>
       <artifactId>common</artifactId>
       <version>1.0.0-SNAPSHOT</version>
-    </dependency>
-    <dependency>
-      <groupId>org.encog</groupId>
-      <artifactId>encog-core</artifactId>
-      <version>3.3.0</version>
     </dependency>
   </dependencies>
 </project>

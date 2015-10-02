@@ -15,13 +15,12 @@
  */
 package edu.emory.mathcs.nlp.component.dep;
 
-import it.unimi.dsi.fastutil.ints.IntArrayList;
-
 import java.util.Arrays;
 
 import edu.emory.mathcs.nlp.component.util.eval.Eval;
 import edu.emory.mathcs.nlp.component.util.state.NLPState;
 import edu.emory.mathcs.nlp.learn.util.StringPrediction;
+import it.unimi.dsi.fastutil.ints.IntArrayList;
 
 /**
  * @author Jinho D. Choi ({@code jinho.choi@emory.edu})
@@ -59,13 +58,13 @@ public class DEPState<N extends DEPNode> extends NLPState<N>
 		// left-arc: input is the head of stack
 		DEPArc o = oracle[stack.topInt()];
 		
-		if (o.isNode(getInput(0)))
+		if (o.isNode(getInput()))
 			return LEFT_ARC + o.getLabel();
 		
 		// right-arc: stack is the head of input
 		o = oracle[input];
 		
-		if (o.isNode(getStack(0)))
+		if (o.isNode(getStack()))
 			return RIGHT_ARC + o.getLabel();
 		
 		// reduce: stack has the head
@@ -77,12 +76,28 @@ public class DEPState<N extends DEPNode> extends NLPState<N>
 	
 	private boolean isOracleReduce()
 	{
-		DEPNode stack = getStack(0);
-		if (!stack.hasHead()) return false;
+		if (!getStack().hasHead()) return false;
+		int s;
+		
+		for (int i=1; i<stack.size(); i++)
+		{
+			s = stack.peekInt(i);
+			
+			if (oracle[input].isNode(nodes[s]) || oracle[s].isNode(nodes[input]))
+				return true;
+		}
+		
+		return false;
+	}
+	
+	boolean isOracleReduceEager()
+	{
+		DEPNode s = getStack();
+		if (!s.hasHead()) return false;
 		
 		for (int i=input+1; i<nodes.length; i++)
 		{
-			if (oracle[i].isNode(stack))
+			if (oracle[i].isNode(s))
 				return false;
 		}
 		
@@ -99,8 +114,8 @@ public class DEPState<N extends DEPNode> extends NLPState<N>
 		
 		if (label.startsWith(LEFT_ARC))
 		{
-			DEPNode s = getStack(0);
-			DEPNode i = getInput(0);
+			DEPNode s = getStack();
+			DEPNode i = getInput();
 			
 			if (s != nodes[0] && !i.isDescendantOf(s))
 			{
@@ -112,8 +127,8 @@ public class DEPState<N extends DEPNode> extends NLPState<N>
 		}
 		else if (label.startsWith(RIGHT_ARC))
 		{
-			DEPNode s = getStack(0);
-			DEPNode i = getInput(0);
+			DEPNode s = getStack();
+			DEPNode i = getInput();
 			
 			if (!s.isDescendantOf(i))
 				i.setHead(s, label.substring(3));
@@ -163,9 +178,19 @@ public class DEPState<N extends DEPNode> extends NLPState<N>
 		return getNode(stack.topInt(), window);
 	}
 	
+	public N getStack()
+	{
+		return getStack(0);
+	}
+	
 	public N getInput(int window)
 	{
 		return getNode(input, window);
+	}
+	
+	public N getInput()
+	{
+		return getInput(0);
 	}
 	
 //	====================================== EVALUATE ======================================

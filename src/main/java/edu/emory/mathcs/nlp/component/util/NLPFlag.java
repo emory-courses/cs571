@@ -24,5 +24,6 @@ public enum NLPFlag
 	TRAIN,
 	AGGREGATE,
 	EVALUATE,
-	DECODE;
+	DECODE,
+	VALIDATE;
 }
