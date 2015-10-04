@@ -163,13 +163,43 @@ public abstract class NLPComponent<N,S extends NLPState<N>> implements Serializa
 	
 		if (isEvaluate()) state.evaluate(eval);
 	}
+	public void process(N[] nodes, int epoch)
+	{
+		S state = createState(nodes);
+		feature_template.setState(state);
+		if (!isDecode()) state.saveOracle();
+
+		while (!state.isTerminate())
+		{
+			StringVector vector = extractFeatures(state);
+			if (isTrainOrAggregate()) addInstance(state.getOraclePrediction(), vector);
+			StringPrediction label = getPrediction(state, vector, epoch);
+			state.next(label);
+		}
+
+		if (isEvaluate()) state.evaluate(eval);
+	}
 	
 	/** @return the oracle prediction for training; otherwise, the model predict. */
 	protected StringPrediction getPrediction(S state, StringVector vector)
 	{
 		return isTrain() ? new StringPrediction(state.getOraclePrediction(), 1) : getModelPrediction(state, vector);
 	}
-	
+
+	protected StringPrediction getPrediction(S state, StringVector vector, int epoch)
+	{
+		if (isAggregate())
+			if (Math.random() > .2*epoch) // as number of epochs goes up, return oracle less
+				return new StringPrediction(state.getOraclePrediction(), 1);
+			else
+				return getModelPrediction(state, vector);
+		else if (isTrain())
+			return new StringPrediction(state.getOraclePrediction(), 1);
+		else
+			return getModelPrediction(state, vector);
+
+	}
+
 	/** @return the vector consisting of all features extracted from the state. */
 	protected StringVector extractFeatures(S state)
 	{

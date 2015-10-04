@@ -81,8 +81,8 @@ public class DEPFeatureTemplate0 extends DEPFeatureTemplate
 		add(new FeatureItem<>(Source.j,  1, Field.lemma));
 		add(new FeatureItem<>(Source.j,  2, Field.lemma));
 
-		add(new FeatureItem<>(Source.k, -2, Field.lemma));
-		add(new FeatureItem<>(Source.k, -1, Field.lemma));
+//		add(new FeatureItem<>(Source.k, -2, Field.lemma));
+//		add(new FeatureItem<>(Source.k, -1, Field.lemma));
 		add(new FeatureItem<>(Source.k,  0, Field.lemma));
 		add(new FeatureItem<>(Source.k,  1, Field.lemma));
 		add(new FeatureItem<>(Source.k,  2, Field.lemma));
@@ -100,8 +100,8 @@ public class DEPFeatureTemplate0 extends DEPFeatureTemplate
 		add(new FeatureItem<>(Source.j,  1, Field.pos_tag));
 		add(new FeatureItem<>(Source.j,  2, Field.pos_tag));
 
-		add(new FeatureItem<>(Source.k,  -2, Field.pos_tag));
-		add(new FeatureItem<>(Source.k,  -1, Field.pos_tag));
+//		add(new FeatureItem<>(Source.k,  -2, Field.pos_tag));
+//		add(new FeatureItem<>(Source.k,  -1, Field.pos_tag));
 		add(new FeatureItem<>(Source.k,  0, Field.pos_tag));
 		add(new FeatureItem<>(Source.k,  1, Field.pos_tag));
 		add(new FeatureItem<>(Source.k,  2, Field.pos_tag));
@@ -115,15 +115,15 @@ public class DEPFeatureTemplate0 extends DEPFeatureTemplate
 
 		add(new FeatureItem<>(Source.j, -2, Field.dependency_label));
 		add(new FeatureItem<>(Source.j, -1, Field.dependency_label));
-		add(new FeatureItem<>(Source.j,  0, Field.dependency_label));
-		add(new FeatureItem<>(Source.j,  1, Field.dependency_label));
-		add(new FeatureItem<>(Source.j,  2, Field.dependency_label));
+//		add(new FeatureItem<>(Source.j,  0, Field.dependency_label));
+//		add(new FeatureItem<>(Source.j,  1, Field.dependency_label));
+//		add(new FeatureItem<>(Source.j,  2, Field.dependency_label));
 
 //		add(new FeatureItem<>(Source.k,  -2, Field.dependency_label));
 //		add(new FeatureItem<>(Source.k,  -1, Field.dependency_label));
 //		add(new FeatureItem<>(Source.k,  0, Field.dependency_label));
-		add(new FeatureItem<>(Source.k,  1, Field.dependency_label));
-		add(new FeatureItem<>(Source.k,  2, Field.dependency_label));
+//		add(new FeatureItem<>(Source.k,  1, Field.dependency_label));
+//		add(new FeatureItem<>(Source.k,  2, Field.dependency_label));
 
 //		// feats
 //		add(new FeatureItem<>(Source.i, -2, Field.feats));
@@ -146,85 +146,85 @@ public class DEPFeatureTemplate0 extends DEPFeatureTemplate
 //
 //
 //		// valency features
-		add(new FeatureItem<>(Source.i, -2, Field.valency, Direction.all));
-		add(new FeatureItem<>(Source.i, -1, Field.valency, Direction.all));
-		add(new FeatureItem<>(Source.i, 0, Field.valency, Direction.all));
-		add(new FeatureItem<>(Source.i, 1, Field.valency, Direction.all));
-		add(new FeatureItem<>(Source.i, 2, Field.valency, Direction.all));
-
-		add(new FeatureItem<>(Source.j, -2, Field.valency, Direction.all));
-		add(new FeatureItem<>(Source.j, -1, Field.valency, Direction.all));
-		add(new FeatureItem<>(Source.j, 0, Field.valency, Direction.all));
-		add(new FeatureItem<>(Source.j, 1, Field.valency, Direction.all));
-		add(new FeatureItem<>(Source.j, 2, Field.valency, Direction.all));
-
-		add(new FeatureItem<>(Source.k, -2, Field.valency, Direction.all));
-		add(new FeatureItem<>(Source.k, -1, Field.valency, Direction.all));
-		add(new FeatureItem<>(Source.k, 0, Field.valency, Direction.all));
-		add(new FeatureItem<>(Source.k, 1, Field.valency, Direction.all));
-		add(new FeatureItem<>(Source.k, 2, Field.valency, Direction.all));
-
-		// prefix
-		add(new FeatureItem<>(Source.i, -2, Field.prefix));
-		add(new FeatureItem<>(Source.i, -1, Field.prefix));
-		add(new FeatureItem<>(Source.i, 0, Field.prefix));
-		add(new FeatureItem<>(Source.i, 1, Field.prefix));
-		add(new FeatureItem<>(Source.i, 2, Field.prefix));
-
-		add(new FeatureItem<>(Source.j, -2, Field.prefix));
-		add(new FeatureItem<>(Source.j, -1, Field.prefix));
-		add(new FeatureItem<>(Source.j, 0, Field.prefix));
-		add(new FeatureItem<>(Source.j, 1, Field.prefix));
-		add(new FeatureItem<>(Source.j, 2, Field.prefix));
-
-		add(new FeatureItem<>(Source.k, -2, Field.prefix));
-		add(new FeatureItem<>(Source.k, -1, Field.prefix));
-		add(new FeatureItem<>(Source.k, 0, Field.prefix));
-		add(new FeatureItem<>(Source.k, 1, Field.prefix));
-		add(new FeatureItem<>(Source.k, 2, Field.prefix));
-
-		// suffix
-		add(new FeatureItem<>(Source.i, -2, Field.suffix));
-		add(new FeatureItem<>(Source.i, -1, Field.suffix));
-		add(new FeatureItem<>(Source.i, 0, Field.suffix));
-		add(new FeatureItem<>(Source.i, 1, Field.suffix));
-		add(new FeatureItem<>(Source.i, 2, Field.suffix));
-
-		add(new FeatureItem<>(Source.j, -2, Field.suffix));
-		add(new FeatureItem<>(Source.j, -1, Field.suffix));
-		add(new FeatureItem<>(Source.j, 0, Field.suffix));
-		add(new FeatureItem<>(Source.j, 1, Field.suffix));
-		add(new FeatureItem<>(Source.j, 2, Field.suffix));
-
-		add(new FeatureItem<>(Source.k, -2, Field.suffix));
-		add(new FeatureItem<>(Source.k, -1, Field.suffix));
-		add(new FeatureItem<>(Source.k, 0, Field.suffix));
-		add(new FeatureItem<>(Source.k, 1, Field.suffix));
-		add(new FeatureItem<>(Source.k, 2, Field.suffix));
+//		add(new FeatureItem<>(Source.i, -2, Field.valency, Direction.all));
+//		add(new FeatureItem<>(Source.i, -1, Field.valency, Direction.all));
+//		add(new FeatureItem<>(Source.i, 0, Field.valency, Direction.all));
+//		add(new FeatureItem<>(Source.i, 1, Field.valency, Direction.all));
+//		add(new FeatureItem<>(Source.i, 2, Field.valency, Direction.all));
+//
+//		add(new FeatureItem<>(Source.j, -2, Field.valency, Direction.all));
+//		add(new FeatureItem<>(Source.j, -1, Field.valency, Direction.all));
+//		add(new FeatureItem<>(Source.j, 0, Field.valency, Direction.all));
+//		add(new FeatureItem<>(Source.j, 1, Field.valency, Direction.all));
+//		add(new FeatureItem<>(Source.j, 2, Field.valency, Direction.all));
+//
+//		add(new FeatureItem<>(Source.k, -2, Field.valency, Direction.all));
+//		add(new FeatureItem<>(Source.k, -1, Field.valency, Direction.all));
+//		add(new FeatureItem<>(Source.k, 0, Field.valency, Direction.all));
+//		add(new FeatureItem<>(Source.k, 1, Field.valency, Direction.all));
+//		add(new FeatureItem<>(Source.k, 2, Field.valency, Direction.all));
+//
+//		// prefix
+//		add(new FeatureItem<>(Source.i, -2, Field.prefix));
+//		add(new FeatureItem<>(Source.i, -1, Field.prefix));
+//		add(new FeatureItem<>(Source.i, 0, Field.prefix));
+//		add(new FeatureItem<>(Source.i, 1, Field.prefix));
+//		add(new FeatureItem<>(Source.i, 2, Field.prefix));
+//
+//		add(new FeatureItem<>(Source.j, -2, Field.prefix));
+//		add(new FeatureItem<>(Source.j, -1, Field.prefix));
+//		add(new FeatureItem<>(Source.j, 0, Field.prefix));
+//		add(new FeatureItem<>(Source.j, 1, Field.prefix));
+//		add(new FeatureItem<>(Source.j, 2, Field.prefix));
+//
+//		add(new FeatureItem<>(Source.k, -2, Field.prefix));
+//		add(new FeatureItem<>(Source.k, -1, Field.prefix));
+//		add(new FeatureItem<>(Source.k, 0, Field.prefix));
+//		add(new FeatureItem<>(Source.k, 1, Field.prefix));
+//		add(new FeatureItem<>(Source.k, 2, Field.prefix));
+//
+//		// suffix
+//		add(new FeatureItem<>(Source.i, -2, Field.suffix));
+//		add(new FeatureItem<>(Source.i, -1, Field.suffix));
+//		add(new FeatureItem<>(Source.i, 0, Field.suffix));
+//		add(new FeatureItem<>(Source.i, 1, Field.suffix));
+//		add(new FeatureItem<>(Source.i, 2, Field.suffix));
+//
+//		add(new FeatureItem<>(Source.j, -2, Field.suffix));
+//		add(new FeatureItem<>(Source.j, -1, Field.suffix));
+//		add(new FeatureItem<>(Source.j, 0, Field.suffix));
+//		add(new FeatureItem<>(Source.j, 1, Field.suffix));
+//		add(new FeatureItem<>(Source.j, 2, Field.suffix));
+//
+//		add(new FeatureItem<>(Source.k, -2, Field.suffix));
+//		add(new FeatureItem<>(Source.k, -1, Field.suffix));
+//		add(new FeatureItem<>(Source.k, 0, Field.suffix));
+//		add(new FeatureItem<>(Source.k, 1, Field.suffix));
+//		add(new FeatureItem<>(Source.k, 2, Field.suffix));
+////
+////
+////
+////		// 2nd-order features
+//		add(new FeatureItem<>(Source.i, Relation.h  , -2, Field.lemma));
+//		add(new FeatureItem<>(Source.i, Relation.h  , -1, Field.lemma));
+//		add(new FeatureItem<>(Source.i, Relation.h  , 0, Field.lemma));
+//		add(new FeatureItem<>(Source.i, Relation.h  , 1, Field.lemma));
+//		add(new FeatureItem<>(Source.i, Relation.h  , 2, Field.lemma));
+//
+//		add(new FeatureItem<>(Source.j, Relation.h  , -2, Field.lemma));
+//		add(new FeatureItem<>(Source.j, Relation.h  , -1, Field.lemma));
+//		add(new FeatureItem<>(Source.j, Relation.h  , 0, Field.lemma));
+//		add(new FeatureItem<>(Source.j, Relation.h  , 1, Field.lemma));
+//		add(new FeatureItem<>(Source.j, Relation.h  , 2, Field.lemma));
 //
 //
 //
-//		// 2nd-order features
-		add(new FeatureItem<>(Source.i, Relation.h  , -2, Field.lemma));
-		add(new FeatureItem<>(Source.i, Relation.h  , -1, Field.lemma));
-		add(new FeatureItem<>(Source.i, Relation.h  , 0, Field.lemma));
-		add(new FeatureItem<>(Source.i, Relation.h  , 1, Field.lemma));
-		add(new FeatureItem<>(Source.i, Relation.h  , 2, Field.lemma));
-
-		add(new FeatureItem<>(Source.j, Relation.h  , -2, Field.lemma));
-		add(new FeatureItem<>(Source.j, Relation.h  , -1, Field.lemma));
-		add(new FeatureItem<>(Source.j, Relation.h  , 0, Field.lemma));
-		add(new FeatureItem<>(Source.j, Relation.h  , 1, Field.lemma));
-		add(new FeatureItem<>(Source.j, Relation.h  , 2, Field.lemma));
-
-
-
-//
-		add(new FeatureItem<>(Source.i, Relation.lmd, -2, Field.lemma));
-		add(new FeatureItem<>(Source.i, Relation.lmd, -1, Field.lemma));
-		add(new FeatureItem<>(Source.i, Relation.lmd, 0, Field.lemma));
-		add(new FeatureItem<>(Source.i, Relation.lmd, 1, Field.lemma));
-		add(new FeatureItem<>(Source.i, Relation.lmd, 2, Field.lemma));
+////
+//		add(new FeatureItem<>(Source.i, Relation.lmd, -2, Field.lemma));
+//		add(new FeatureItem<>(Source.i, Relation.lmd, -1, Field.lemma));
+//		add(new FeatureItem<>(Source.i, Relation.lmd, 0, Field.lemma));
+//		add(new FeatureItem<>(Source.i, Relation.lmd, 1, Field.lemma));
+//		add(new FeatureItem<>(Source.i, Relation.lmd, 2, Field.lemma));
 //
 //		add(new FeatureItem<>(Source.j, Relation.lmd, -2, Field.pos_tag));
 //		add(new FeatureItem<>(Source.j, Relation.lmd, -1, Field.pos_tag));
