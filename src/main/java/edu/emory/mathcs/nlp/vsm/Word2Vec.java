@@ -118,7 +118,7 @@ public class Word2Vec
 		BinUtils.LOG.info("Training vectors:");
 		word_count_global = 0;
 		alpha_global      = alpha_init;
-		subsample_size    = subsample_threshold * word_count_global;
+		subsample_size    = subsample_threshold * word_count_train;
 		ExecutorService executor = Executors.newFixedThreadPool(thread_size);
 		
 		for (String filename : filenames)
@@ -225,7 +225,7 @@ public class Word2Vec
 			Arrays.fill(neu1e, 0);
 			optimizer.learnSkipGram(rand, word, W, V, neu1e, alpha_global, l1);
 			
-			// input -> hidden
+			// hidden -> input
 			for (k=0; k<vector_size; k++) W[l1+k] += neu1e[k];
 		}
 	}

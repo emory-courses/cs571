@@ -32,6 +32,11 @@ public class DEPIndex implements TSVIndex<DEPNode>
 	public int head_id;
 	public int deprel;
 	
+	public DEPIndex(int form, int lemma, int pos, int feats)
+	{
+		set(form, lemma, pos, feats, -1, -1);
+	}
+	
 	public DEPIndex(int form, int lemma, int pos, int feats, int headID, int deprel)
 	{
 		set(form, lemma, pos, feats, headID, deprel);
