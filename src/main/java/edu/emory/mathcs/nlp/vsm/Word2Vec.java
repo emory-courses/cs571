@@ -171,8 +171,8 @@ public class Word2Vec
 				
 				for (index=0; index<words.length; index++)
 				{
-					window = rand.nextInt() % max_skip_window;	// dynamic window size
-					Arrays.fill(neu1 , 0);
+					window = 1 + rand.nextInt() % max_skip_window;	// dynamic window size
+					if (cbow) Arrays.fill(neu1, 0);
 					Arrays.fill(neu1e, 0);
 					
 					if (cbow) bagOfWords(words, index, window, rand, neu1e, neu1);
@@ -203,7 +203,7 @@ public class Word2Vec
 		
 		if (wc == 0) return;
 		for (k=0; k<vector_size; k++) neu1[k] /= wc;
-		optimizer.learnBagOfWords(rand, word, W, neu1, neu1e, alpha_global);
+		optimizer.learnBagOfWords(rand, word, V, neu1, neu1e, alpha_global);
 		
 		// hidden -> input
 		for (i=-window,j=index+i; i<=window; i++,j++)

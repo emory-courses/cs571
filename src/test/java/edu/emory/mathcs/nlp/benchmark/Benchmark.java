@@ -15,16 +15,20 @@
  */
 package edu.emory.mathcs.nlp.benchmark;
 
+import java.util.Arrays;
 import java.util.Random;
 
 import org.junit.Test;
+
+import it.unimi.dsi.fastutil.ints.IntOpenHashSet;
+import it.unimi.dsi.fastutil.ints.IntSet;
 
 /**
  * @author Jinho D. Choi ({@code jinho.choi@emory.edu})
  */
 public class Benchmark
 {
-	@Test
+//	@Test
 	public void speed()
 	{
 		Random rand = new Random();
@@ -39,6 +43,15 @@ public class Benchmark
 			System.out.println();
 			
 		}
-		
+	}
+	
+	@Test
+	public void test()
+	{
+		IntSet set = new IntOpenHashSet();
+		set.add(1);
+		set.add(3);
+		set.add(5);
+		System.out.println(Arrays.toString(set.toIntArray()));
 	}
 }

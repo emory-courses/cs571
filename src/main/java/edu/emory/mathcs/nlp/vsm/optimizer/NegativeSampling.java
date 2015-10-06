@@ -15,14 +15,13 @@
  */
 package edu.emory.mathcs.nlp.vsm.optimizer;
 
-import it.unimi.dsi.fastutil.ints.IntOpenHashSet;
-import it.unimi.dsi.fastutil.ints.IntSet;
-
 import java.util.Arrays;
 import java.util.Random;
 
 import edu.emory.mathcs.nlp.common.util.Sigmoid;
 import edu.emory.mathcs.nlp.vsm.util.Vocabulary;
+import it.unimi.dsi.fastutil.ints.IntOpenHashSet;
+import it.unimi.dsi.fastutil.ints.IntSet;
 
 /**
  * @author Jinho D. Choi ({@code jinho.choi@emory.edu})
@@ -88,7 +87,7 @@ public class NegativeSampling extends Optimizer
 
 		while (set.size() < sample_size)
 		{
-			target = dist_table[rand.nextInt() % dist_table.length];
+			target = dist_table[rand.nextInt(Integer.MAX_VALUE) % dist_table.length];
 			if (target != word) set.add(target);
 		}
 		
