@@ -52,7 +52,8 @@ public interface ConfigXML
 	String FEATURE_CUTOFF	= "feature_cutoff";
 	String RESET_WEIGHTS	= "reset_weights";
 	String AVERAGE			= "average";
-	
+
+	String L1			    = "l1";
 	String LEARNING_RATE	= "learning_rate";
 	String DECAYING_RATE	= "decaying_rate";
 	String BATCH_RATIO		= "batch_ratio";
@@ -68,6 +69,7 @@ public interface ConfigXML
 	
 	String PERCEPTRON			= "perceptron";
 	String ADAGRAD				= "adagrad";
+	String ADAGRADTRUNC			= "adagrad-trunc";
 	String ADAGRAD_MINI_BATCH	= "adagrad-mini-batch";
 	String ADADELTA_MINI_BATCH	= "adadelta-mini-batch";
 	String LIBLINEAR_L2_SVC		= "liblinear-l2-svc";

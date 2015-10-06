@@ -105,7 +105,7 @@ public abstract class NLPTrain<N,S extends NLPState<N>>
 			
 			component.setFlag(NLPFlag.EVALUATE);
 			prevScore = currScore;
-			currScore = train(reader, developFiles, component, configuration);
+			currScore = train(reader, developFiles, component, configuration, iter);
 			if (dagger == null) break;	// no aggregating
 			
 			if (prevScore >= currScore + dagger.getToleranceDelta() || iter - dagger.getMaxTolerance() > bestIter)
@@ -124,7 +124,7 @@ public abstract class NLPTrain<N,S extends NLPState<N>>
 		BinUtils.LOG.info(String.format("\nFinal score: %5.2f\n", bestScore));
 	}
 	
-	public double train(TSVReader<N> reader, List<String> developFiles, NLPComponent<N,?> component, NLPConfig<N> configuration)
+	public double train(TSVReader<N> reader, List<String> developFiles, NLPComponent<N,?> component, NLPConfig<N> configuration, int iter)
 	{
 		StringModel[] models = component.getModels();
 		Optimizer[] optimizers = configuration.getOptimizers(models);
@@ -136,16 +136,15 @@ public abstract class NLPTrain<N,S extends NLPState<N>>
 			BinUtils.LOG.info(models[i].trainInfo()+"\n");
 			
 			if (optimizers[i].getType() == OptimizerType.ONLINE)
-				score = trainOnline(reader, developFiles, component, optimizers[i], models[i]);
+				score = trainOnline(reader, developFiles, component, optimizers[i], models[i], iter);
 			else
-				score = trainOneVsAll(reader, developFiles, component, optimizers[i], models[i]);
+				score = trainOneVsAll(reader, developFiles, component, optimizers[i], models[i], iter);
 		}
 		
 		return score;
 	}
 	
-	/** Called by {@link #train(TSVReader, List, NLPComponent, NLPConfig)}. */
-	protected double trainOnline(TSVReader<N> reader, List<String> developFiles, NLPComponent<N,?> component, Optimizer optimizer, StringModel model)
+	protected double trainOnline(TSVReader<N> reader, List<String> developFiles, NLPComponent<N,?> component, Optimizer optimizer, StringModel model, int iter)
 	{
 		Eval eval = component.getEval();
 		double prevScore = 0, currScore;
@@ -155,7 +154,7 @@ public abstract class NLPTrain<N,S extends NLPState<N>>
 		{
 			eval.clear();
 			optimizer.train(model.getInstanceList());
-			iterate(reader, developFiles, nodes -> component.process(nodes));
+			iterate(reader, developFiles, nodes -> component.process(nodes, iter));
 			currScore = eval.score();
 			
 			if (prevScore < currScore)
@@ -165,24 +164,29 @@ public abstract class NLPTrain<N,S extends NLPState<N>>
 			}
 			else
 			{
+				if (epoch < 10)
+					continue;
 				model.getWeightVector().fromArray(prevWeight);
 				break;
 			}
-			
-			BinUtils.LOG.info(String.format("%3d: %5.2f\n", epoch, currScore));
+
+			int nonEmpty = 0;
+			for (float f :component.getModels()[0].getWeightVector().toArray())
+				if (f!=0)
+					nonEmpty++;
+			BinUtils.LOG.info(String.format("%3d: %5.2f nonEmpty: %d\n", epoch, currScore, nonEmpty));
 		}
 		
 		return prevScore; 
 	}
-	
-	/** Called by {@link #train(TSVReader, List, NLPComponent, NLPConfig)}. */
-	protected double trainOneVsAll(TSVReader<N> reader, List<String> developFiles, NLPComponent<N,?> component, Optimizer optimizer, StringModel model)
+
+	protected double trainOneVsAll(TSVReader<N> reader, List<String> developFiles, NLPComponent<N,?> component, Optimizer optimizer, StringModel model, int iter)
 	{
 		Eval eval = component.getEval();
 
 		eval.clear();
 		optimizer.train(model.getInstanceList());
-		iterate(reader, developFiles, nodes -> component.process(nodes));
+		iterate(reader, developFiles, nodes -> component.process(nodes, iter));
 		BinUtils.LOG.info(String.format("- %s\n", eval.toString()));
 		return eval.score();
 	}

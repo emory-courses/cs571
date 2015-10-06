@@ -15,6 +15,8 @@
  */
 package edu.emory.mathcs.nlp.component.util.config;
 
+import edu.emory.mathcs.nlp.learn.optimization.sgd.AdaGradTrunc;
+import edu.emory.mathcs.nlp.learn.optimization.sgd.AdaGrad;
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 
@@ -33,7 +35,6 @@ import edu.emory.mathcs.nlp.learn.optimization.Optimizer;
 import edu.emory.mathcs.nlp.learn.optimization.liblinear.LiblinearL2SVC;
 import edu.emory.mathcs.nlp.learn.optimization.minibatch.AdaDeltaMiniBatch;
 import edu.emory.mathcs.nlp.learn.optimization.minibatch.AdaGradMiniBatch;
-import edu.emory.mathcs.nlp.learn.optimization.sgd.AdaGrad;
 import edu.emory.mathcs.nlp.learn.optimization.sgd.Perceptron;
 
 /**
@@ -123,11 +124,13 @@ public abstract class NLPConfig<N> implements ConfigXML
 		
 		switch (algorithm)
 		{
-		case PERCEPTRON         : return getPerceptron       (eOptimizer, model);
-		case ADAGRAD            : return getAdaGrad          (eOptimizer, model);
-		case ADAGRAD_MINI_BATCH : return getAdaGradMiniBatch (eOptimizer, model);
-		case ADADELTA_MINI_BATCH: return getAdaDeltaMiniBatch(eOptimizer, model);
-		case LIBLINEAR_L2_SVC   : return getLiblinearL2SVC   (eOptimizer, model);
+			case PERCEPTRON         : return getPerceptron       (eOptimizer, model);
+			case ADAGRADTRUNC       : return getAdaGradTrunc(eOptimizer, model);
+
+			case ADAGRAD            : return getAdaGrad          (eOptimizer, model);
+			case ADAGRAD_MINI_BATCH : return getAdaGradMiniBatch (eOptimizer, model);
+			case ADADELTA_MINI_BATCH: return getAdaDeltaMiniBatch(eOptimizer, model);
+			case LIBLINEAR_L2_SVC   : return getLiblinearL2SVC   (eOptimizer, model);
 		}
 		
 		throw new IllegalArgumentException(algorithm+" is not a valid algorithm name.");
@@ -158,6 +161,13 @@ public abstract class NLPConfig<N> implements ConfigXML
 		double  learningRate = XMLUtils.getDoubleTextContentFromFirstElementByTagName (eOptimizer, LEARNING_RATE);
 		
 		return new AdaGrad(model.getWeightVector(), average, learningRate);
+	}
+	private AdaGradTrunc getAdaGradTrunc(Element eOptimizer, StringModel model)
+	{
+		boolean average      = XMLUtils.getBooleanTextContentFromFirstElementByTagName(eOptimizer, AVERAGE);
+		double  learningRate = XMLUtils.getDoubleTextContentFromFirstElementByTagName (eOptimizer, LEARNING_RATE);
+		double l1			 = XMLUtils.getDoubleTextContentFromFirstElementByTagName (eOptimizer, L1);
+		return new AdaGradTrunc(model.getWeightVector(), average, learningRate, l1);
 	}
 	
 	private AdaGradMiniBatch getAdaGradMiniBatch(Element eOptimizer, StringModel model)
