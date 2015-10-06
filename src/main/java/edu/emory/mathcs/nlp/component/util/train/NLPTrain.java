@@ -164,11 +164,17 @@ public abstract class NLPTrain<N,S extends NLPState<N>>
 			}
 			else
 			{
+				if (epoch < 10)
+					continue;
 				model.getWeightVector().fromArray(prevWeight);
 				break;
 			}
-			
-			BinUtils.LOG.info(String.format("%3d: %5.2f\n", epoch, currScore));
+
+			int nonEmpty = 0;
+			for (float f :component.getModels()[0].getWeightVector().toArray())
+				if (f!=0)
+					nonEmpty++;
+			BinUtils.LOG.info(String.format("%3d: %5.2f nonEmpty: %d\n", epoch, currScore, nonEmpty));
 		}
 		
 		return prevScore; 

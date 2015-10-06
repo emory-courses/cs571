@@ -52,7 +52,7 @@ public class AdaGradRegression extends StochasticGradientDescent
 		join.add("average = "+isAveraged());
 		join.add("learning rate = "+learning_rate);
 		
-		return "AdaGrad regression: "+join.toString();
+		return "AdaGradTrunc regression: "+join.toString();
 	}
 
 }

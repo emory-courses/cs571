@@ -44,6 +44,6 @@ public class AdaGradMiniBatch extends AdaptiveMiniBatch
 		join.add("average = " + isAveraged());
 		join.add("learning rate = "+learning_rate);
 		
-		return "AdaGrad: "+join.toString();
+		return "AdaGradTrunc: "+join.toString();
 	}
 }
