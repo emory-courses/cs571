@@ -13,36 +13,38 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package edu.emory.mathcs.nlp.component.util;
+package edu.emory.mathcs.nlp.corenlp.component;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
+import edu.emory.mathcs.nlp.component.util.NLPFlag;
 import edu.emory.mathcs.nlp.component.util.eval.Eval;
 import edu.emory.mathcs.nlp.component.util.feature.FeatureTemplate;
 import edu.emory.mathcs.nlp.component.util.state.NLPState;
 import edu.emory.mathcs.nlp.learn.model.StringModel;
 import edu.emory.mathcs.nlp.learn.util.StringPrediction;
 import edu.emory.mathcs.nlp.learn.vector.StringVector;
+import edu.emory.mathcs.nlp.machine_learning.model.VectorMap;
 
 /**
  * @author Jinho D. Choi ({@code jinho.choi@emory.edu})
  */
-public abstract class NLPComponent<N,S extends NLPState<N>> implements Serializable
+public abstract class NLPSequence<N,S extends NLPState<N>> implements Serializable
 {
 	private static final long serialVersionUID = 4546728532759275929L;
 	protected FeatureTemplate<N,S> feature_template;
-	protected StringModel[] models;
+	protected VectorMap[] vector_maps;
 	protected NLPFlag flag;
 	protected Eval eval;
 	
 //	============================== CONSTRUCTORS ==============================
 	
-	public NLPComponent(StringModel[] models)
+	public NLPSequence(VectorMap[] maps)
 	{
-		setModels(models);
+		setVectorMaps(maps);
 	}
 	
 //	============================== SERIALIZATION ==============================
@@ -51,14 +53,14 @@ public abstract class NLPComponent<N,S extends NLPState<N>> implements Serializa
 	private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException
 	{
 		feature_template = (FeatureTemplate<N,S>)in.readObject();
-		models = (StringModel[])in.readObject();
+		vector_maps = (VectorMap[])in.readObject();
 		readLexicons(in);
 	}
 	
 	private void writeObject(ObjectOutputStream out) throws IOException
 	{
 		out.writeObject(feature_template);
-		out.writeObject(models);
+		out.writeObject(vector_maps);
 		writeLexicons(out);
 	}
 	
@@ -67,14 +69,14 @@ public abstract class NLPComponent<N,S extends NLPState<N>> implements Serializa
 	
 //	============================== MODELS ==============================
 	
-	public StringModel[] getModels()
+	public VectorMap[] getVectorMaps()
 	{
-		return models;
+		return vector_maps;
 	}
 	
-	public void setModels(StringModel[] model)
+	public void setVectorMaps(VectorMap[] maps)
 	{
-		this.models = model;
+		this.vector_maps = maps;
 	}
 	
 //	============================== FEATURE ==============================

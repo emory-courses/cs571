@@ -15,7 +15,6 @@
  */
 package edu.emory.mathcs.nlp.benchmark.pos;
 
-import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
 import java.util.function.Consumer;
@@ -31,7 +30,7 @@ import edu.emory.mathcs.nlp.component.pos.POSIndex;
 import edu.emory.mathcs.nlp.component.pos.POSNode;
 import edu.emory.mathcs.nlp.component.pos.POSState;
 import edu.emory.mathcs.nlp.component.pos.POSTagger;
-import edu.emory.mathcs.nlp.component.pos.feature.POSFeatureTemplate0;
+import edu.emory.mathcs.nlp.component.pos.feature.POSFeatureTemplate1;
 import edu.emory.mathcs.nlp.component.util.NLPFlag;
 import edu.emory.mathcs.nlp.component.util.eval.AccuracyEval;
 import edu.emory.mathcs.nlp.component.util.eval.Eval;
@@ -52,16 +51,16 @@ import edu.emory.mathcs.nlp.learn.weight.WeightVector;
 public class POSBenchmark
 {
 	@Test
-	public void baseline() throws IOException
+	public void baseline() throws Exception
 	{
-		run(new POSFeatureTemplate0(), 2, true);
+		run(new POSFeatureTemplate1(), 0, true);
 		
 		DEPNode[] nodes = null;
 		AmbiguityClassMap map = new AmbiguityClassMap();
 		map.add(nodes);
 	}
 	
-	public void run(FeatureTemplate<POSNode,POSState<POSNode>> template, int type, boolean average) throws IOException
+	public void run(FeatureTemplate<POSNode,POSState<POSNode>> template, int type, boolean average) throws Exception
 	{
 		final String root = "/Users/jdchoi/Documents/Data/experiments/wsj/wsj-pos/";
 		TSVReader<POSNode> reader = new TSVReader<>(new POSIndex(0,1));
@@ -90,7 +89,7 @@ public class POSBenchmark
 		
 		// train the statistical model
 		final double learning_rate = 0.02;
-		final int epochs = 200;
+		final int epochs = 1;
 		
 		WeightVector weight = model.getWeightVector();
 		OnlineOptimizer sgd = null;
@@ -120,9 +119,25 @@ public class POSBenchmark
 		}
 		
 		System.out.printf("Best: %d - %5.2f\n", best.i, best.d);
+		
+//		System.out.println("Saving");
+//		ObjectOutputStream out = IOUtils.createObjectXZBufferedOutputStream("tmp");
+//		out.writeObject(tagger);
+//		out.close();
+//		
+//		System.out.println("Loading");
+//		ObjectInputStream in = IOUtils.createObjectXZBufferedInputStream("tmp");
+//		NLPComponent<POSNode,POSState<POSNode>> component = (NLPComponent<POSNode,POSState<POSNode>>)in.readObject();
+//		eval.clear();
+//		component.setEval(eval);
+//		component.setFlag(NLPFlag.EVALUATE);
+//		
+//		System.out.println("Decoding");
+//		iterate(reader, devFiles, nodes -> component.process(nodes));
+//		System.out.println(eval.score());
 	}
 	
-	void iterate(TSVReader<POSNode> reader, List<String> filenames, Consumer<POSNode[]> f) throws IOException
+	void iterate(TSVReader<POSNode> reader, List<String> filenames, Consumer<POSNode[]> f) throws Exception
 	{
 		for (String filename : filenames)
 		{
