@@ -38,7 +38,7 @@ def concat(sequence, word, idx):
     l.append(word)
     return DELIM.join(l)
 
-def generate(ngrams, init_words, threshold):
+def generate(ngrams, threshold, init_words):
     sequence = list(init_words)
     idx = -len(init_words)
 
@@ -51,14 +51,15 @@ def generate(ngrams, init_words, threshold):
 
     return sequence
 
-ngram_file = sys.argv[1]
-threshold = float(sys.argv[2])
-init_words = sys.argv[3].split('_')
+# main
+INPUT_FILE = sys.argv[1]
+THRESHOLD  = float(sys.argv[2])
+INIT_WORDS = sys.argv[3].split('_')
 
-ngrams = read_ngrams(ngram_file)
+ngrams = read_ngrams(INPUT_FILE)
 
 for i in range(50):
-    seq = generate(ngrams, init_words, threshold)
+    seq = generate(ngrams, THRESHOLD, INIT_WORDS)
     print(' '.join(seq))
 
 # python hw0.py w2_.txt 0.01 dear
