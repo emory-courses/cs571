@@ -8,9 +8,9 @@ Source:
 
 Files:
 
-* [`wsj-pos.trn.gold.tsv`](wsj-pos.trn.gold.tsv): training set (WSJ sections 0 - 18)
-* [`wsj-pos.trn.gold.tsv`](wsj-pos.dev.gold.tsv): development set (WSJ sections 19 - 21)
-* [`wsj-pos.trn.unlabeled.tsv `](wsj-pos.trn.unlabeled.tsv): evaluation set (WSJ sections 22 - 24; unlabeled)
+* [wsj-pos.trn.gold.tsv](wsj-pos.trn.gold.tsv): training set (WSJ sections 0 - 18)
+* [wsj-pos.dev.gold.tsv](wsj-pos.dev.gold.tsv): development set (WSJ sections 19 - 21)
+* [wsj-pos.tst.unlabeled.tsv](wsj-pos.tst.unlabeled.tsv): evaluation set (WSJ sections 22 - 24; unlabeled)
 
 Format:
 

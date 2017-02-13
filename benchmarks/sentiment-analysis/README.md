@@ -8,9 +8,9 @@ Source:
 
 Files:
 
-* [`sst.trn.gold.tsv`](sst.trn.gold.tsv): training set
-* [`sst.dev.gold.tsv`](sst.dev.gold.tsv): development set
-* [`sst.tst.unlabeled.tsv`](sst.tst.tsv): evaluation set
+* [sst.trn.gold.tsv](sst.trn.gold.tsv): training set
+* [sst.dev.gold.tsv](sst.dev.gold.tsv): development set
+* [sst.tst.unlabeled.tsv](sst.tst.unlabeled.tsv): evaluation set
 
 Format:
 
