@@ -2,15 +2,9 @@
 
 ## Stanford Sentiment Treebank
 
-Webpage: http://nlp.stanford.edu/sentiment/treebank.html
+Links:
 
-Labels:
-
-* 0: very negative
-* 1: negative
-* 2: neutral
-* 3: positive
-* 4: very positive
+* http://nlp.stanford.edu/sentiment/treebank.html
 
 Files:
 
@@ -20,12 +14,23 @@ Files:
 
 Format:
 
+```
+line ::= <label><tab><document>
+label ::= 0|1|2|3|4
+document ::= <token>(<space><token>)*
+```
 
+Labels:
 
+* `0`: very negative
+* `1`: negative
+* `2`: neutral
+* `3`: positive
+* `4`: very positive
 
 Benchmark:
 
-| Model | Fine-grained | Binary |
+| Model | 5 classes | 2 classes |
 |---|:-:|:-:|
 | [Socher et al. (2013)](http://www.aclweb.org/anthology/D13-1170) | 45.7 | 85.4 |
 | [Kim (2014)](http://www.aclweb.org/anthology/D14-1181) | 48.0 | 87.2 |
