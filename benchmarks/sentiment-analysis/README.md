@@ -15,8 +15,8 @@ Files:
 Format:
 
 ```
-line ::= <label><tab><document>
-label ::= 0|1|2|3|4
+line ::= <sentiment><tab><document>
+sentiment ::= 0|1|2|3|4
 document ::= <token>(<space><token>)*
 ```
 
