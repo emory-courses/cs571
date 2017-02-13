@@ -2,15 +2,15 @@
 
 ## Stanford Sentiment Treebank
 
-Links:
+Source:
 
 * http://nlp.stanford.edu/sentiment/treebank.html
 
 Files:
 
-* [`sst.trn.tsv`](sst.trn.tsv): training set
-* [`sst.dev.tsv`](sst.dev.tsv): development set
-* [`sst.tst.tsv`](sst.tst.tsv): evaluation set (unlabeled)
+* [`sst.trn.gold.tsv`](sst.trn.gold.tsv): training set
+* [`sst.dev.gold.tsv`](sst.dev.gold.tsv): development set
+* [`sst.tst.unlabeled.tsv`](sst.tst.tsv): evaluation set
 
 Format:
 
@@ -19,6 +19,8 @@ line ::= <label><tab><document>
 label ::= 0|1|2|3|4
 document ::= <token>(<space><token>)*
 ```
+
+* Each line represents a document.
 
 Labels:
 
