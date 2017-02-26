@@ -20,6 +20,7 @@ sentence ::= (<token><new_line>)+
 ```
 
 * Each sentence is delimited by a blank line.
+* Lemmas and part-pf-speech tags are automatically generated.
 
 Labels:
 
