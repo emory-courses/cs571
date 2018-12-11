@@ -1,25 +1,39 @@
+# Syllabus - Spring 2019
+
 ## General
 
-* Class hours and location: MW 4:00 - 5:15pm, MSC W302.
-* Prerequisites: undergraduate level of artificial intelligence, machine learning, natural language processing, information retrieval, or their equivalence.
+* Class hours and location: MW 11:30am - 12:45pm, MSC W301.
+* Prerequisites: a graduate-level machine learning course.
 
 ## Instructor
 
-* [Jinho Choi](http://mathcs.emory.edu/~choi).
-* Office hours: MW 2:30 - 4pm, MSC E414.
+* [Jinho Choi](http://cs.emory.edu/~choi).
+* Office hours: MW 2:30pm - 4:00pm, MSC E414.
 
-## Teaching Assistant
+## Teaching Assistants
 
-* [Bonggun Shin](https://bgshin.wordpress.com).
-* Office hours: F 9:30 - 11:30am, Computer Lab.
+* [Gary Lai](https://gary-lai.com).
+* Office hours: Tu 2:00pm - 4:00pm, NLP Lab.
 
 ## Grading
 
-* Homework assignments: 40%.
-* Paper presentation: 10%.
+* 4 homework assignments: 40%.
+* 1 paper presentation: 10%.
 * Project proposal: 20%.
 * Final project: 30%.
 * Your work is governed by the [Emory Honor Code](http://catalog.college.emory.edu/academic/policy/honor_code.html) and the [Math/CS SPCA](http://mathcs.emory.edu/spca.php). Honor code violations on any submission will be referred to the [Emory Honor Council](http://college.emory.edu/home/academic/honor-council/).
+
+## Extra Credits
+
+* Extra credits up to 10 points can be earned by successfully deploying qualified NLP tools to [ELIT](https://elit.cloud).
+* A tool is qualified if:
+  * It gives state-of-the-art accuracy on standard benchmark datasets, or
+  * It gives comparative accuracy against other state-of-the-art models yet runs much faster.
+* Each model deployment is credited up to 5 points based on the following criteria:
+  * Decoding ability via command-line and web-API (required).
+  * Training ability via command-line and/or [Jupyter Notebook](https://jupyter.org) (optional).
+  * Documentation (required).
+* Tools not developed by you must be indicated with the original source and the license.
 
 ## Notes
 
