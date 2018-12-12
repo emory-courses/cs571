@@ -5,16 +5,16 @@
 |01/14| [Language Modeling](language_modeling.md) | | |
 |01/16| [Language Modeling](language_modeling.md) | | |
 |01/21| Martin Luther King Day | | |
-|01/23| [Language Modeling](language_modeling.md) | quiz1, [hw1](hw1) |
+|01/23| [Language Modeling](language_modeling.md) | quiz1, [hw1](../homework/hw1) |
 |01/28| [Distributional Semantics](http://www.slideshare.net/jchoi7s/cs571-distributional-semantics) | | |
 |01/30| [Distributional Semantics](http://www.slideshare.net/jchoi7s/cs571-distributional-semantics) | quiz2 | |
-|02/04| [Distributional Semantics](http://www.slideshare.net/jchoi7s/cs571-distributional-semantics) | [hw2](hw2) | |
+|02/04| [Distributional Semantics](http://www.slideshare.net/jchoi7s/cs571-distributional-semantics) | [hw2](../homework/hw2) | |
 |02/06| [Document Classification](http://www.slideshare.net/jchoi7s/cs571-part-ofspeech-tagging) | quiz3 | |
 |02/11| [Document Classification](http://www.slideshare.net/jchoi7s/cs571-part-ofspeech-tagging) | | |
-|02/13| [Document Classification](http://www.slideshare.net/jchoi7s/cs571-part-ofspeech-tagging) | quiz4, [hw3](hw3) | |
+|02/13| [Document Classification](http://www.slideshare.net/jchoi7s/cs571-part-ofspeech-tagging) | quiz4, [hw3](../homework/hw3) | |
 |02/18| [Sequence Tagging](http://mathcs.emory.edu/~choi/courses/cs571/slides/) | | |
 |02/20| [Sequence Tagging](http://mathcs.emory.edu/~choi/courses/cs571/slides/) | quiz5 | |
-|02/25| [Sequence Tagging](http://mathcs.emory.edu/~choi/courses/cs571/slides/) | [hw4](hw4) | |
+|02/25| [Sequence Tagging](http://mathcs.emory.edu/~choi/courses/cs571/slides/) | [hw4](../homework/hw4) | |
 |02/27| [Structure Parsing](https://www.slideshare.net/jchoi7s/cs571-dependency-parsing) | quiz6 | |
 |03/04| [Structure Parsing](https://www.slideshare.net/jchoi7s/cs571-dependency-parsing) | | |
 |03/06| [Structure Parsing](https://www.slideshare.net/jchoi7s/cs571-dependency-parsing) | quiz7 | |
