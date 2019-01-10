@@ -12,18 +12,17 @@
 
 ## Teaching Assistants
 
-* [Gary Lai](https://gary-lai.com): 
-  * Office hours: Tu 2:00pm - 4:00pm, NLP Lab.
+* [Gary Lai](https://gary-lai.com): Tu 2:00pm - 4:00pm, NLP Lab.
 * TBA.
 
 ## Grading
 
 * 3 homework assignments: 30%.
-* 10 take-home quizzes: 10%.
+* 10 take-home quizzes: 20%.
 * 1 paper presentation: 10%.
 * Project proposal: 15%.
 * Final project: 25%.
-* Your work is governed by the [Emory Honor Code](http://catalog.college.emory.edu/academic/policy/honor_code.html) and the [Math/CS SPCA](http://mathcs.emory.edu/spca.php). Honor code violations on any submission will be referred to the [Emory Honor Council](http://college.emory.edu/home/academic/honor-council/).
+* Your work is governed by the [Emory Honor Code](http://catalog.college.emory.edu/academic/policies-regulations/honor-code.html). Honor code violations on any submission will be referred to the [Emory Honor Council](http://college.emory.edu/oue/current-students/honor-council.html).
 
 ## Extra Credits
 
@@ -39,7 +38,7 @@
 
 ## Notes
 
-* Excuses for absence/reschedule and other serious personal events (health, family, personal related, etc.) that affect course performance must be accompanied by a letter from the [Office of Undergraduate Education](http://college.emory.edu/home/administration/office/undergraduate/) or the [Laney Graduate School](http://www.graduateschool.emory.edu/about/staff.html).
-* Quizzes are due by the beginning of the class. Late submissions are not allowed for quizzes.
+* Excuses for absence/reschedule and other serious personal events (health, family, personal related, etc.) that affect course performance must be accompanied by a letter from the [Office for Undergraduate Education](http://college.emory.edu/oue/current-students/advising.html) or the [Laney Graduate School](http://www.graduateschool.emory.edu/about/staff.html).
 * Homework assignments are due by the beginning of the class. Late submissions within a week will be accepted with the grading penalty of 15%, and will not be accepted after the first week. Exceptions to this policy will be made only in extraordinary circumstances.
-* Homework assignments must be submitted individually unless they are assigned as group projects. Group discussions are allowed; however, your work must be original. Apparent copies from any source, including your colleagues and internet sites, will be referred to the [Emory Honor Council](http://college.emory.edu/home/academic/honor-council/).
+* Quizzes are due by the beginning of the class. Late submissions are not allowed for quizzes.
+* Homework assignments and quizzes must be submitted individually. Group discussions are allowed; however, your work must be original. Apparent copies from any source, including your colleagues and internet sites, will be referred to the [Emory Honor Council](http://college.emory.edu/oue/current-students/honor-council.html).
