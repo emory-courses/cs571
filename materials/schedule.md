@@ -2,7 +2,7 @@
 
 | Date | Topic | Assignments | Presenters |
 |:-:|:-:|:-:|---|
-|01/14| [Language Modeling](../topics/language_modeling.md) | [quiz0](quizzes#quiz-0), [hw0](../homework/hw0) | |
+|01/14| [Language Modeling](../topics/language_modeling.md) | [quiz0](quizzes.md#quiz-0), [hw0](../homework/hw0) | |
 |01/16| [Language Modeling](../topics/language_modeling.md) | | |
 |01/21| Martin Luther King Day | | |
 |01/23| [Language Modeling](../topics/language_modeling.md) | quiz1 |
@@ -36,7 +36,7 @@
 
 
 <!--|03/25| [Phrase Structure Grammar](https://www.slideshare.net/jchoi7s/cs571-phrase-structure-grammar) | | |
-|03/27| [Tree Adjoining Grammar](https://www.slideshare.net/jchoi7s/cs571-tree-adjoining-grammar) | | |
+|03/27| [Tree Adjoining Grammar](https://www.slideshare.net/jchoi7s/cs571-tree-adjoinixng-grammar) | | |
 |04/01| [Combinatory Categorial Grammar](https://www.slideshare.net/jchoi7s/cs571-combinatory-categorial-grammar) | | |
 |04/03| [Meaning Representations](http://mathcs.emory.edu/~choi/courses/cs571/slides/) | | |
 |04/08| [Meaning Representations](http://mathcs.emory.edu/~choi/courses/cs571/slides/) | | |
