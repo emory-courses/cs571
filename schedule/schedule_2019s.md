@@ -22,14 +22,14 @@
 |03/13| Spring Break | | |
 |03/18| Proposal Presentations | | |
 |03/20| Proposal Presentations | | |
-|03/25| [Entity Resolution](../topics/entity_resolution.md) | | |
-|03/27| [Entity Resolution](../topics/entity_resolution.md) | | |
-|04/01| [Entity Resolution](../topics/entity_resolution.md) | quiz6 | |
-|04/03| [Machine Comprehension](../topics/machine_comprehension.md) | | |
+|03/25| Proposal Presentations | | |
+|03/27| [Structure Parsing](../topics/structure_parsing.md) | | |
+|04/01| [Entity Resolution](../topics/entity_resolution.md) | | |
+|04/03| [Entity Resolution](../topics/entity_resolution.md) | quiz6 | |
 |04/08| [Machine Comprehension](../topics/machine_comprehension.md) | | |
-|04/10| [Machine Comprehension](../topics/machine_comprehension.md) | quiz7 | |
-|04/15| [NLP Applications](../topics/nlp_applications.md) | | |
-|04/17| [NLP Applications](../topics/nlp_applications.md) | | |
+|04/10| [Machine Comprehension](../topics/machine_comprehension.md) | | |
+|04/15| [Machine Comprehension](../topics/machine_comprehension.md) | quiz7 | |
+|04/17| Project Presentations | | |
 |04/22| Project Presentations | | |
 |04/24| Project Presentations | | |
 |04/29| [NLP Applications](../topics/nlp_applications.md) | | |
