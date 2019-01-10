@@ -22,11 +22,25 @@
 * 1 paper presentation: 10%.
 * Project proposal: 15%.
 * Final project: 25%.
-* Your work is governed by the [Emory Honor Code](http://catalog.college.emory.edu/academic/policies-regulations/honor-code.html). Honor code violations on any submission will be referred to the [Emory Honor Council](http://college.emory.edu/oue/current-students/honor-council.html).
+* Your work is governed by the [Emory Honor Code](http://catalog.college.emory.edu/academic/policies-regulations/honor-code.html). Honor code violations (e.g., apparent copies from any source including your colleagues and internet sites) will be referred to the [Emory Honor Council](http://college.emory.edu/oue/current-students/honor-council.html).
+* Excuses for absence/reschedule and other serious personal events (health, family, personal related, etc.) that affect course performance must be accompanied by a letter from the [Office for Undergraduate Education](http://college.emory.edu/oue/current-students/advising.html) or the [Laney Graduate School](http://www.graduateschool.emory.edu/about/staff.html).
 
 ## Homework Assignments
 
-* 
+* Homework assignments require the following skills (that are not covered by this course):
+  * Python programming
+  * Git version control
+  * Cloud computing
+  * LaTex writing
+* All assignments are due by the beginning of the class.
+* Late submissions within a week will be accepted with the grading penalty of 15%, and will not be accepted after the first week. Exceptions to this policy will be made only in extraordinary circumstances.
+* All assignments must be submitted individually. Group discussions are allowed; however, your work must be original.
+
+## Take-home Quizzes
+
+* One take-home quiz will be assigned every week to check if you are keeping up with the topics.
+* Quizzes are due by the beginning of the class. Late submissions will not be accepted.
+* Quizzes must be submitted individually. Group discussions are allowed; however, your work must be original.
 
 ## Paper Presentation
 
@@ -42,6 +56,29 @@
   * Meaningful analysis (3 points)
 * Submit the presentation slides as well as the review report within a week from the assigned date.
 
+## Project Proposal
+
+* You are expected to
+  * Group a team of 2-3 people.
+  * Give a 15-mins presentation to propose your idea about the final project.
+  * Write a proposal containing details about your idea.
+* Your idea must
+  * Be within the scope of this course.
+  * Be plausible within this semester.
+  * Include at least workshop-acceptable novelty.
+* Everyone in the group will get the same grade.
+
+## Final Project
+
+* You are expected to
+  * Give a 15-mins presentation about your final project.
+  * Write a report illustrating details about your work.
+* Projects with
+  * Outstanding results will be submitted to conferences.
+  * Good results will be submitted to workshops.
+  * Promising results will be submitted to arXiv.
+* Everyone in the group will get the same grade.
+
 ## Extra Credits
 
 * Extra credits up to 10 points can be earned by successfully deploying qualified NLP tools to [ELIT](https://elit.cloud).
@@ -53,10 +90,3 @@
   * Training ability via command-line and/or [Jupyter Notebook](https://jupyter.org) (optional).
   * Documentation (required).
 * Tools not developed by you must be indicated with the original source and the license.
-
-## Notes
-
-* Excuses for absence/reschedule and other serious personal events (health, family, personal related, etc.) that affect course performance must be accompanied by a letter from the [Office for Undergraduate Education](http://college.emory.edu/oue/current-students/advising.html) or the [Laney Graduate School](http://www.graduateschool.emory.edu/about/staff.html).
-* Homework assignments are due by the beginning of the class. Late submissions within a week will be accepted with the grading penalty of 15%, and will not be accepted after the first week. Exceptions to this policy will be made only in extraordinary circumstances.
-* Quizzes are due by the beginning of the class. Late submissions are not allowed for quizzes.
-* Homework assignments and quizzes must be submitted individually. Group discussions are allowed; however, your work must be original. Apparent copies from any source, including your colleagues and internet sites, will be referred to the [Emory Honor Council](http://college.emory.edu/oue/current-students/honor-council.html).
