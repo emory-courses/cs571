@@ -12,12 +12,13 @@
 
 ## Teaching Assistants
 
-* [Gary Lai](https://gary-lai.com).
-* Office hours: Tu 2:00pm - 4:00pm, NLP Lab.
+* [Gary Lai](https://gary-lai.com): 
+  * Office hours: Tu 2:00pm - 4:00pm, NLP Lab.
+* TBA.
 
 ## Grading
 
-* 4 homework assignments: 40%.
+* 3 homework assignments: 30%.
 * 10 take-home quizzes: 10%.
 * 1 paper presentation: 10%.
 * Project proposal: 15%.
