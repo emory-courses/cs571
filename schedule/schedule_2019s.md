@@ -1,38 +1,38 @@
-# Schedule - Spring 2019
+# Schedule
 
 | Date | Topic | Assignments | Presenters |
 |:-:|---|---|---|
-|01/14| [Language Modeling](language_modeling.md) | | |
-|01/16| [Language Modeling](language_modeling.md) | | |
+|01/14| [Language Modeling](../topics/language_modeling.md) | | |
+|01/16| [Language Modeling](../topics/language_modeling.md) | | |
 |01/21| Martin Luther King Day | | |
-|01/23| [Language Modeling](language_modeling.md) | quiz1, [hw1](../homework/hw1) |
-|01/28| [Distributional Semantics](http://www.slideshare.net/jchoi7s/cs571-distributional-semantics) | | |
-|01/30| [Distributional Semantics](http://www.slideshare.net/jchoi7s/cs571-distributional-semantics) | quiz2 | |
-|02/04| [Distributional Semantics](http://www.slideshare.net/jchoi7s/cs571-distributional-semantics) | [hw2](../homework/hw2) | |
-|02/06| [Document Classification](http://www.slideshare.net/jchoi7s/cs571-part-ofspeech-tagging) | quiz3 | |
-|02/11| [Document Classification](http://www.slideshare.net/jchoi7s/cs571-part-ofspeech-tagging) | | |
-|02/13| [Document Classification](http://www.slideshare.net/jchoi7s/cs571-part-ofspeech-tagging) | quiz4, [hw3](../homework/hw3) | |
-|02/18| [Sequence Tagging](http://mathcs.emory.edu/~choi/courses/cs571/slides/) | | |
-|02/20| [Sequence Tagging](http://mathcs.emory.edu/~choi/courses/cs571/slides/) | quiz5 | |
-|02/25| [Sequence Tagging](http://mathcs.emory.edu/~choi/courses/cs571/slides/) | [hw4](../homework/hw4) | |
-|02/27| [Structure Parsing](https://www.slideshare.net/jchoi7s/cs571-dependency-parsing) | quiz6 | |
-|03/04| [Structure Parsing](https://www.slideshare.net/jchoi7s/cs571-dependency-parsing) | | |
-|03/06| [Structure Parsing](https://www.slideshare.net/jchoi7s/cs571-dependency-parsing) | quiz7 | |
+|01/23| [Language Modeling](../topics/language_modeling.md) | quiz1, [hw1](../homework/hw1) |
+|01/28| [Distributional Semantics](../topics/distributional_semantics.md) | | |
+|01/30| [Distributional Semantics](../topics/distributional_semantics.md) | | |
+|02/04| [Distributional Semantics](../topics/distributional_semantics.md) | quiz2, [hw2](../homework/hw2) | |
+|02/06| [Text Classification](../topics/text_classification.md) | | |
+|02/11| [Text Classification](../topics/text_classification.md) | | |
+|02/13| [Text Classification](../topics/text_classification.md) | quiz3, [hw3](../homework/hw3) | |
+|02/18| [Sequence Tagging](../topics/sequence_tagging.md) | | |
+|02/20| [Sequence Tagging](../topics/sequence_tagging.md) | | |
+|02/25| [Sequence Tagging](../topics/sequence_tagging.md) | quiz4, [hw4](../homework/hw4) | |
+|02/27| [Structure Parsing](../topics/structure_parsing.md) | | |
+|03/04| [Structure Parsing](../topics/structure_parsing.md) | | |
+|03/06| [Structure Parsing](../topics/structure_parsing.md) | quiz5 | |
 |03/11| Spring Break | | |
 |03/13| Spring Break | | |
 |03/18| Proposal Presentations | | |
 |03/20| Proposal Presentations | | |
-|03/25| [Entity Resolution](https://www.slideshare.net/jchoi7s/cs571-coreference-resolution) | | |
-|03/27| [Entity Resolution](https://www.slideshare.net/jchoi7s/cs571-coreference-resolution) | quiz8 | |
-|04/01| [Entity Resolution](https://www.slideshare.net/jchoi7s/cs571-coreference-resolution) |  | |
-|04/03| [Machine Comprehension](http://mathcs.emory.edu/~choi/courses/cs571/slides/) | quiz9 | |
-|04/08| [Machine Comprehension](http://mathcs.emory.edu/~choi/courses/cs571/slides/) | | |
-|04/10| [Machine Comprehension](http://mathcs.emory.edu/~choi/courses/cs571/slides/) | quiz10 | |
-|04/15| [Medical Informatics](https://www.slideshare.net/jchoi7s/) | | |
-|04/17| [Medical Informatics](https://www.slideshare.net/jchoi7s/) | | |
+|03/25| [Entity Resolution](../topics/entity_resolution.md) | | |
+|03/27| [Entity Resolution](../topics/entity_resolution.md) | | |
+|04/01| [Entity Resolution](../topics/entity_resolution.md) | quiz6 | |
+|04/03| [Machine Comprehension](../topics/machine_comprehension.md) | | |
+|04/08| [Machine Comprehension](../topics/machine_comprehension.md) | | |
+|04/10| [Machine Comprehension](../topics/machine_comprehension.md) | quiz7 | |
+|04/15| [NLP Applications](../topics/nlp_applications.md) | | |
+|04/17| [NLP Applications](../topics/nlp_applications.md) | | |
 |04/22| Project Presentations | | |
 |04/24| Project Presentations | | |
-|04/29| [NLP Applications](https://www.slideshare.net/jchoi7s/) | | |
+|04/29| [NLP Applications](../topics/nlp_applications.md) | | |
 
 
 <!--|03/25| [Phrase Structure Grammar](https://www.slideshare.net/jchoi7s/cs571-phrase-structure-grammar) | | |

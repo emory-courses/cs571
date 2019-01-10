@@ -1,4 +1,4 @@
-# Syllabus - Spring 2019
+# Syllabus
 
 ## General
 
@@ -39,5 +39,6 @@
 ## Notes
 
 * Excuses for absence/reschedule and other serious personal events (health, family, personal related, etc.) that affect course performance must be accompanied by a letter from the [Office of Undergraduate Education](http://college.emory.edu/home/administration/office/undergraduate/) or the [Laney Graduate School](http://www.graduateschool.emory.edu/about/staff.html).
+* Quizzes are due by the beginning of the class. Late submissions are not allowed for quizzes.
 * Homework assignments are due by the beginning of the class. Late submissions within a week will be accepted with the grading penalty of 15%, and will not be accepted after the first week. Exceptions to this policy will be made only in extraordinary circumstances.
 * Homework assignments must be submitted individually unless they are assigned as group projects. Group discussions are allowed; however, your work must be original. Apparent copies from any source, including your colleagues and internet sites, will be referred to the [Emory Honor Council](http://college.emory.edu/home/academic/honor-council/).

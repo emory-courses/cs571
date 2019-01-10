@@ -1,5 +1,7 @@
 # Homework 3
 
-## Named Entity Recognition
+## Sentiment Analysis
 
+http://aclweb.org/anthology/P07-1056
+https://www.cs.jhu.edu/~mdredze/datasets/sentiment/
 

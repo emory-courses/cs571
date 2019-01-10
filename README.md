@@ -5,3 +5,4 @@ This is a graduate-level course focusing on topics in Natural Language Processin
 
 * [Syllabus](syllabus/syllabus_2019s.md).
 * [Schedule](schedule/schedule_2019s.md).
+* [Paper Presentations](wiki/Paper-Presentations).
