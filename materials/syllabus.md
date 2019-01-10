@@ -24,6 +24,10 @@
 * Final project: 25%.
 * Your work is governed by the [Emory Honor Code](http://catalog.college.emory.edu/academic/policies-regulations/honor-code.html). Honor code violations on any submission will be referred to the [Emory Honor Council](http://college.emory.edu/oue/current-students/honor-council.html).
 
+## Homework Assignments
+
+* 
+
 ## Paper Presentation
 
 * Each lecture comes with 2-3 papers assigned for you to present to the class.
@@ -31,13 +35,12 @@
 * Throughout the semester, everyone is expected to
   * Give a 15-mins presentation about the paper on the assigned date.
   * Write a review report about the paper using [this form](review-form.md).
-* Submit the presentation slides as well as the review report within a week from the assigned date.
-  *  https://canvas.emory.edu/courses/54027/assignments/196958
 * The grade will be based on
   * Slide preparation (2 points)
   * Presentation clarity (3 points)
   * Completeness of report (2 points)
   * Meaningful analysis (3 points)
+* Submit the presentation slides as well as the review report within a week from the assigned date.
 
 ## Extra Credits
 
