@@ -1,11 +1,11 @@
 Final Projects
 =====
 
-## Spring, 2019
+## Spring 2019
 
 TBA.
 
-## Spring, 2017
+## Spring 2017
 
 * [ISS-MULT: Intelligent Sample Selection for Multi-Task Learning in Question Answering](http://www.cs.emory.edu/~choi/courses/cs571/projects/2017-ahmadvand-report.pdf) - Ali Ahmadvand ([slides](http://www.cs.emory.edu/~choi/courses/cs571/projects/2017-ahmadvand-slides.pdf)).
 * [Towards Universal Dependencies: Dependency Treebank Construction in Korean](http://www.cs.emory.edu/~choi/courses/cs571/projects/2017-chun-report.pdf) - Jayeol Chun ([slides](http://www.cs.emory.edu/~choi/courses/cs571/projects/2017-chun-slides.pdf)).
@@ -20,7 +20,7 @@ TBA.
 * [Neural Network with Attention for Question-Answering Based on Paragraph Summarization](http://www.cs.emory.edu/~choi/courses/cs571/projects/2017-su-wang-report.pdf) - Kenong Su, Zihao Wang ([slides](http://www.cs.emory.edu/~choi/courses/cs571/projects/2017-su-wang-slides.pdf)).
 * [Robust Coreference Resolution and Entity Linking on Dialogues: Character Identification on TV Show Transcripts](http://www.cs.emory.edu/~choi/courses/cs571/projects/2017-zhou-report.pdf) - Ethan Zhou ([slides](http://www.cs.emory.edu/~choi/courses/cs571/projects/2017-zhou-slides.pdf)) &rarr; published to [CoNLL 2017](http://www.aclweb.org/anthology/K17-1023).
 
-## Fall, 2015
+## Fall 2015
 
 * Entity Extraction using Condensed Word-to-Entity Vector Transformation - Henry Chen, Johnny Tan.
 * Optimal Structure-driven Verb Embeddings - Meera Hahn, Reid Kilgore.

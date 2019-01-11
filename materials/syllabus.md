@@ -78,6 +78,7 @@ Syllabus
   * Outstanding results will be submitted to conferences.
   * Good results will be submitted to workshops.
   * Promising results will be submitted to arXiv.
+* See the [final projects](final-projects.md) from previous years for more details.
 
 ## Extra Credits
 
