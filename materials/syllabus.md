@@ -1,4 +1,5 @@
-# Syllabus - Spring 2019
+Syllabus
+=====
 
 ## General
 
@@ -66,13 +67,13 @@
   * Be within the scope of this course.
   * Be plausible within this semester.
   * Include at least workshop-acceptable novelty.
-* See the [project proposal]() page for more details.
+* See the [project proposal](project-proposal.md) page for more details.
 
 ## Final Project
 
 * You are expected to
   * Give a 15-mins presentation about your final project.
-  * Write a report that illustrates details about your work.
+  * Write a research paper that illustrates details about your work.
 * Projects with
   * Outstanding results will be submitted to conferences.
   * Good results will be submitted to workshops.

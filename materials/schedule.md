@@ -1,4 +1,5 @@
-# Schedule
+Schedule
+=====
 
 | Date | Topic | Assignments | Presenters |
 |:-:|:-:|:-:|---|
