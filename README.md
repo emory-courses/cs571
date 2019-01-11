@@ -5,4 +5,4 @@ This is a graduate-level course focusing on topics in Natural Language Processin
 
 * [Syllabus](materials/syllabus.md).
 * [Schedule](materials/schedule.md).
-* [Paper Presentation](https://github.com/emory-courses/cs571/wiki/Paper-Presentation).
+* [Final projects](materials/final-projects.md).

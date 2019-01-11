@@ -1,4 +1,4 @@
-Quizzes - Spring, 2019
+Quizzes
 =======
 
 ## Quiz 0
