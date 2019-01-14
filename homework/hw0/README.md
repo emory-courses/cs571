@@ -63,7 +63,7 @@ Getting Started
 * Go to the `hw0` directory and build a docker image:
 
   ```
-  cd cs571/hw0
+  cd cs571/homework/hw0
   docker build -t hw0 .
   ```
 
