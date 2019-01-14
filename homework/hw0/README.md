@@ -73,4 +73,4 @@ docker build -t hw0 .
 docker run -v /path/to/repo/cs571/hw0:/mnt:rw -e "IN_FILE=/mnt/hw0.in" -e "OUT_FILE=/mnt/hw0.out" hw0
 ```
 
-* You should have `hw0.out` created under your `cs571/hw0` directory. Commit all the changes and `hw0.out` to this git repo and push it to github. 
+* You should have `hw0.out` created under your `cs571/hw0` directory. Commit all the changes and `hw0.out` to your git repo and push it to github. 
