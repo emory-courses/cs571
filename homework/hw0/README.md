@@ -3,12 +3,29 @@ Getting Started
 
 ## Git Repository
 
-* Login to Github (create an account if you do not have one). 
-* Create a new repository called `cs571` and make it private.
+* Login to [Github](https://github.com) (create an account if you do not have one). 
+* Create a new repository called `cs571` and make it PRIVATE.
 * From the `Settings` menu, add the TAs as collaborators of this repository.
-  * Gary Lai: `imgarylai` 
-* Clone the repository on your local machine.
-* Create hw0 and copy and paste everyone in [hw0]().
+  * Gary Lai: `imgarylai`
+* Clone the repository on your local machine:
+
+  ```
+  git clone https://github.com/your_id/cs571.git
+  ```
+
+* Under `cs571`, copy and paste the [`hw0`](.) directory.
+* Add `hw0` to git:
+
+  ```
+  git add hw0
+  ```
+
+* Push your changes back to [Github](https://github.com):
+
+  ```
+  git push origin master
+  ```
+
 
 ## Cloud Computing
 
@@ -22,33 +39,38 @@ Getting Started
   ```
   ssh -i "your-key-pair.pem" ubuntu@ec2-3-xxx-xxx-xxx.compute-1.amazonaws.com
   ```
-* Make sure you STOP the instance when it is idle; it will keep charging you as long as it is running.
 
+* Make sure you STOP the instance when it is idle; it will keep charging you as long as it runs.
 
 
 
 ## Docker
 
+* Install [Docker CE](https://docs.docker.com/install/linux/docker-ce/ubuntu/) on the EC2 instance.
+* Create the file `hw0.in` on your home directory that contains the following content:
 
+  ```
+  1 2 3 4 5
+  6 7 8 9 10
+  ```
+  
+* Clone your `cs571` repository:
 
-```
-$ docker build -t latest . 
-```
+  ```
+  git clone https://github.com/your_id/cs571.git
+  ```
 
-## Test on local machine
+* Go to the `hw0` directory and build a docker image:
 
-Create a file on your local machine. 
+  ```
+  cd cs571/hw0
+  docker build -t hw0 .
+  ```
 
-For example, I create a `test.txt` under directory `/home/glai2`.
+* Run the docker image:
 
-```
-$ ls /home/glai2
-test.txt
-``` 
+  ```
+  docker run -v /home/ubuntu:/mnt:rw -e "IN_FILE=/mnt/hw0.in" -e "OUT_FILE=/mnt/hw0.out" hw0
+  ```
 
-To test your program please replace the `/home/glai2` path to the directory where you create a test file in the following command. 
-
-```
-$ docker run -v /home/glai2:/mnt:ro -e "TRN_FILE=/mnt/trn.txt" "TEST_FILE=/mnt/test.txt" -it --rm latest
-Hello World from Test file
-```
+* You should have `hw0.out` created on your home directory. Submit the content of `hw0.out` to https://canvas.emory.edu/courses/54027/assignments/199146
