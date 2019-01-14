@@ -63,14 +63,14 @@ git clone https://github.com/your_id/cs571.git
 * Go to the `hw0` directory and build a docker image:
 
 ```
-cd cs571/homework/hw0
+cd cs571/hw0
 docker build -t hw0 .
 ```
 
 * Run the docker image:
-
+> please change the path `/path/to/repo/cs571/hw0` to where you locate your project. 
 ```
-docker run -v /home/ubuntu:/mnt:rw -e "IN_FILE=/mnt/hw0.in" -e "OUT_FILE=/mnt/hw0.out" hw0
+docker run -v /path/to/repo/cs571/hw0:/mnt:rw -e "IN_FILE=/mnt/hw0.in" -e "OUT_FILE=/mnt/hw0.out" hw0
 ```
 
-* You should have `hw0.out` created on your home directory. Submit the content of `hw0.out` to https://canvas.emory.edu/courses/54027/assignments/199146
+* You should have `hw0.out` created under your `cs571/hw0` directory. Commit all the changes and `hw0.out` to this git repo and push it to github. 
