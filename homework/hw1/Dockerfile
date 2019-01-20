@@ -7,3 +7,5 @@ RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 RUN pip install pytest
 COPY word_segmenter /app
+
+CMD ["python", "-m", "pytest"]
