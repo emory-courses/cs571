@@ -16,4 +16,4 @@
 
 __author__ = "Gary Lai"
 
-from .word_segmenter import WordSegmenter
+from .hw1 import WordSegmenter

@@ -14,19 +14,26 @@
 # limitations under the License.
 # ========================================================================
 from typing import Any
-
+import os
 from elit.component import Component
 
 __author__ = "Gary Lai"
 
 
-class WordSegmenter(Component):
-
-    def __init__(self):
+class HashtagSegmenter(Component):
+    def __init__(self, ngram_dir: str):
+        """
+        :param ngram_dir: a path to the directory where ngram files are located.
+        """
         # TODO
         pass
 
     def decode(self, input_text: str, **kwargs):
+        """
+        :param input_text: the input text contains one hashtag per line.
+        :param kwargs:
+        :return:
+        """
         # TODO
         pass
 
@@ -44,7 +51,6 @@ class WordSegmenter(Component):
 
 
 if __name__ == '__main__':
-    # This section only helps you debug for program.
-    # Anything configured here is ignore during tests process.
-    word_segmenter = WordSegmenter()
-    word_segmenter.decode("#helloworld")
+    ngram_dir = os.environ.get('NGRAM_DIR')
+    seg = HashtagSegmenter(ngram_dir)
+    seg.decode("#helloworld")

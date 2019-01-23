@@ -1,5 +1,9 @@
 # Language Modeling
 
+## Course
+
+* [Lecture slides](language_modeling.pdf).
+
 ## Reading
 
 * [Language Modeling with N-grams](https://web.stanford.edu/~jurafsky/slp3/3.pdf), Jurafsky and Martin, Speech and Language Processing, 2018.

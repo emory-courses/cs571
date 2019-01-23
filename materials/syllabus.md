@@ -14,7 +14,7 @@ Syllabus
 ## Teaching Assistants
 
 * [Gary Lai](https://gary-lai.com): Tu 2:00pm - 4:00pm, MSC E433 (NLP Lab).
-* Jing Zhang.
+* Huan He.
 
 ## Grading
 

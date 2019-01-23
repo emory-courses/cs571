@@ -6,7 +6,7 @@ Schedule
 |01/14| [Introduction](syllabus.md) | [quiz0](quizzes.md#quiz-0), [hw0](../homework/hw0) | |
 |01/16| [Language Modeling](../topics/language_modeling.md) | | |
 |01/21| Martin Luther King Day | | |
-|01/23| [Language Modeling](../topics/language_modeling.md) | quiz1 |
+|01/23| [Language Modeling](../topics/language_modeling.md) | [quiz1](quizzes.md#quiz-1) |
 |01/28| [Distributional Semantics](../topics/distributional_semantics.md) | [hw1](../homework/hw1) | |
 |01/30| [Distributional Semantics](../topics/distributional_semantics.md) | quiz2 | |
 |02/04| [Distributional Semantics](../topics/distributional_semantics.md) | | |

@@ -12,6 +12,12 @@ Choose the paper you want to present:
 
 ## Quiz 1
 
+* Submit your answers to the following two questions (a short paragraph for each):
+  * What is the key advantage of Kneser-Ney Smoothing over Laplace (or Add _k_) smoothing?
+  * How does Brown Clustering groups words into hierarchical clusters?
+
+* Canvas: https://canvas.emory.edu/courses/54027/assignments/204731
+
 
 ## Quiz 2
 
