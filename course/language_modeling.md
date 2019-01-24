@@ -2,7 +2,7 @@
 
 ## Course
 
-* [Lecture slides](language_modeling.pdf).
+* [Lecture slides](https://www.researchgate.net/publication/330599132_Lecture_Slides_Language_Modeling).
 
 ## Reading
 

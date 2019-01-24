@@ -49,7 +49,7 @@ Syllabus
   * See the [list of papers](https://github.com/emory-courses/cs571/wiki/Paper-Presentation) to be presented.
 * Throughout the semester, everyone is expected to
   * Give a 15-mins presentation about the paper on the assigned date.
-  * Write a review report about the paper using [this form](review-form.md).
+  * Write a review report about the paper using [this form](../assignments/review-form.md).
 * The grade will be based on
   * Slide preparation (2 points)
   * Presentation clarity (3 points)
@@ -67,7 +67,7 @@ Syllabus
   * Be within the scope of this course.
   * Be plausible within this semester.
   * Include at least workshop-acceptable novelty.
-* See the [project proposal](project-proposal.md) page for more details.
+* See the [project proposal](../assignments/project-proposal.md) page for more details.
 
 ## Final Project
 
