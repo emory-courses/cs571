@@ -566,3 +566,4 @@ paket-files/
 # tools/**
 # !tools/packages.config
 .idea
+*gram.txt
