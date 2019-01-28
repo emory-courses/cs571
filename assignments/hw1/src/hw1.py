@@ -13,44 +13,58 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 # ========================================================================
-from typing import Any
+import csv
 import os
+import glob
+from typing import List
+
 from elit.component import Component
 
 __author__ = "Gary Lai, Jinho D. Choi"
 
 
 class HashtagSegmenter(Component):
-    def __init__(self, ngram_dir: str):
-        """
-        :param ngram_dir: a path to the directory where ngram files are located.
-        """
-        # TODO
-        pass
-
-    def decode(self, input_text: str, **kwargs):
-        """
-        :param input_text: the input text contains one hashtag per line.
-        :param kwargs:
-        :return:
-        """
-        # TODO
-        pass
-
     def load(self, model_path: str, **kwargs):
-        pass
+        pass  # NO NEED TO UPDATE
 
     def save(self, model_path: str, **kwargs):
+        pass  # NO NEED TO UPDATE
+
+    def train(self, trn_data, dev_data, *args, **kwargs):
+        pass  # NO NEED TO UPDATE
+
+    def __init__(self, resource_dir: str):
+        """
+        :param resource_dir: a path to the directory where resource files are located.
+        """
+        # initialize the n-grams
+        ngram_filenames = glob.glob(os.path.join(resource_dir, '[1-6]gram.txt'))
+        # TODO: initialize resources
         pass
 
-    def train(self, trn_data: Any, dev_data: Any, model_path: str, **kwargs) -> float:
-        pass
-
-    def evaluate(self, data: Any, **kwargs):
-        pass
+    def decode(self, hashtag: str, **kwargs) -> List[str]:
+        """
+        :param hashtag: the input hashtag starting with `#` (e.g., '#helloworld').
+        :param kwargs:
+        :return: the list of tokens segmented from the hashtag (e.g., ['hello', 'world']).
+        """
+        # TODO: update the following code.
+        return [hashtag[1:]]
 
 
 if __name__ == '__main__':
-    ngram_dir = os.environ.get('NGRAM_DIR')
-    seg = HashtagSegmenter(ngram_dir)
-    seg.decode("#helloworld")
+    resource_dir = os.environ.get('RESOURCE')
+    segmenter = HashtagSegmenter(resource_dir)
+    total = correct = 0
+
+    with open(os.path.join(resource_dir, 'hashtags.csv')) as fin:
+        reader = csv.reader(fin)
+        for row in reader:
+            hashtag = row[0]
+            gold = row[1]
+            auto = ' '.join(segmenter.decode("#helloworld"))
+            print('%s -> %s | %s' % (hashtag, auto, gold))
+            if gold == auto: correct += 1
+            total += 1
+
+    print('%5.2f (%d/%d)' % (100.0*correct/total, correct, total))
