@@ -16,7 +16,7 @@
 import csv
 import os
 import glob
-from typing import List
+from typing import List, Any
 
 from elit.component import Component
 
@@ -24,14 +24,6 @@ __author__ = "Gary Lai, Jinho D. Choi"
 
 
 class HashtagSegmenter(Component):
-    def load(self, model_path: str, **kwargs):
-        pass  # NO NEED TO UPDATE
-
-    def save(self, model_path: str, **kwargs):
-        pass  # NO NEED TO UPDATE
-
-    def train(self, trn_data, dev_data, *args, **kwargs):
-        pass  # NO NEED TO UPDATE
 
     def __init__(self, resource_dir: str):
         """
@@ -50,6 +42,18 @@ class HashtagSegmenter(Component):
         """
         # TODO: update the following code.
         return [hashtag[1:]]
+
+    def evaluate(self, data: Any, **kwargs):
+        pass  # NO NEED TO UPDATE
+
+    def load(self, model_path: str, **kwargs):
+        pass  # NO NEED TO UPDATE
+
+    def save(self, model_path: str, **kwargs):
+        pass  # NO NEED TO UPDATE
+
+    def train(self, trn_data, dev_data, *args, **kwargs):
+        pass  # NO NEED TO UPDATE
 
 
 if __name__ == '__main__':
