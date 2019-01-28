@@ -6,7 +6,7 @@ Hashtags found in social media do not include whitespaces, which make them hard 
 
 ## Task 1
 
-* Copy and paste the [`hw1/`](.) directory under the `cs571` project.
+* Copy and paste the [`hw1/`](.) directory under the `cs571` project to your own `cs571` repo.
 * Create a directory called `res/` under `hw1/`.
 * Download [ngrams.zip](https://canvas.emory.edu/files/1997331/download?download_frd=1) and uncompress it under `res/`.  You should see 5 files, `[1-5]gram.txt`.
   * Each file is tab-delimited where the second column gives _n_-grams and the first column gives their raw counts.
@@ -41,17 +41,17 @@ $ python3 -m pytest
 ### Submission
 
 * Build a docker image:
-  ```
-  $ cd cs571/hw1
-  $ docker build -t hw1 .
-  ```
+```
+$ cd cs571/hw1
+$ docker build -t hw1 .
+```
 * Run the docker image:
 
 > Remember to replace `/home/ubuntu/cs571/hw1` to the path where you locate `res` directory on your machine.
 
-  ```
-  $ docker run -v /home/ubuntu/cs571/hw1:/mnt:rw -e "RESOURCE=/mnt/res/" hw1
-  ```
+```
+$ docker run -v /home/ubuntu/cs571/hw1:/mnt:rw -e "RESOURCE=/mnt/res/" hw1
+```
 
 ## Submission
 
