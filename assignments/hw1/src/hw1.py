@@ -17,7 +17,7 @@ from typing import Any
 import os
 from elit.component import Component
 
-__author__ = "Gary Lai"
+__author__ = "Gary Lai, Jinho D. Choi"
 
 
 class HashtagSegmenter(Component):

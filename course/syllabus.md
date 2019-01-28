@@ -46,7 +46,7 @@ Syllabus
 ## Paper Presentation
 
 * Each lecture comes with 2-3 papers assigned for you to present to the class.
-  * See the [list of papers](https://github.com/emory-courses/cs571/wiki/Paper-Presentation) to be presented.
+  * See the [list of papers](../assignments/presentations.md) to be presented.
 * Throughout the semester, everyone is expected to
   * Give a 15-mins presentation about the paper on the assigned date.
   * Write a review report about the paper using [this form](../assignments/review-form.md).
