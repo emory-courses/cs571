@@ -6,6 +6,6 @@ COPY requirements.txt /app
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 RUN pip install pytest
-COPY src /app
+COPY src /app/src
 
 CMD ["python", "-m", "pytest"]

@@ -30,12 +30,25 @@ Hashtags found in social media do not include whitespaces, which make them hard 
 
 ## Run
 
+### Development
+
+You can test your program via command below to avoid building docker every time during the development.
+
+```
+$ python3 -m pytest
+```
+
+### Submission
+
 * Build a docker image:
   ```
   $ cd cs571/hw1
   $ docker build -t hw1 .
   ```
 * Run the docker image:
+
+> Remember to replace `/home/ubuntu/cs571/hw1` to the path where you locate `res` directory on your machine.
+
   ```
   $ docker run -v /home/ubuntu/cs571/hw1:/mnt:rw -e "RESOURCE=/mnt/res/" hw1
   ```
