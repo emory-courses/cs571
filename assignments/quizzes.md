@@ -15,12 +15,14 @@ Choose the paper you want to present:
 * Submit your answers to the following two questions (a short paragraph for each):
   * What is the key advantage of Kneser-Ney Smoothing over Laplace (or Add _k_) smoothing?
   * How does Brown Clustering groups words into hierarchical clusters?
-
 * Canvas: https://canvas.emory.edu/courses/54027/assignments/204731
-
 
 ## Quiz 2
 
+* Submit your answers to the following two questions (a short paragraph for each):
+  * Explain how Hierarchical Softmax is adapted to optimize the continuos bad-of-words model in Word2Vec. 
+  * Explain the technique that FastText uses to reduce memory usage.
+* Canvas: https://canvas.emory.edu/courses/54027/assignments/206295
 
 ## Quiz 3
 

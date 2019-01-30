@@ -1,5 +1,10 @@
 # Distributional Semantics
 
+## Course
+
+* [Lecture slides](https://drive.google.com/file/d/1Z2uwXhKx921qyNj98zluPxmE52OIVfHU/view?usp=sharing).
+
+
 ## Reading
 
 ### 01/28
