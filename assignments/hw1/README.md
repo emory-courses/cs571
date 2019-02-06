@@ -35,6 +35,7 @@ Hashtags found in social media do not include whitespaces, which make them hard 
 You can test your program via command below to avoid building docker every time during the development.
 
 ```
+$ export RESOURCE=/path/of/resource/on/your/local/machine
 $ python3 -m pytest
 ```
 
