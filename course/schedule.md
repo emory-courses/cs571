@@ -10,9 +10,9 @@ Schedule
 |01/28| [Distributional Semantics](distributional_semantics.md) | [hw1](../assignments/hw1) | |
 |01/30| [Distributional Semantics](distributional_semantics.md) | [quiz2](../assignments/quizzes.md#quiz-2) | |
 |02/04| [Distributional Semantics](distributional_semantics.md) | | |
-|02/06| [Text Classification](text_classification.md) | [quiz3](../assignments/quizzes.md#quiz-3) | |
-|02/11| [Text Classification](text_classification.md) | [hw2](../assignments/hw2) | |
-|02/13| [Text Classification](text_classification.md) | [quiz4](../assignments/quizzes.md#quiz-4) | |
+|02/06| [Document Classification](document_classification.md) | [quiz3](../assignments/quizzes.md#quiz-3) | |
+|02/11| [Document Classification](document_classification.md) | [hw2](../assignments/hw2) | |
+|02/13| [Document Classification](document_classification.md) | [quiz4](../assignments/quizzes.md#quiz-4) | |
 |02/18| [Sequence Tagging](sequence_tagging.md) | | |
 |02/20| [Sequence Tagging](sequence_tagging.md) | [quiz5](../assignments/quizzes.md#quiz-5) | |
 |02/25| [Sequence Tagging](sequence_tagging.md) | [hw3](../assignments/hw3) | |

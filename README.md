@@ -5,5 +5,5 @@ This is a graduate-level course focusing on topics in Natural Language Processin
 
 * [Syllabus](course/syllabus.md).
 * [Schedule](course/schedule.md).
-* [Paper presentations](assignments/presentations.md).
+* [Paper presentations](assignments/paper-presentations.md).
 * [Final projects from previous years](course/final_projects.md).
