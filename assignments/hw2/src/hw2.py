@@ -1,5 +1,5 @@
 # ========================================================================
-# Copyright 2019 ELIT
+# Copyright 2019 Emory University
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -13,62 +13,84 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 # ========================================================================
-import csv
 import os
-import glob
-from typing import List, Any
-
+import csv
+from typing import List
+from src.util import tsv_reader
 from elit.component import Component
-
-__author__ = "Gary Lai, Jinho D. Choi"
+from elit.embedding import FastText
 
 
 class SentimentAnalyzer(Component):
-
     def __init__(self, resource_dir: str):
         """
+        Initializes all resources and the model.
         :param resource_dir: a path to the directory where resource files are located.
         """
-        # initialize the n-grams
-        ngram_filenames = glob.glob(os.path.join(resource_dir, '[1-6]gram.txt'))
-        # TODO: initialize resources
-        pass
-
-    def decode(self, hashtag: str, **kwargs) -> List[str]:
-        """
-        :param hashtag: the input hashtag starting with `#` (e.g., '#helloworld').
-        :param kwargs:
-        :return: the list of tokens segmented from the hashtag (e.g., ['hello', 'world']).
-        """
-        # TODO: update the following code.
-        return [hashtag[1:]]
-
-    def evaluate(self, data: Any, **kwargs):
-        pass  # NO NEED TO UPDATE
+        self.vsm = FastText(os.path.join(resource_dir, 'fasttext-50-180614.bin'))
+        # TODO: to be filled.
 
     def load(self, model_path: str, **kwargs):
-        pass  # NO NEED TO UPDATE
+        """
+        Load the pre-trained model.
+        :param model_path:
+        :param kwargs:
+        """
+        # TODO: to be filled
+        pass
 
     def save(self, model_path: str, **kwargs):
-        pass  # NO NEED TO UPDATE
+        """
+        Saves the current model to the path.
+        :param model_path:
+        :param kwargs:
+        """
+        # TODO: to be filled
+        pass
 
-    def train(self, trn_data, dev_data, *args, **kwargs):
-        pass  # NO NEED TO UPDATE
+    def train(self, trn_data: List[Tuple[int, List[str]]], dev_data: List[Tuple[int, List[str]]], *args, **kwargs):
+        """
+        Trains the model.
+        :param trn_data: the training data.
+        :param dev_data: the development data.
+        :param args:
+        :param kwargs:
+        :return:
+        """
+        trn_ys, trn_xs = zip(*[y, self.vsm.emb_list(x) for y, x in trn_data])
+        dev_ys, dev_xs = zip(*[y, self.vsm.emb_list(x) for y, x in dev_data])
+        # TODO: to be filled
+
+    def decode(self, data: List[Tuple[int, List[str]]], **kwargs) -> List[int]:
+        """
+        :param data:
+        :param kwargs:
+        :return: the list of predicted labels.
+        """
+        xs = [self.vsm.emb_list(x) for _, x in data]
+        # TODO: to be filled
+
+    def evaluate(self, data: List[Tuple[int, List[str]]], **kwargs) -> float:
+        """
+        :param data:
+        :param kwargs:
+        :return: the accuracy of this model.
+        """
+        gold_labels = [y for y, _ in data]
+        auto_labels = self.decode(data)
+        total = correct = 0
+        for gold, auto in zip(gold_labels, auto_labels):
+            if gold == auto: correct += 1
+            total += 1
+        return 100.0 *correct / total
 
 
 if __name__ == '__main__':
     resource_dir = os.environ.get('RESOURCE')
-    segmenter = HashtagSegmenter(resource_dir)
-    total = correct = 0
-
-    with open(os.path.join(resource_dir, 'hashtags.csv')) as fin:
-        reader = csv.reader(fin)
-        for row in reader:
-            hashtag = row[0]
-            gold = row[1]
-            auto = ' '.join(segmenter.decode("#helloworld"))
-            print('%s -> %s | %s' % (hashtag, auto, gold))
-            if gold == auto: correct += 1
-            total += 1
-
-    print('%5.2f (%d/%d)' % (100.0*correct/total, correct, total))
+    sentiment_analyzer = SentimentAnalyzer(resource_dir)
+    trn_data = tsv_reader('{}/sst.trn.tsv'.format(resource_dir))
+    dev_data = tsv_reader('{}/sst.dev.tsv'.format(resource_dir))
+    tst_data = tsv_reader('{}/sst.tst.tsv'.format(resource_dir))
+    sentiment_analyzer.train(trn_data, dev_data)
+    sentiment_analyzer.evaluate(tst_data)
+    sentiment_analyzer.save(os.path.join(resource_dir, 'hw2-model')

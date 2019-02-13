@@ -54,8 +54,6 @@ $ docker build -t hw1 .
 $ docker run -v /home/ubuntu/cs571/hw1:/mnt:rw -e "RESOURCE=/mnt/res/" hw1
 ```
 
-## Submission
-
 * Push all your changes to your private Github repository:
-  * Make sure `src/hw1.py`, `res/hw1.pdf`, and `res/hashtags.py` are properly updated.
-  * Do not add the _n_-gram files to git.
+* Make sure `src/hw1.py`, `res/hw1.pdf` are properly updated.
+* Do not add the _n_-gram files to git.

@@ -1,5 +1,5 @@
 # ========================================================================
-# Copyright 2019 ELIT
+# Copyright 2019 Emory University
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -19,8 +19,6 @@ import glob
 from typing import List, Any
 
 from elit.component import Component
-
-__author__ = "Jinho D. Choi, Gary Lai"
 
 
 class HashtagSegmenter(Component):

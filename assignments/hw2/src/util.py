@@ -1,5 +1,5 @@
 # ========================================================================
-# Copyright 2019 ELIT
+# Copyright 2019 Emory University
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -13,15 +13,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 # ========================================================================
-import os
-
-import pytest
-
-from src import HashtagSegmenter
-
-__author__ = "Gary Lai"
+from typing import List, Tuple
+import csv
 
 
-@pytest.fixture()
-def seg():
-    return HashtagSegmenter(os.environ.get('RESOURCE'))
+def tsv_reader(filename: str) -> List[Tuple[int, List[str]]]:
+    """
+    :param filename:
+    :return: 
+    """
+    with open(filename) as fin:
+        return [(int(row[0]), row[1:]) for row in csv.reader(fin, delimiter='\t')]
