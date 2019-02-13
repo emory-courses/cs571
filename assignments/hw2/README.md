@@ -61,6 +61,22 @@ Please launch an EC2 `p2.xlarge` instance with AMI id:  `ami-04cd8c7e3716b3284`.
 It is okay to launch instance of your own.
 Make sure you instance can run [nvidia-docker](https://github.com/NVIDIA/nvidia-docker) without `sudo` permission.
 
+### CUDA version for deep learning framework
+
+Here let's assume we want to use `tenforflow==1.12` as our deep learning framework. Go to the [hardware configuration page](https://www.tensorflow.org/install/gpu) to check which GPU drivers are needed. It requires `CUDA==9.0` and `cuDNN>=7.2`.    
+
+Next we need to change the source of Docker. List of `CUDA` and `cuDNN` dockers can be founded on [Nvidia Docker Hub](https://hub.docker.com/r/nvidia/cuda/). We choose Ubuntu 16.04 for Operating System and find 
+docker with `CUDA==9.0` and `cuDNN>=7.2` in this section. 
+
+- 9.0-cudnn7-devel, 9.0-cudnn7-devel-ubuntu16.04 (9.0/devel/cudnn7/Dockerfile)
+
+And replace the first line in the [`Dockerfile`](Dockerfile) from
+
+```diff
+- FROM nvidia/cuda:9.2-cudnn7-devel
++ FROM nvidia/cuda:9.0-cudnn7-devel
+```  
+
 
 ## Run
 
