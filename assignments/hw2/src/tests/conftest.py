@@ -13,7 +13,15 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 # ========================================================================
+import os
 
-__author__ = "Jinho D. Choi, Gary Lai"
+import pytest
 
-from .hw1 import HashtagSegmenter
+from src import HashtagSegmenter
+
+__author__ = "Gary Lai"
+
+
+@pytest.fixture()
+def seg():
+    return HashtagSegmenter(os.environ.get('RESOURCE'))

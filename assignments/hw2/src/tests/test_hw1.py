@@ -13,7 +13,20 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 # ========================================================================
+import csv
+import os
+import pytest
 
-__author__ = "Jinho D. Choi, Gary Lai"
+__author__ = "Gary Lai"
 
-from .hw1 import HashtagSegmenter
+
+def dataset():
+    res_dir = os.environ.get('RESOURCE')
+    with open(os.path.join(res_dir, 'hashtags.csv'), 'r') as fin:
+        reader = csv.reader(fin)
+        return [row for row in reader if row]
+
+
+@pytest.mark.parametrize('hashtag, expected', dataset())
+def test_hello_word(seg, hashtag, expected):
+    assert ' '.join(seg.decode(hashtag)) == expected

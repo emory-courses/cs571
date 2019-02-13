@@ -25,7 +25,7 @@ Hashtags found in social media do not include whitespaces, which make them hard 
 
 ## Task 3
 
-* Write a report, `res/hw1.pdf` describing your approach.
+* Write a report, `res/hw1.pdf`, describing your approach.
 
 
 ## Run

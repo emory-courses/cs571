@@ -14,6 +14,6 @@
 # limitations under the License.
 # ========================================================================
 
-__author__ = "Jinho D. Choi, Gary Lai"
+__author__ = "Gary Lai"
 
-from .hw1 import HashtagSegmenter
+from .hw2 import SentimentAnalyzer

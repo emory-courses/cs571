@@ -20,10 +20,10 @@ from typing import List, Any
 
 from elit.component import Component
 
-__author__ = "Jinho D. Choi, Gary Lai"
+__author__ = "Gary Lai, Jinho D. Choi"
 
 
-class HashtagSegmenter(Component):
+class SentimentAnalyzer(Component):
 
     def __init__(self, resource_dir: str):
         """
