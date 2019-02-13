@@ -8,4 +8,4 @@ def tsv_reader(filename):
     :return: List[Tuple]
     """
     with open(filename) as fin:
-        return [tuple(row) for row in csv.reader(fin, delimiter='\t')]
+        return [tuple((int(row[0]), row[1])) for row in csv.reader(fin, delimiter='\t')]

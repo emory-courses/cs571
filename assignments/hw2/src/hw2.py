@@ -1,4 +1,5 @@
 import os
+from typing import List
 
 from elit.component import Component
 
@@ -11,9 +12,10 @@ class SentimentAnalysis(Component):
         """
         :param resource_dir: a path to the directory where resource files are located.
         """
+        # please save extra params as a file in resource_dir
         # TODO
 
-    def decode(self, data, **kwargs) :
+    def decode(self, data, **kwargs) -> List[int]:
         """
 
         :param data:
@@ -29,7 +31,14 @@ class SentimentAnalysis(Component):
         :param kwargs:
         :return:
         """
-        # TODO
+        decoded = self.decode(data)
+        total = correct = 0
+        for auto, (gold, sentence) in zip(decoded, data):
+            if gold == auto:
+                correct += 1
+            total += 1
+        return 100.0*correct/total
+
 
     def load(self, model_path: str, **kwargs):
         """
@@ -62,10 +71,11 @@ class SentimentAnalysis(Component):
 
 
 if __name__ == '__main__':
+    # Example code
     resource_dir = os.environ.get('RESOURCE')
     sentiment_analyzer = SentimentAnalysis(resource_dir)
     trn_data = tsv_reader('{}/sst.trn.tsv'.format(resource_dir))
     dev_data = tsv_reader('{}/sst.dev.tsv'.format(resource_dir))
     tst_data = tsv_reader('{}/sst.tst.tsv'.format(resource_dir))
     sentiment_analyzer.train(trn_data, dev_data)
-    sentiment_analyzer.decode(tst_data)
+    sentiment_analyzer.evaluate(tst_data)
