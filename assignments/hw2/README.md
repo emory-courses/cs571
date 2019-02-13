@@ -11,11 +11,11 @@ Your task is to develop a deep learning model that takes each sentence from movi
   * `sst.trn.gold.tsv`: training set.
   * `sst.dev.gold.tsv`: development set.
   * `sst.tst.unlabeled.tsv`: evaluation set (unlabeled).
-    ```
-    line ::= <sentiment><tab><document>
-    sentiment ::= 0|1|2|3|4
-    document ::= <token>(<space><token>)*
-    ```
+  ```
+  line ::= <sentiment><tab><document>
+  sentiment ::= 0|1|2|3|4
+  document ::= <token>(<space><token>)*
+  ```
 * Download a pre-trained FastText model and put it under [`hw2/res/`](res):
   * [`fasttext-50-180614.bin`](https://s3.amazonaws.com/elit-public/resources/embedding/fasttext-50-180614.bin): 50 dimensional word embeddings.
   * [`fasttext-100-180614.bin`](https://s3.amazonaws.com/elit-public/resources/embedding/fasttext-100-180614.bin): 100 dimensional word embeddings.
@@ -40,6 +40,7 @@ Your task is to develop a deep learning model that takes each sentence from movi
   * `res/hw2.pdf`
   * `res/hw2-model` (your final model; should be able to be loaded by the `load` function)
 * Do not add the FastText model to git.
+* Submission: https://canvas.emory.edu/courses/54027/assignments/209131
 
 
 ## Development
