@@ -6,7 +6,7 @@ from src.util import tsv_reader
 
 if __name__ == '__main__':
     resource_dir = os.environ.get('RESOURCE')
-    tst_data = tsv_reader('{}/sst.tst.tsv'.format(resource_dir))
+    tst_data = tsv_reader(resource_dir, 'sst.tst.tsv')
     start = time()
     sentiment_analyzer = SentimentAnalyzer(resource_dir)
     sentiment_analyzer.load(os.path.join(resource_dir, 'hw2-model'))

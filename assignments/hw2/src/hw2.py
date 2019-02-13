@@ -91,9 +91,9 @@ class SentimentAnalyzer(Component):
 if __name__ == '__main__':
     resource_dir = os.environ.get('RESOURCE')
     sentiment_analyzer = SentimentAnalyzer(resource_dir)
-    trn_data = tsv_reader('{}/sst.trn.tsv'.format(resource_dir))
-    dev_data = tsv_reader('{}/sst.dev.tsv'.format(resource_dir))
-    tst_data = tsv_reader('{}/sst.tst.tsv'.format(resource_dir))
+    trn_data = tsv_reader(resource_dir, 'sst.trn.tsv')
+    dev_data = tsv_reader(resource_dir, 'sst.dev.tsv')
+    tst_data = tsv_reader(resource_dir, 'sst.tst.tsv')
     sentiment_analyzer.train(trn_data, dev_data)
     sentiment_analyzer.evaluate(tst_data)
     sentiment_analyzer.save(os.path.join(resource_dir, 'hw2-model'))
