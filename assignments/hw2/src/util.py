@@ -27,5 +27,5 @@ def tsv_reader(resource_dir: str, filename: str) -> List[Tuple[int, List[str]]]:
     :return: 
     """
     tokenizer = EnglishTokenizer()
-    with open(os.path.join(resource_dir, filename)) as fin:
+    with open(os.path.join(resource_dir, filename), "r", encoding="utf-8") as fin:
         return [(int(row[0]), tokenizer.tokenize(row[1])[0]) for row in csv.reader(fin, delimiter='\t')]
