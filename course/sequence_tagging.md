@@ -22,3 +22,42 @@
 * [End-to-end Sequence Labeling via Bi-directional LSTM-CNNs-CRF](http://www.aclweb.org/anthology/P16-1101), Ma & Hovy, ACL, 2016.
 * [Semi-supervised Sequence Tagging with Bidirectional Language Models](http://www.aclweb.org/anthology/P17-1161), Peters et al., ACL, 2017.*
 * [Contextual String Embeddings for Sequence Labeling](http://aclweb.org/anthology/C18-1139), Akbik et al., COLING, 2018.*
+
+
+## Penn POS Tagset
+
+### Words
+
+| Tag | Description | Tag | Description |
+|---|---|---|---|
+| ADD | Email | POS | Possessive ending |
+| AFX | Affix | PRP | Personal pronoun |
+| CC | Coordinating conjunction | PRP$ | Possessive pronoun  |
+| CD | Cardinal number | RB | Adverb |
+| CODE | Code ID | RBR | Adverb, comparative |
+| DT | Determiner | RBS | Adverb, superlative |
+| EX | Existential there | RP | Particle |
+| FW | Foreign word | TO | To |
+| GW | Go with | UH | Interjection |
+| IN | Preposition or subordinating conjunction | VB | Verb, base form |
+| JJ | Adjective | VBD | Verb, past tense |
+| JJR | Adjective, comparative | VBG | Verb, gerund or present participle |
+| JJS | Adjective, superlative | VBN | Verb, past participle |
+| LS | List item marker | VBP | Verb, non-3rd person singular present |
+| MD | Modal | VBZ | Verb, 3rd person singular present |
+| NN | Noun, singular or mass | WDT | *Wh*-determiner |
+| NNS | Noun, plural | WP | *Wh*-pronoun |
+| NNP | Proper noun, singular | WP$ | *Wh*-pronoun, possessive |
+| NNPS | Proper noun, plural | WRB | *Wh*-adverb |
+| PDT | Predeterminer | XX | Unknown |
+
+### Symbols
+
+| Tag | Description | Tag | Description |
+|---|---|---|---|
+| $ | Dollar | -LRB- | Left bracket |
+| : | Colon | -RRB- | Right bracket |
+| , | Comma | HYPH | Hyphen |
+| . | Period | NFP | Superfluous punctuation |
+| `` | Left quote | SYM | Symbol |
+| '' | Right quote | PUNC | General punctuation |

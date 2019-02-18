@@ -26,6 +26,7 @@ Your task is to develop a deep learning model that takes each sentence from movi
   * `save`: saves a pre-trained model trained by the `train` function.
   * `train`: trains a model using training and development sets.
   * `decode`: predicts sentiment labels for the input data.
+* Your minimum required approach is the Convolutional Neural Network model introduced by [Kim 2014](https://www.aclweb.org/anthology/D14-1181).
 
 
 ## Task 2

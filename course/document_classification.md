@@ -1,5 +1,10 @@
 # Document Classification
 
+## Course
+
+* [Lecture slides](https://drive.google.com/open?id=1WA9PWGcwBolL_F8IvAhX844QGy12_sjn).
+
+
 ## Reading
 
 ### 02/06
