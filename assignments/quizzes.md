@@ -33,6 +33,11 @@ Choose the paper you want to present:
 
 ## Quiz 4
 
+* Submit your answers to the following two questions (a short paragraph for each):
+  * Describe what kind of hierarchical attention is used in [Yang et al., 2016](http://www.aclweb.org/anthology/N16-1174) and explain which aspect of document classification it improves.
+  * Describe how the contextualized embeddings proposed by [Flair](http://aclweb.org/anthology/C18-1139) and [BERT](https://arxiv.org/abs/1810.04805) can handle out-of-vocabulary words for sequence tagging and give your thought on which model would work better for which cases in sequence tagging.
+* Submission: https://canvas.emory.edu/courses/54027/assignments/209804
+
 
 ## Quiz 5
 
