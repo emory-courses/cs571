@@ -16,7 +16,7 @@ WORKDIR /app
 COPY requirements.txt /app
 RUN pip3 install --upgrade pip setuptools
 RUN pip3 install -r requirements.txt
-RUN pip install pytest
+RUN pip3 install pytest
 COPY src /app/src
 
-CMD ["python", "-m", "src.eval"]
+CMD ["python3", "-m", "src.eval"]
