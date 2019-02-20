@@ -19,7 +19,7 @@ Your task is to develop a deep learning model that takes each sentence from movi
 * Download a pre-trained FastText model and put it under [`hw2/res/`](res):
   * [`fasttext-50-180614.bin`](https://s3.amazonaws.com/elit-public/resources/embedding/fasttext-50-180614.bin): 50 dimensional word embeddings.
   * [`fasttext-100-180614.bin`](https://s3.amazonaws.com/elit-public/resources/embedding/fasttext-100-180614.bin): 100 dimensional word embeddings.
-  * [`fasttext-200-180614.bin`](https://s3.amazonaws.com/elit-public/resources/embedding/fasttext-50-180614.bin): 200 dimensional word embeddings.
+  * [`fasttext-200-180614.bin`](https://s3.amazonaws.com/elit-public/resources/embedding/fasttext-200-180614.bin): 200 dimensional word embeddings.
 * Update the following functions in [`src/hw2.py`](src/hw2.py):
   * `__init__`: initialize the FastText model as well as your neural network model.
   * `load`: loads a pre-trained model saved by the `save` function.
