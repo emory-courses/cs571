@@ -58,7 +58,7 @@ Here are things you should notice before you start.
  
 You might want to use a GPU machine for this homework (using AWS is recommended).
 We have created an EC2 AMI with all the prerequisites for this homework.
-Please launch an EC2 `p2.xlarge` instance with AMI id:  `ami-04cd8c7e3716b3284`.
+Please change your AWS region to Oregon(us-west-2) and launch an EC2 `p2.xlarge` instance with AMI id:  `ami-04cd8c7e3716b3284`.
 It is okay to launch instance of your own.
 Make sure you instance can run [nvidia-docker](https://github.com/NVIDIA/nvidia-docker) without `sudo` permission.
 
