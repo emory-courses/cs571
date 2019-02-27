@@ -41,6 +41,13 @@ Choose the paper you want to present:
 
 ## Quiz 5
 
+* Submit a letter of intent for your project including the followings:
+  * The title of your project.
+  * Team members of your project with Emory email addresses.
+  * An abstract describing your project in 400 words.
+* Submission: https://canvas.emory.edu/courses/54027/assignments/211353
+
+
 
 ## Quiz 6
 
