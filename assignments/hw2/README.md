@@ -19,7 +19,7 @@ Your task is to develop a deep learning model that takes each sentence from movi
 * Download a pre-trained FastText model and put it under [`hw2/res/`](res):
   * [`fasttext-50-180614.bin`](https://s3.amazonaws.com/elit-public/resources/embedding/fasttext-50-180614.bin): 50 dimensional word embeddings.
   * [`fasttext-100-180614.bin`](https://s3.amazonaws.com/elit-public/resources/embedding/fasttext-100-180614.bin): 100 dimensional word embeddings.
-  * [`fasttext-200-180614.bin`](https://s3.amazonaws.com/elit-public/resources/embedding/fasttext-50-180614.bin): 200 dimensional word embeddings.
+  * [`fasttext-200-180614.bin`](https://s3.amazonaws.com/elit-public/resources/embedding/fasttext-200-180614.bin): 200 dimensional word embeddings.
 * Update the following functions in [`src/hw2.py`](src/hw2.py):
   * `__init__`: initialize the FastText model as well as your neural network model.
   * `load`: loads a pre-trained model saved by the `save` function.
@@ -58,7 +58,7 @@ Here are things you should notice before you start.
  
 You might want to use a GPU machine for this homework (using AWS is recommended).
 We have created an EC2 AMI with all the prerequisites for this homework.
-Please launch an EC2 `p2.xlarge` instance with AMI id:  `ami-04cd8c7e3716b3284`.
+Please change your AWS region to Oregon(us-west-2) and launch an EC2 `p2.xlarge` instance with AMI id:  `ami-04cd8c7e3716b3284`.
 It is okay to launch instance of your own.
 Make sure you instance can run [nvidia-docker](https://github.com/NVIDIA/nvidia-docker) without `sudo` permission.
 
