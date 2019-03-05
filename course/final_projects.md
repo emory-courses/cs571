@@ -3,7 +3,15 @@ Final Projects
 
 ## Spring 2019
 
-TBA.
+<details>
+<summary>Entity-Enriched Conversational Question Answering with Deep Attention Flow</summary>
+<p>
+Machine Reading Comprehension (MRC) models [16,15] aim to understand a given passage of text and predict the most likely answer given a query about the passage content. In fact, question-answering (QA) problems are one of the hardest natural language understanding (NLU) challenges because learning the relationship between a query and a passage depends on various factors ranging from distributional semantics, coreference resolution, natural language generation (NLG) and context modelling.  Recently, Stanford University released a new QA dataset named Conversational Question Answering (CoQA) [12], which extended the previously released SQuAD [10] in two directions:  1) QA in a turn-based conversational context; 2) free-form answers with human highlighted rationales to ensure naturalness in conversations. This is significant because CoQA initiated a new generation of intelligent QA agents apart from traditional factoid QA systems by introducing additional challenges that closely mimic the human reasoning process in conversational setting.  To address these new challenges, we propose a novel entity-enriched conversational QA with deep attention flow (EEC-QA) model that leverages transfer learning from named entity resolution (NER), hierarchical conversation-to-context attention with bi-directional attention flow (BiDAF) [13] for combining conversational history with context attention, and final RNN encoder-decoders to generate free-from answers from extracted passage span.
+</p>
+</details>
+* Authors: Jason Choi, Harshita Sahijwani
+* Abstract, Proposal (slides), Paper (slides)
+
 
 ## Spring 2017
 
