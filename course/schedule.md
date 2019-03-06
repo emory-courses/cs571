@@ -2,7 +2,7 @@ Schedule
 =====
 
 | Date | Topic | Assignments |
-|:-:|:-:|:-:|---|
+|:-:|:-:|:-:|
 |01/14| [Introduction](syllabus.md) | [quiz0](../assignments/quizzes.md#quiz-0), [hw0](../assignments/hw0) |
 |01/16| [Language Modeling](language_modeling.md) | |
 |01/21| Martin Luther King Day | |
