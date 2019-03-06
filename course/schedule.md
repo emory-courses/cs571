@@ -18,18 +18,18 @@ Schedule
 |02/25| [Sequence Tagging](sequence_tagging.md) | [quiz5](../assignments/quizzes.md#quiz-5) |
 |02/27| [Structure Parsing](structure_parsing.md) | |
 |03/04| [Structure Parsing](structure_parsing.md) | |
-|03/06| [Structure Parsing](structure_parsing.md) | [hw3](../assignments/hw3), [quiz6](../assignments/quizzes.md#quiz-6) |
+|03/06| [Structure Parsing](structure_parsing.md) | [quiz6](../assignments/quizzes.md#quiz-6) |
 |03/11| Spring Break | |
 |03/13| Spring Break | |
 |03/18| Proposal Presentations | |
 |03/20| Proposal Presentations | |
 |03/25| Proposal Presentations | |
-|03/27| [Structure Parsing](structure_parsing.md) | [quiz7](../assignments/quizzes.md#quiz-7) |
-|04/01| [Entity Resolution](entity_resolution.md) | |
-|04/03| [Entity Resolution](entity_resolution.md) | [quiz8](../assignments/quizzes.md#quiz-8) |
-|04/08| [Machine Comprehension](machine_comprehension.md) | |
-|04/10| [Machine Comprehension](machine_comprehension.md) | [quiz9](../assignments/quizzes.md#quiz-9) |
-|04/15| [Machine Comprehension](machine_comprehension.md) | |
+|03/27| [Structure Parsing](structure_parsing.md) | [hw3](../assignments/hw3) |
+|04/01| [Entity Resolution](entity_resolution.md) | [quiz7](../assignments/quizzes.md#quiz-7) |
+|04/03| [Entity Resolution](entity_resolution.md) | |
+|04/08| [Machine Comprehension](machine_comprehension.md) | [quiz8](../assignments/quizzes.md#quiz-8) |
+|04/10| [Machine Comprehension](machine_comprehension.md) | |
+|04/15| [Machine Comprehension](machine_comprehension.md) | [quiz9](../assignments/quizzes.md#quiz-9) |
 |04/17| Project Presentations | |
 |04/22| Project Presentations | |
 |04/24| Project Presentations | |

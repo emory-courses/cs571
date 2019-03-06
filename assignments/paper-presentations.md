@@ -37,13 +37,13 @@
 
 ### 02/18
 
-* [Improved Semantic Representations From Tree-Structured Long Short-Term Memory Networks](https://www.aclweb.org/anthology/P15-1150), Tai et al., ACL, 2015. - James Finch
-* [Very Deep Convolutional Networks for Text Classification](http://www.aclweb.org/anthology/E17-1104), Conneau et al., EACL, 2017. - Harshita Sahijwani
+* [Improved Semantic Representations From Tree-Structured Long Short-Term Memory Networks](https://www.aclweb.org/anthology/P15-1150), Tai et al., ACL, 2015. - James Finch &#10003;
+* [Very Deep Convolutional Networks for Text Classification](http://www.aclweb.org/anthology/E17-1104), Conneau et al., EACL, 2017. - Harshita Sahijwani &#10003;
 
 ### 02/20
 
-* [A Helping Hand: Transfer Learning for Deep Sentiment Analysis](http://aclweb.org/anthology/P18-1235), Dong et al., ACL, 2018. - Jason Choi
-* [Linguistically Regularized LSTM for Sentiment Classification](http://www.aclweb.org/anthology/P17-1154), Qian et al., ACL, 2017. - Chen Lin
+* [A Helping Hand: Transfer Learning for Deep Sentiment Analysis](http://aclweb.org/anthology/P18-1235), Dong et al., ACL, 2018. - Jason Choi &#10003;
+* [Linguistically Regularized LSTM for Sentiment Classification](http://www.aclweb.org/anthology/P17-1154), Qian et al., ACL, 2017. - Chen Lin &#10003;
 * [A Hierarchical Neural Attention-based Text Classifier](http://aclweb.org/anthology/D18-1094), Sinha et al., EMNLP, 2018. -TBA
 
 
@@ -51,13 +51,13 @@
 
 ### 02/25
 
-* [Word Representations: A Simple and General Method for Semi-Supervised Learning](http://www.aclweb.org/anthology/P10-1040), Turian et al., ACL, 2010. - Siwen Zhu
-* [Conditional Random Fields: Probabilistic Models for Segmenting and Labeling Sequence Data](https://repository.upenn.edu/cgi/viewcontent.cgi?article=1162&context=cis_papers), Lafferty et al., ICML, 2001. - Jing Zhang
+* [Word Representations: A Simple and General Method for Semi-Supervised Learning](http://www.aclweb.org/anthology/P10-1040), Turian et al., ACL, 2010. - Siwen Zhu &#10003;
+* [Conditional Random Fields: Probabilistic Models for Segmenting and Labeling Sequence Data](https://repository.upenn.edu/cgi/viewcontent.cgi?article=1162&context=cis_papers), Lafferty et al., ICML, 2001. - Jing Zhang &#10003;
 
 ### 02/27
 
-* [Named Entity Recognition with Bidirectional LSTM-CNNs](https://www.aclweb.org/anthology/Q16-1026), Chiu & Nichols, TACL, 2016. - Shaojun Yu
-* [Transfer Learning for Sequence Tagging with Hierarchical Recurrent Networks](https://arxiv.org/abs/1703.06345), Yang et al., ICLR, 2017. - Zhexiong Liu
+* [Named Entity Recognition with Bidirectional LSTM-CNNs](https://www.aclweb.org/anthology/Q16-1026), Chiu & Nichols, TACL, 2016. - Shaojun Yu &#10003;
+* [Transfer Learning for Sequence Tagging with Hierarchical Recurrent Networks](https://arxiv.org/abs/1703.06345), Yang et al., ICLR, 2017. - Zhexiong Liu &#10003;
 * [Semi-supervised Sequence Tagging with Bidirectional Language Models](http://www.aclweb.org/anthology/P17-1161), Peters et al., ACL, 2017. - TBA
 
 ### 03/04
