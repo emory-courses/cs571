@@ -48,8 +48,10 @@ Choose the paper you want to present:
 * Submission: https://canvas.emory.edu/courses/54027/assignments/211353
 
 
-
 ## Quiz 6
+
+* Choose three proposals other than yours that you find most interesting. Give a brief explanation of why you select each of the three proposals.
+* Submit your rankings to https://canvas.emory.edu/courses/54027/assignments/212896
 
 
 ## Quiz 7
