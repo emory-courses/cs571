@@ -1,5 +1,10 @@
 # Structure Parsing
 
+## Lectures
+
+* [Phrase Structure Grammar](https://drive.google.com/file/d/1nh79d7VvKBSMTk7hpOAFVsIUXU4KAJI0/view?usp=sharing)
+* [Dependency Parsing](https://drive.google.com/file/d/1EktTtRYhoMYwe-4XYvOY9qCAjaW2IK1q/view?usp=sharing)
+
 ## Reading
 
 ### 02/27

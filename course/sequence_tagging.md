@@ -1,5 +1,10 @@
 # Sequence Tagging
 
+## Course
+
+* [Lecture slides](https://drive.google.com/file/d/1tZfHj8PVwM54iR4Y599-VyUrvvktTe7X/view?usp=sharing).
+
+
 ## Reading
 
 ### 02/18
