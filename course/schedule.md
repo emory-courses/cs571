@@ -21,9 +21,9 @@ Schedule
 |03/06| [Structure Parsing](structure_parsing.md) | [quiz6](../assignments/quizzes.md#quiz-6) |
 |03/11| Spring Break | |
 |03/13| Spring Break | |
-|03/18| Proposal Presentations | |
-|03/20| Proposal Presentations | |
-|03/25| Proposal Presentations | |
+|03/18| [Proposal Presentations](../assignments/proposal-presentations.md) | |
+|03/20| [Proposal Presentations](../assignments/proposal-presentations.md) | |
+|03/25| [Proposal Presentations](../assignments/proposal-presentations.md) | |
 |03/27| [Structure Parsing](structure_parsing.md) | [hw3](../assignments/hw3) |
 |04/01| [Entity Resolution](entity_resolution.md) | [quiz7](../assignments/quizzes.md#quiz-7) |
 |04/03| [Entity Resolution](entity_resolution.md) | |
