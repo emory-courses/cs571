@@ -18,12 +18,11 @@
 * BERT Character Language Model for Sequence Tagging
   * Han He
 * Transferring Character Embedding using Generative Adversarial Networks for Chinese Word Segmentation
-
-- - Chen Lin, Hao Liu
-- Are They Really Good? - Multi-aspect Sentiment Analysis for Online Reviews
-  - Zhexiong Liu, Shaojun Yu, Jing Zhang
-- Question Generation Based on Adversarial Network and Reinforcement Learning
-  - Xinyao Qian, Siwen Zhu
+  * Chen Lin, Hao Liu
+* Are They Really Good? - Multi-aspect Sentiment Analysis for Online Reviews
+  * Zhexiong Liu, Shaojun Yu, Jing Zhang
+* Question Generation Based on Adversarial Network and Reinforcement Learning
+  * Xinyao Qian, Siwen Zhu
 
 ## 03/25
 
