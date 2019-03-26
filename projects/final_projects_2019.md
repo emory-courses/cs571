@@ -14,7 +14,7 @@ Final Projects
   * [Abstract](https://drive.google.com/open?id=1RJy0hqnig3obxka7evSqprUgZQ0b4q-9), Proposal (slides), Paper (slides)
 * BERT Character Language Model for Sequence Tagging
   * Han He
-    * [Abstract](https://drive.google.com/open?id=1YGFJ6xCkfaSL8E95cXSoo-fhnMHlKuRb), [Proposal](https://drive.google.com/open?id=1j9RcWTzX7IC3hPXcLFkRtoFWHpQ5rG6S) ([slides](https://drive.google.com/open?id=1VjuyCwRM19sXEQSGgDDr37zi9WuLgKWF)), Paper (slides)
+  * [Abstract](https://drive.google.com/open?id=1YGFJ6xCkfaSL8E95cXSoo-fhnMHlKuRb), [Proposal](https://drive.google.com/open?id=1j9RcWTzX7IC3hPXcLFkRtoFWHpQ5rG6S) ([slides](https://drive.google.com/open?id=1VjuyCwRM19sXEQSGgDDr37zi9WuLgKWF)), Paper (slides)
 * Noise Diminution and Dimensional Reduction in Word Embeddings
   * Xinyi Jiang, Zhengzhe Yang
   * [Abstract](https://drive.google.com/file/d/1mbaB3SOH3zZyQ00Py7uwgc4eAUU-gbNv/view?usp=sharing), [Proposal](https://drive.google.com/open?id=1tVT18s4vYZ9lI97yus3ygV0eT0ZsgE96) ([slides](https://drive.google.com/open?id=1cDcXApAL6NzRCKfe1lSyDVmea1JtAhkP)), Paper (slides)
