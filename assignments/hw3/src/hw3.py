@@ -22,7 +22,7 @@ from elit.embedding import FastText
 from src.util import tsv_reader
 
 
-class ㅜㅜNamedEntityRecognizer(Component):
+class NamedEntityRecognizer(Component):
     def __init__(self, resource_dir: str, embedding_file='fasttext-50-180614.bin'):
         """
         Initializes all resources and the model.
