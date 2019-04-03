@@ -15,4 +15,4 @@
 # ========================================================================
 
 
-from .hw3 import ㅜㅜNamedEntityRecognizer
+from .hw3 import NamedEntityRecognizer

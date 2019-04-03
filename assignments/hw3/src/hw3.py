@@ -18,6 +18,7 @@ from typing import List, Tuple
 
 from elit.component import Component
 from elit.embedding import FastText
+from elit.eval import ChunkF1
 
 from src.util import tsv_reader
 
@@ -63,7 +64,7 @@ class NamedEntityRecognizer(Component):
         # TODO: to be filled
         pass
 
-    def decode(self, data: List[Tuple[List[str], List[str]]], **kwargs) -> List[int]:
+    def decode(self, data: List[Tuple[List[str], List[str]]], **kwargs) -> List[str]:
         """
         :param data:
         :param kwargs:
@@ -78,8 +79,12 @@ class NamedEntityRecognizer(Component):
         :param kwargs:
         :return: the accuracy of this model.
         """
-        # TODO: will be updated
-        return 0
+        preds = self.decode(data)
+        labels = [y for y, _ in data]
+        acc = ChunkF1()
+        for pred, label in zip(preds, labels):
+            acc.update(pred, label)
+        return acc.update(labels=label, preds=pred)
 
 
 if __name__ == '__main__':

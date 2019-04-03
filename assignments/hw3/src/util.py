@@ -15,7 +15,6 @@
 # ========================================================================
 import os
 from typing import List, Tuple
-import csv
 
 
 def tsv_reader(resource_dir: str, filename: str) -> List[Tuple[List[str], List[str]]]:
