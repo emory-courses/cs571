@@ -84,10 +84,10 @@ class NamedEntityRecognizer(Component):
 
 if __name__ == '__main__':
     resource_dir = os.environ.get('RESOURCE')
-    sentiment_analyzer = ㅜㅜNamedEntityRecognizer(resource_dir)
-    trn_data = tsv_reader(resource_dir, 'conll03.eng.tsv')
-    dev_data = tsv_reader(resource_dir, 'conll03.eng.tsv')
-    tst_data = tsv_reader(resource_dir, 'conll03.eng.tsv')
+    sentiment_analyzer = NamedEntityRecognizer(resource_dir)
+    trn_data = tsv_reader(resource_dir, 'conll03.eng.trn.tsv')
+    dev_data = tsv_reader(resource_dir, 'conll03.eng.dev.tsv')
+    tst_data = tsv_reader(resource_dir, 'conll03.eng.tst.tsv')
     sentiment_analyzer.train(trn_data, dev_data)
     sentiment_analyzer.evaluate(tst_data)
     sentiment_analyzer.save(os.path.join(resource_dir, 'hw3-model'))
