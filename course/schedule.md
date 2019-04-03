@@ -24,10 +24,10 @@ Schedule
 |03/18| [Proposal Presentations](../assignments/proposal-presentations.md) | |
 |03/20| [Proposal Presentations](../assignments/proposal-presentations.md) | |
 |03/25| [Proposal Presentations](../assignments/proposal-presentations.md) | |
-|03/27| [Structure Parsing](structure_parsing.md) | [hw3](../assignments/hw3) |
-|04/01| [Entity Resolution](entity_resolution.md) | [quiz7](../assignments/quizzes.md#quiz-7) |
+|03/27| [Meaning Representation](meaning_representation.md) | [hw3](../assignments/hw3) |
+|04/01| [Meaning Representation](meaning_representation.md) | [quiz7](../assignments/quizzes.md#quiz-7) |
 |04/03| [Entity Resolution](entity_resolution.md) | |
-|04/08| [Machine Comprehension](machine_comprehension.md) | [quiz8](../assignments/quizzes.md#quiz-8) |
+|04/08| [Entity Resolution](entity_resolution.md) | [quiz8](../assignments/quizzes.md#quiz-8) |
 |04/10| [Machine Comprehension](machine_comprehension.md) | |
 |04/15| [Machine Comprehension](machine_comprehension.md) | [quiz9](../assignments/quizzes.md#quiz-9) |
 |04/17| Project Presentations | |
