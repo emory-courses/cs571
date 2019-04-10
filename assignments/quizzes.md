@@ -56,11 +56,11 @@ Choose the paper you want to present:
 
 ## Quiz 7
 
+* Submit your answers to the following two questions (a short paragraph for each):
+  * Explain how the [Biaffine Parser](https://arxiv.org/abs/1611.01734) generates head and dependent embeddings and measures the score matrix.
+  * Explain differences between the predicate argument structures in [PropBank](https://web.stanford.edu/~jurafsky/slp3/18.pdf) and [Abstract Meaning Representation](http://www.aclweb.org/anthology/W13-2322).
+  * Explain how multi-head self-attention works in [transformers](https://papers.nips.cc/paper/7181-attention-is-all-you-need.pdf).
+* Submission: https://canvas.emory.edu/courses/54027/assignments/218232
+
 
 ## Quiz 8
-
-
-## Quiz 9
-
-
-## Quiz 10
