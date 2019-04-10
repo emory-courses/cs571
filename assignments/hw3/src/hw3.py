@@ -64,7 +64,7 @@ class NamedEntityRecognizer(Component):
         # TODO: to be filled
         pass
 
-    def decode(self, data: List[Tuple[List[str], List[str]]], **kwargs) -> List[str]:
+    def decode(self, data: List[Tuple[List[str], List[str]]], **kwargs) -> List[List[str]]:
         """
         :param data:
         :param kwargs:
