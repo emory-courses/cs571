@@ -84,7 +84,7 @@ class NamedEntityRecognizer(Component):
         acc = ChunkF1()
         for pred, label in zip(preds, labels):
             acc.update(pred, label)
-        return acc.update(labels=label, preds=pred)
+        return float(acc.get()[1])
 
 
 if __name__ == '__main__':
