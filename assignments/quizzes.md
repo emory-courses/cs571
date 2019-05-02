@@ -70,3 +70,10 @@ Choose the paper you want to present:
   * Explain how the [Attention-over-Attention Reader](https://aclweb.org/anthology/P17-1055) is well suited for question answering.
   * Explain how the [Stochastic Answer Networks](http://aclweb.org/anthology/P18-1157) works for reading comprehension.
 * Submission: https://canvas.emory.edu/courses/54027/assignments/221734
+
+
+## Quiz 9
+
+* Choose three projects other than yours that you find most interesting.
+* Submit your rankings to https://canvas.emory.edu/courses/54027/assignments/223030
+
