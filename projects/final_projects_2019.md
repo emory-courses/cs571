@@ -11,7 +11,7 @@ Final Projects
   * [Abstract](https://drive.google.com/open?id=1ech7eO-WiJLz_L9zKW9G7Rhs17qFqFPJ), [Proposal](https://drive.google.com/open?id=1rM718e7tplLLUszgLyQiL3-CmrabT7Mw) ([slides](https://drive.google.com/open?id=11rDJze8uqTquevd1Aqx8qVWZAOss719I)), Final ([slides](https://drive.google.com/open?id=1ZMqqpG-ng-sRuAEMzoQ8AW8Q2yAuiGv6))
 * MeSH Indexing for Medline
   * Zelalem Gero
-  * [Abstract](https://drive.google.com/open?id=1RJy0hqnig3obxka7evSqprUgZQ0b4q-9), [Proposal](https://drive.google.com/file/d/1pHSDh69c1TSUzjvkgLpBofLUoTelp3uS/view?usp=sharing) ([slides](https://drive.google.com/file/d/1Llj9KGqi_cViYqfYGwFYPAEupiW6bAag/view?usp=sharing)), Final (slides)
+  * [Abstract](https://drive.google.com/open?id=1RJy0hqnig3obxka7evSqprUgZQ0b4q-9), [Proposal](https://drive.google.com/file/d/1pHSDh69c1TSUzjvkgLpBofLUoTelp3uS/view?usp=sharing) ([slides](https://drive.google.com/file/d/1Llj9KGqi_cViYqfYGwFYPAEupiW6bAag/view?usp=sharing)), Final ([slides](https://drive.google.com/open?id=1YKSB_dLmgaV-WjhdmCAGYvlYv_ebtAej))
 * BERT Character Language Model for Sequence Tagging
   * Han He
   * [Abstract](https://drive.google.com/open?id=1YGFJ6xCkfaSL8E95cXSoo-fhnMHlKuRb), [Proposal](https://drive.google.com/open?id=1j9RcWTzX7IC3hPXcLFkRtoFWHpQ5rG6S) ([slides](https://drive.google.com/open?id=1VjuyCwRM19sXEQSGgDDr37zi9WuLgKWF)), Final ([slides](https://drive.google.com/open?id=1bizY-D_7VtrPT91vrYOSIIcHl0uybgVv))
