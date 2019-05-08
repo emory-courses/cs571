@@ -27,9 +27,9 @@ Final Projects
 * Blind Signal Decomposition of Various Word Embeddings Based on Join and Individual Variance Explained (JIVE)
   * Weijian Li, Yikai Wang
   * [Abstract](https://drive.google.com/open?id=1W-mRB97qXgwPktrII4Xgapebj2UsQ6CT), [Proposal](https://drive.google.com/open?id=10pghPvKGnCKF-6B3i91rP0GXykJS3NBc) ([slides](https://drive.google.com/open?id=11t_bIuGncI1Ho7BpwM4AcPnM60fY2SRO)), [Final](https://drive.google.com/open?id=1m5nZYbXlG3LzyLGUwfbDaX8Es6kL2H85) ([slides](https://drive.google.com/open?id=1qy7Z8AN0fdhAsIkbsSu2XZo9frRLH41-))
-* Poet Identification for Classical Chinese Poetry
+* Authorship Attribution for Classical Chinese Poetry
   * Kate Li, Sihan Yue
-  * [Abstract](https://drive.google.com/open?id=1w0LzSSp6vPAMaWDeUMsKV0VjJU_kSske), [Proposal](https://drive.google.com/open?id=12pdDAgAlVrszmWL7j1t9q3L9jFa2ffoJ) ([slides](https://drive.google.com/open?id=1rZYm8QXHfoCzzIoj1RpMsInoMlOB80d5)), Final ([slides](https://drive.google.com/open?id=1IaEpfcVBm3-JcXb_Cnr1qgWuOpwqJfX8))
+  * [Abstract](https://drive.google.com/open?id=1w0LzSSp6vPAMaWDeUMsKV0VjJU_kSske), [Proposal](https://drive.google.com/open?id=12pdDAgAlVrszmWL7j1t9q3L9jFa2ffoJ) ([slides](https://drive.google.com/open?id=1rZYm8QXHfoCzzIoj1RpMsInoMlOB80d5)), [Final](https://drive.google.com/open?id=1H5Sjf78volh7sNa85nfR-gNjJN8MmXy0) ([slides](https://drive.google.com/open?id=1IaEpfcVBm3-JcXb_Cnr1qgWuOpwqJfX8))
 * Adaptive Multi-Source Transfer Learning with BERT for Chinese Word Segmentation
   * Chen Lin, Hao Liu
   * [Abstract](https://drive.google.com/open?id=1JD-ooPyULxDXaSRpbj6Yidt3CjnFblVS), [Proposal](https://drive.google.com/open?id=1YyHAmwlNQhVNb8fJ7PqUKoj9masCDrng) ([slides](https://drive.google.com/open?id=1ELi0uGL_8MA3aMhzRuRl0U6pg8eRREPZ)), [Final](https://drive.google.com/open?id=1YOpZsZZJn6Huk0I2gwfc5Xb7Dn7x-0va) ([slides](https://drive.google.com/open?id=14yxXKlCo5SYIKEbnWKeToMVF22fUty7J))
