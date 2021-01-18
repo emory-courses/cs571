@@ -3,32 +3,29 @@ Syllabus
 
 ## General
 
-* Class hours and location: MW 11:30am - 12:45pm, MSC W301.
-* Prerequisites: a graduate-level machine learning course.
+* Course webpage: https://github.com/emory-courses/cs571
+* Class location: https://emory.zoom.us/j/92430843956
+* Class hours: MW 4:20pm - 5:35pm
+* Prerequisites: a graduate-level machine learning course
 
-## Instructor
+## Instructors
 
-* [Jinho Choi](http://cs.emory.edu/~choi).
-* Office hours: MW 2:30pm - 4:00pm, MSC E414.
-
-## Teaching Assistants
-
-* [Gary Lai](https://gary-lai.com): Tu 2:00pm - 4:00pm, MSC E433 (NLP Lab).
-* Huan He.
+* [Jinho Choi](http://cs.emory.edu/~choi) - Assistant Professor of Computer Science<br>: MW 5:40pm - 7:00pm
+* [TA]() - PhD student in Computer Science<br>: TBA
+* Office hour location: https://emory.zoom.us/j/93071569310
 
 ## Grading
 
-* 3 homework assignments: 30%
-* 10 take-home quizzes: 20%
+* 8 take-home quizzes: 40%
 * 1 paper presentation: 10%
-* Project proposal: 15%
-* Final project: 25%
-* Homework assignments and quizzes must be submitted individually. Group discussions are allowed; however, your work must be original.
-* You will work in groups for project proposals and final projects. Everyone in each group will receive the same grade.
+* Project proposal: 20%
+* Final project: 30%
+* Quizzes must be submitted individually. Discussions are allowed; however, your work must be original.
+* You will work in groups for project proposals and final projects. Everyone in each group will receive the same grade for the project.
 * Your work is governed by the [Emory Honor Code](http://catalog.college.emory.edu/academic/policies-regulations/honor-code.html). Honor code violations (e.g., copies from any source including your colleagues and internet sites) will be referred to the [Emory Honor Council](http://college.emory.edu/oue/current-students/honor-council.html).
 * Excuses for absence/reschedule and other serious personal events (health, family, personal related, etc.) that affect course performance must be accompanied by a letter from the [Office for Undergraduate Education](http://college.emory.edu/oue/current-students/advising.html) or the [Laney Graduate School](http://www.graduateschool.emory.edu/about/staff.html).
 
-## Homework Assignments
+<!-- ## Homework Assignments
 
 * Homework assignments require the following skills (that are not covered by this course):
   * Python programming
@@ -36,11 +33,11 @@ Syllabus
   * Cloud computing
   * LaTex writing
 * All assignments are due by the beginning of the class.
-* Late submissions within a week will be accepted with the grading penalty of 15%, and will not be accepted after the first week. Exceptions to this policy will be made only in extraordinary circumstances.
+* Late submissions within a week will be accepted with the grading penalty of 15%, and will not be accepted after the first week. Exceptions to this policy will be made only in extraordinary circumstances. -->
 
 ## Take-home Quizzes
 
-* One take-home quiz will be assigned every week to check if you are keeping up with the topics.
+* One take-home quiz will be assigned for every topic to check if you are keeping up with the materials.
 * Quizzes are due by the beginning of the class. Late submissions will not be accepted.
 
 ## Paper Presentation

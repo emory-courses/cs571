@@ -1,17 +1,9 @@
 # Sequence Tagging
 
-## Course
-
-* [Lecture slides](https://drive.google.com/file/d/1tZfHj8PVwM54iR4Y599-VyUrvvktTe7X/view?usp=sharing).
-
-
 ## Reading
 
 ### 02/18
 
-* [Part-of-Speech Tagging from 97% to 100%: Is It Time for Some Linguistics?](http://nlp.stanford.edu/pubs/CICLing2011-manning-tagging.pdf), Manning, CICLing, 2011.
-* [Design Challenges and Misconceptions in Named Entity Recognition](https://aclweb.org/anthology/W09-1119.pdf), Ratinov and Roth, CoNLL, 2009.
-* [Word Representations: A Simple and General Method for Semi-Supervised Learning](http://www.aclweb.org/anthology/P10-1040), Turian et al., ACL, 2010.*
 * [Conditional Random Fields: Probabilistic Models for Segmenting and Labeling Sequence Data](https://repository.upenn.edu/cgi/viewcontent.cgi?article=1162&context=cis_papers), Lafferty et al., ICML, 2001.*
 
 ### 02/20

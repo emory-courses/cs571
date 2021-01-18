@@ -1,22 +1,18 @@
 # Paper Presentations
 
+Multitask learning
+
+* [A Unified Architecture for Natural Language Processing: Deep Neural Networks with Multitask Learning](http://icml2008.cs.helsinki.fi/papers/391.pdf), Collobert and Weston, ICML, 2008.*
+
+
+
+
 ## Language Modeling
-
-### 01/23
-
-* [Class-based N-gram Models of Natural Language](http://aclweb.org/anthology/J92-4003), Brown et al., CL, 1992. - [Victoria Lawlor](https://www.slideshare.net/jchoi7s/2019-classbased-ngram-models-of-natural-language) &#10003;
-
-### 01/28
-
-* [Latent Dirichlet Allocation](http://jmlr.csail.mit.edu/papers/v3/blei03a.html), Blei et al., JMLR, 2003. - Yikai Wang &#10003;
-
 
 ## Distributional Semantics
 
 ### 01/30
 
-* [A Neural Probabilistic Language Model](https://papers.nips.cc/paper/1839-a-neural-probabilistic-language-model.pdf), Bengio et al., NIPS, 2000. - Weijian Li &#10003;
-* [A Unified Architecture for Natural Language Processing: Deep Neural Networks with Multitask Learning](http://icml2008.cs.helsinki.fi/papers/391.pdf), Collobert and Weston, ICML, 2008. - Yuchun Liu Weijian
 
 ### 01/28
 
