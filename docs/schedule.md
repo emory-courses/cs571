@@ -27,7 +27,7 @@ Schedule
 |04/07| Coreference Resolution |  | Quiz 7 |
 |04/12| Project Discussions |  |  |
 |04/14| Spring Rest Day |  |  |
-|04/19| Machine Comprehension  | [md]() |  |
+|04/19| Machine Comprehension  | [md](machine_comprehension.md) |  |
 |04/21| Machine Comprehension  |  | Quiz 8 |
 |04/26| Project Presentations |  |  |
 |04/28| Project Presentations |  | Quiz 9 |
