@@ -7,7 +7,7 @@
 
 ## Proposal
 
-Write up to 10 pages (excluding references) using [this template](https://www.overleaf.com/read/ktprdzqxsndf):
+Write up to 8 pages (excluding references) using [this template](https://www.overleaf.com/read/ktprdzqxsndf):
 
 * Header
   * Title: try to be as catch as possible.

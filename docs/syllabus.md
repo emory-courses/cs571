@@ -17,12 +17,12 @@
 ## Grading
 
 * 10 take-home quizzes: 36%
-* 2 paper presentation: 14%
-* Project proposal: 20%
-* Final project: 30%
-* You will work in groups for project proposals and final projects. Everyone in each group will receive the same grade for the project.
+* 4 paper presentations: 24%
+* Project proposal: 15%
+* Final project: 25%
 * Your work is governed by the [Emory Honor Code](http://catalog.college.emory.edu/academic/policies-regulations/honor-code.html). Honor code violation (e.g., copies from any source including your colleagues and internet sites) will be referred to the [Emory Honor Council](http://college.emory.edu/oue/current-students/honor-council.html).
 * Excuses for absence/reschedule and other serious personal events (health, family, personal related, etc.) that affect course performance must be accompanied by a letter from the [Office for Undergraduate Education](http://college.emory.edu/oue/current-students/advising.html) or the [Laney Graduate School](http://www.graduateschool.emory.edu/about/staff.html).
+<!-- * You will work in groups for project proposals and final projects. Everyone in each group will receive the same grade for the project. -->
 
 ## Take-home Quizzes
 
@@ -30,26 +30,26 @@
 * Quizzes must be submitted individually. Discussions are allowed; however, your work must be original.
 * Quizzes are due by the beginning of the classes. Late submissions within a week will be accepted with the grading penalty of 15%, and will not be accepted once the solutions are discussed in class.
 
-## Paper Presentation
+## Paper Presentations
 
 * Each topic comes with 3-4 papers assigned for you to present to the class.
 * Throughout the semester, everyone is expected to
   * Give a 15-mins presentation about the paper on the assigned date.
   * Write a review report about the paper using [this form](review-form.md).
 * The grade will be based on
-  * Slide preparation (2 points)
-  * Presentation clarity (3 points)
-  * Completeness of the report (2 points)
-  * Meaningful analysis in the report (3 points)
+  * Slide preparation
+  * Presentation clarity
+  * Completeness of the report
+  * Meaningful analysis in the report
 * Submit the presentation slides as well as the review report within a week from the assigned date.
 
 ## Project Proposal
 
 * You are expected to
-  * Group a team of 3-4 members.
   * Give a presentation to propose your idea about the final project.
   * Write a proposal that illustrates details about your idea.
 * See the [project proposal](project-proposal.md) page for more details.
+  <!-- * Group a team of 3-4 members. -->
 
 ## Final Project
 
