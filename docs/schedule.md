@@ -3,8 +3,8 @@ Schedule
 
 |Date | Topic | Resource | Assignment |
 |:---:|:---:|:---:|:---:|
-|01/25| [Introduction](https://emory.zoom.us/rec/share/xL4YqPtVdPrb_1H6FB7zs6kfKm-XIUB0QwglSpq88-ue3lQSF_s1ifYHR03lb5mP.leLwQqA3y0V_BMVL) | [md](syllabus.md) | [Quiz 0](quiz/quiz0.md) |
-|01/27| Embedding Encoding | [md](embedding_encoding.md) |  |
+|01/25| [Introduction](syllabus.md) | [zoom](https://emory.zoom.us/rec/share/xL4YqPtVdPrb_1H6FB7zs6kfKm-XIUB0QwglSpq88-ue3lQSF_s1ifYHR03lb5mP.leLwQqA3y0V_BMVL) | [Quiz 0](quiz/quiz0.md) |
+|01/27| [Embedding Encoding](embedding_encoding.md) | [zoom](https://emory.zoom.us/rec/share/uj8gb8LVPEpbPmey5KS-QsD4XbmSIRcRFo4YmiOvRroRibpFRGKChmASU-YUOfv7.3dIEGQ_hLL00liVR) |  |
 |02/01| Embedding Encoding |  |  |
 |02/03| Embedding Encoding |  | Quiz 1 |
 |02/08| Text Classification | [md](text_classification.md) |  |
