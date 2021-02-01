@@ -26,14 +26,6 @@
   * [Document-term matrix](https://en.wikipedia.org/wiki/Document-term_matrix)
   * [TF-IDF weighting](https://en.wikipedia.org/wiki/Tf%E2%80%93idf)
   * [Singular value decomposition](https://en.wikipedia.org/wiki/Singular_value_decomposition)
-* [Language Modeling](https://en.wikipedia.org/wiki/Language_model)
-  * N-gram models
-  * [Smoothing](https://en.wikipedia.org/wiki/Smoothing)
-  * [Maximum likelihood estimation](https://en.wikipedia.org/wiki/Maximum_likelihood_estimation)
-  * [Entropy](https://en.wikipedia.org/wiki/Entropy_(information_theory))
-  * [Perplexity](https://en.wikipedia.org/wiki/Perplexity)
-
-
 
 ## Modern (2/1)
 
@@ -43,10 +35,20 @@
 Mikolov et al., NIPS, 2013.
 * [GloVe: Global Vectors for Word Representation](https://www.aclweb.org/anthology/D14-1162), Pennington et al., EMNLP, 2014*
 * [Deep Contextualized Word Representations](https://aclweb.org/anthology/N18-1202), Peters et al., NAACL 2018
-* [Improving Language Understanding with Unsupervised Learning](https://openai.com/blog/language-unsupervised/), Radford et al., OpenAI, 2018
+* [Improving Language Understanding with Unsupervised Learning](https://cdn.openai.com/research-covers/language-unsupervised/language_understanding_paper.pdf), Radford et al., OpenAI, 2018
 
+### Topics
 
-
+* [Language Modeling](https://en.wikipedia.org/wiki/Language_model)
+  * N-gram models
+  * [Smoothing](https://en.wikipedia.org/wiki/Smoothing)
+  * [Maximum likelihood estimation](https://en.wikipedia.org/wiki/Maximum_likelihood_estimation)
+  * [Entropy](https://en.wikipedia.org/wiki/Entropy_(information_theory))
+  * [Perplexity](https://en.wikipedia.org/wiki/Perplexity)
+* Distributional Embeddings
+  * [Neural language models](https://papers.nips.cc/paper/1839-a-neural-probabilistic-language-model.pdf)
+  * [Word vector][https://arxiv.org/pdf/1301.3781.pdf]
+  * Impact to NLP
 
 ## Latest (2/3)
 
