@@ -47,8 +47,8 @@ Mikolov et al., NIPS, 2013.
   * [Perplexity](https://en.wikipedia.org/wiki/Perplexity)
 * Distributional Embeddings
   * [Neural language models](https://papers.nips.cc/paper/1839-a-neural-probabilistic-language-model.pdf)
-  * [Word vector][https://arxiv.org/pdf/1301.3781.pdf]
-  * Impact to NLP
+  * [Word2Vec](https://arxiv.org/pdf/1301.3781.pdf)
+  * [FastText](http://aclweb.org/anthology/Q17-1010)
 
 ## Latest (2/3)
 
