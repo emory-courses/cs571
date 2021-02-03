@@ -12,4 +12,4 @@ Answer the following two questions (a short paragraph for each):
    * XLNet
    * ELECTRA
 
-Save your answers in `quiz1.pdf` and submit: 
+Save your answers in `quiz1.pdf` and submit: https://canvas.emory.edu/courses/83648/assignments/451866

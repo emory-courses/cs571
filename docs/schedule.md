@@ -3,10 +3,10 @@ Schedule
 
 |Date | Topic | Resource | Assignment |
 |:---:|:---:|:---:|:---:|
-|01/25| [Introduction](syllabus.md) | [zoom](https://emory.zoom.us/rec/share/xL4YqPtVdPrb_1H6FB7zs6kfKm-XIUB0QwglSpq88-ue3lQSF_s1ifYHR03lb5mP.leLwQqA3y0V_BMVL) | [Quiz 0](quiz/quiz0.md) |
-|01/27| [Embedding Encoding](embedding_encoding.md) | [zoom](https://emory.zoom.us/rec/share/uj8gb8LVPEpbPmey5KS-QsD4XbmSIRcRFo4YmiOvRroRibpFRGKChmASU-YUOfv7.3dIEGQ_hLL00liVR) |  |
-|02/01| [Embedding Encoding](embedding_encoding.md) | [zoom](https://emory.zoom.us/rec/play/eKZp5HLwkKDuNW5rlzbx7B31EREkSsYrqlXzCPcSZ1ydiPg_HQUeH5bEvszHUEzEkVe2dBWpkbpFMKnq.kSqR_wby1ZRIjcRZ?continueMode=true&_x_zm_rtaid=Qgn2hrLUQR2c9kHZIZjDvA.1612219246692.501868402543832f90dc00bec33e680d&_x_zm_rhtaid=287)  |  |
-|02/03| [Embedding Encoding](embedding_encoding.md) |  | Quiz 1 |
+|01/25| [Introduction](https://emory.zoom.us/rec/share/xL4YqPtVdPrb_1H6FB7zs6kfKm-XIUB0QwglSpq88-ue3lQSF_s1ifYHR03lb5mP.leLwQqA3y0V_BMVL) | [md](syllabus.md) | [Quiz 0](quiz/quiz0.md) |
+|01/27| [Embedding Encoding](https://emory.zoom.us/rec/share/uj8gb8LVPEpbPmey5KS-QsD4XbmSIRcRFo4YmiOvRroRibpFRGKChmASU-YUOfv7.3dIEGQ_hLL00liVR) | [md](embedding_encoding.md) |  |
+|02/01| [Embedding Encoding](https://emory.zoom.us/rec/play/eKZp5HLwkKDuNW5rlzbx7B31EREkSsYrqlXzCPcSZ1ydiPg_HQUeH5bEvszHUEzEkVe2dBWpkbpFMKnq.kSqR_wby1ZRIjcRZ) |  |  |
+|02/03| Embedding Encoding |  | [Quiz 1](quiz/quiz1.md) |
 |02/08| Text Classification | [md](text_classification.md) |  |
 |02/10| Text Classification |  |  |
 |02/15| Text Classification |  | Quiz 2 |
