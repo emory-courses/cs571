@@ -9,7 +9,7 @@ Schedule
 |02/03| [Embedding Encoding](https://emory.zoom.us/rec/share/3wHSp8M_bqiITrFZJyh5Kd-kHERrBo42Spl5wFFpHi2x4vwU2uJLphS73F4RE97t.Txq1CvV5F0uARfvS) |  | [Quiz 1](quiz/quiz1.md) |
 |02/08| [Embedding Encoding](https://emory.zoom.us/rec/share/oCW2sAlu9LqdJYsk0galaId0gFFwdMjwpTuVm6CVDsw9jEB9M6vYL52_Mx_RO1e7.gcse2QXzmRjIDxfB) | [note](https://drive.google.com/file/d/1yE9SzpnkH4iDFfxbMInSwoaE07IdEWwK/view?usp=sharing) |  |
 |02/10| Text Classification | [md](text_classification.md) |  |
-|02/15| Text Classification |  | Quiz 2 |
+|02/15| Text Classification |  | [Quiz 2](quiz/quiz2.md) |
 |02/17| Spring Rest Day |  |  |
 |02/22| Sequence Tagging | [md](sequence_tagging.md) |  |
 |02/24| Sequence Tagging |  |  |
