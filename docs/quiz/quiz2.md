@@ -9,4 +9,4 @@ Answer the following two questions (a short paragraph for each):
    * Hierarchical Attention Networks
 1. What kind of data do Graph Convolutional Neural Networks show advantage over non-graph-based neural networks?
 
-Save your answers in `quiz2.pdf` and submit: 
+Save your answers in `quiz2.pdf` and submit: https://canvas.emory.edu/courses/83648/assignments/458631
