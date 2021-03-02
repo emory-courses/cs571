@@ -13,7 +13,7 @@ Schedule
 |02/17| Spring Rest Day |  |  |
 |02/22| [Sequence Tagging](https://emory.zoom.us/rec/share/L01jwxrlLbXZmAjeQ74K9UiZqEivhIKh9qOMszElrs4acwaKTf0H4k4pNaRTKF_D.MtMdFJpLPDF4SNXf) | [md](sequence_tagging.md) |  |
 |02/24| [Sequence Tagging](https://emory.zoom.us/rec/share/w6X_TJzl33o9wH4pCOOPYIGI1f5SfvUmiACscxLpuSA9vbHxGwQZsz8W9iGOFWmR.A3iDCQYvbrAJyR_E) |  |  |
-|03/01| Sequence Tagging |  | [Quiz 3]((quiz/quiz3.md)) |
+|03/01| [Sequence Tagging](https://emory.zoom.us/rec/share/a5h829ujlojOEHiUNFGEdsNUOq2RmIeApkdE4j8BUq3ni1iDylJDCjIqiaZDsDP7.LmzVxietB9Pi91YA) |  | [Quiz 3]((quiz/quiz3.md)) |
 |03/03| Syntactic Parsing | [md](syntactic_parsing.md) |  |
 |03/08| Syntactic Parsing |  |  |
 |03/10| Syntactic Parsing |  | Quiz 4 |
