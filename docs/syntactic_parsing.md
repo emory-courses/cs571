@@ -9,21 +9,21 @@
 
 ## Readings
 
-### Traditional (3/3)
+### Traditional (3/8)
 
 * [Coarse-to-Fine n-Best Parsing and MaxEnt Discriminative Reranking](https://www.aclweb.org/anthology/P05-1022/), Charniak and Johnson, ACL, 2005*
 * [Online Learning of Approximate Dependency Parsing Algorithms](https://www.aclweb.org/anthology/E06-1011/), McDonald and Pereira, EACL, 2006
 * [Improved Inference for Unlexicalized Parsing](https://www.aclweb.org/anthology/N07-1051), Petrov and Klein, NAACL, 2007
 * [A Dynamic Oracle for Arc-Eager Dependency Parsing](https://www.aclweb.org/anthology/C12-1059/), Goldberg and Nivre, COLING, 2012
 
-### Modern (3/8)
+### Modern (3/10)
 
 * [Structured Training for Neural Network Transition-Based Parsing](http://aclweb.org/anthology/P15-1032), Weiss et al., ACL, 2015
 * [Recurrent Neural Network Grammars](https://www.aclweb.org/anthology/N16-1024/), Dyer et al., NAACL, 2016
 * [Deep Biaffine Attention for Neural Dependency Parsing](https://arxiv.org/abs/1611.01734), Dozat and Manning, ICLR, 2017
 * [Straight to the Tree: Constituency Parsing with Neural Syntactic Distance](http://aclweb.org/anthology/P18-1108), Shen et al., 2018*
 
-### Latest (3/10)
+### Latest (3/15)
 
 * [Stack-Pointer Networks for Dependency Parsing](https://www.aclweb.org/anthology/P18-1130/), Ma et al., ACL, 2018*
 * [Constituency Parsing with a Self-Attentive Encoder](https://www.aclweb.org/anthology/P18-1249/), Kitaev and Klein, ACL, 2018

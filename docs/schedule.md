@@ -13,11 +13,11 @@ Schedule
 |02/17| Spring Rest Day |  |  |
 |02/22| [Sequence Tagging](https://emory.zoom.us/rec/share/L01jwxrlLbXZmAjeQ74K9UiZqEivhIKh9qOMszElrs4acwaKTf0H4k4pNaRTKF_D.MtMdFJpLPDF4SNXf) | [md](sequence_tagging.md) |  |
 |02/24| [Sequence Tagging](https://emory.zoom.us/rec/share/w6X_TJzl33o9wH4pCOOPYIGI1f5SfvUmiACscxLpuSA9vbHxGwQZsz8W9iGOFWmR.A3iDCQYvbrAJyR_E) |  |  |
-|03/01| [Sequence Tagging](https://emory.zoom.us/rec/share/a5h829ujlojOEHiUNFGEdsNUOq2RmIeApkdE4j8BUq3ni1iDylJDCjIqiaZDsDP7.LmzVxietB9Pi91YA) |  | [Quiz 3]((quiz/quiz3.md)) |
-|03/03| Syntactic Parsing | [md](syntactic_parsing.md) |  |
-|03/08| Syntactic Parsing |  |  |
-|03/10| Syntactic Parsing |  | Quiz 4 |
-|03/15| Proposal Presentations |  |  |
+|03/01| [Sequence Tagging](https://emory.zoom.us/rec/share/a5h829ujlojOEHiUNFGEdsNUOq2RmIeApkdE4j8BUq3ni1iDylJDCjIqiaZDsDP7.LmzVxietB9Pi91YA) |  |  |
+|03/03| [Sequence Tagging]()  |  | [Quiz 3](quiz/quiz3.md) |
+|03/08| Syntactic Parsing | [md](syntactic_parsing.md) |  |
+|03/10| Syntactic Parsing |  |  |
+|03/15| Syntactic Parsing |  | Quiz 4 |
 |03/17| Proposal Presentations |  | Quiz 5 |
 |03/22| Semantic Parsing | [md](semantic_parsing.md) |  |
 |03/24| Semantic Parsing |  |  |
@@ -28,8 +28,8 @@ Schedule
 |04/12| Project Discussions |  |  |
 |04/14| Spring Rest Day |  |  |
 |04/19| Machine Comprehension  | [md](machine_comprehension.md) |  |
-|04/21| Machine Comprehension  |  | Quiz 8 |
-|04/26| Project Presentations |  |  |
+|04/21| Machine Comprehension  |  |  |
+|04/26| Machine Comprehension |  | Quiz 8 |
 |04/28| Project Presentations |  | Quiz 9 |
 |05/03| NLP Applications |  |  |
 
