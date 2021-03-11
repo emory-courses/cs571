@@ -14,9 +14,9 @@ Schedule
 |02/22| [Sequence Tagging](https://emory.zoom.us/rec/share/L01jwxrlLbXZmAjeQ74K9UiZqEivhIKh9qOMszElrs4acwaKTf0H4k4pNaRTKF_D.MtMdFJpLPDF4SNXf) | [md](sequence_tagging.md) |  |
 |02/24| [Sequence Tagging](https://emory.zoom.us/rec/share/w6X_TJzl33o9wH4pCOOPYIGI1f5SfvUmiACscxLpuSA9vbHxGwQZsz8W9iGOFWmR.A3iDCQYvbrAJyR_E) |  |  |
 |03/01| [Sequence Tagging](https://emory.zoom.us/rec/share/a5h829ujlojOEHiUNFGEdsNUOq2RmIeApkdE4j8BUq3ni1iDylJDCjIqiaZDsDP7.LmzVxietB9Pi91YA) |  |  |
-|03/03| [Sequence Tagging]()  |  | [Quiz 3](quiz/quiz3.md) |
-|03/08| Syntactic Parsing | [md](syntactic_parsing.md) |  |
-|03/10| Syntactic Parsing |  |  |
+|03/03| [Sequence Tagging](https://emory.zoom.us/rec/share/bfxJkFSoM4Dgz4vtETzs9L2JFt5Z6tjGUuiKflK-GQOwSb2nAKJWqtS-W7R6C55X.Uy9ukr9o5aReIPVg)  |  | [Quiz 3](quiz/quiz3.md) |
+|03/08| [Syntactic Parsing](https://emory.zoom.us/rec/share/QUrjkNWi7JI1kf3-DNiC46DT0EiSIf0wAGhZnLpZ0vl7-wPcuDy34Fty5z057TEU.Ew8r_aj8bgsLubwi) | [md](syntactic_parsing.md) |  |
+|03/10| [Syntactic Parsing](https://emory.zoom.us/rec/share/xNFEEHLS536aXuVxtytPaTTJuMYc6Tdj74Nmdubn6ChYOS3tVOT2U2LMSAGJiNTA.-Jtu9fuZssTRog5C) |  |  |
 |03/15| Syntactic Parsing |  | Quiz 4 |
 |03/17| Proposal Presentations |  | Quiz 5 |
 |03/22| Semantic Parsing | [md](semantic_parsing.md) |  |
