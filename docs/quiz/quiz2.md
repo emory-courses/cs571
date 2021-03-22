@@ -1,6 +1,6 @@
 # Quiz 2: Text Classification
 
-Answer the following two questions (a short paragraph for each):
+Answer the following questions (a short paragraph for each):
 
 1. What are the key challenges in sentiment analysis (opinion mining) and how do neural network-based approaches handle those better than traditional bag-of-words approaches?
 1. Describe the advantage(s) in each of the following approach over the other approaches:

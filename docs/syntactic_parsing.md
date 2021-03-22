@@ -6,6 +6,11 @@
 * [Constituency Parsing](https://web.stanford.edu/~jurafsky/slp3/13.pdf), SLP: Chapter 13, Jurafsky and Martin
 * [Dependency Parsing](https://web.stanford.edu/~jurafsky/slp3/14.pdf), SLP: Chapter 14, Jurafsky and Martin
 
+## Slides
+
+* [Dependency Parsing](https://www.slideshare.net/jchoi7s/cs571-dependency-parsing?qid=d8ee4d3e-3aa0-4bcb-9175-9dd8b2f19c3c&v=&b)
+* [CKY Parsing - Example 1](https://www.slideshare.net/jchoi7s/cky-parsing)
+* [CKY Parsing - Example 2](https://www.slideshare.net/jchoi7s/cky-parsing-244906545)
 
 ## Readings
 

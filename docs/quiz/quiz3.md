@@ -1,6 +1,6 @@
 # Quiz 3: Sequence Tagging
 
-Answer the following two questions (a short paragraph for each):
+Answer the following questions (a short paragraph for each):
 
 1. Describe the impact of features from Brown clusters and word embeddings for named entity recognition.
 1. Describe how neural models handle unknown words for sequence tagging and what they use CRF for final predictions.
