@@ -1,6 +1,6 @@
 # Quiz 4: Proposal Review
 
-For each of the proposals other than yours, briefly review the followings:
+For each of the [proposals](../../projects/final_projects_2021.md) other than yours, briefly review the followings:
 
 * Strengths
 * Weaknesses
