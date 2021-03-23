@@ -19,7 +19,7 @@ Schedule
 |03/10| [Syntactic Parsing](https://emory.zoom.us/rec/share/xNFEEHLS536aXuVxtytPaTTJuMYc6Tdj74Nmdubn6ChYOS3tVOT2U2LMSAGJiNTA.-Jtu9fuZssTRog5C) |  |  |
 |03/15| [Syntactic Parsing](https://emory.zoom.us/rec/share/Tf8XzBDcO5jpWpjA95A2dXLuva8s4fMV0hOauA9OlEu1PRJiMEhZiriHg94_PrcT.Cfpru_WPyRdxM0W4?startTime=1615411357000) |  |  |
 |03/17| [Proposal Presentations](https://emory.zoom.us/rec/share/QMDaMlN6ZzMIK7KRb_o_pJeszO2021K5sd1YI4Ze8jEq9FjHF3Bs_QWKSEnnSFW8.8wRK1hcPuBmKOsX7) |  | [Quiz 4](quiz/quiz4.md) |
-|03/22| Syntactic Parsing |  | [Quiz 5](quiz/quiz5.md) |
+|03/22| [Syntactic Parsing](https://emory.zoom.us/rec/share/8I1OapPppA9_JbgpZ2PhoqIMP8KZkARq95bs0TMIb8rBm_kZ4nIiivNxtLmkQNCh.PXzGLPH92lfEGw9R?startTime=1616444482000) |  | [Quiz 5](quiz/quiz5.md) |
 |03/24| Semantic Parsing | [md](semantic_parsing.md) |  |
 |03/29| Semantic Parsing |  |  |
 |03/31| Semantic Parsing |  | Quiz 6 |
