@@ -4,6 +4,10 @@
 
 * [Semantic Role Labeling and Argument Structure](https://web.stanford.edu/~jurafsky/slp3/19.pdf), SLP: Chapter 19, Jurafsky and Martin
 
+## Slides
+
+* [Semantic Role Labeling](https://www.slideshare.net/jchoi7s/semantic-role-labeling-245429485)
+* [Abstract Meaning Representation](https://www.slideshare.net/jchoi7s/abstract-meaning-representation)
 
 ## Readings
 
