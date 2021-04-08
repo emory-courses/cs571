@@ -24,7 +24,7 @@ Schedule
 |03/29| [Semantic Parsing](https://emory.zoom.us/rec/share/h7tFjt9NdgD29Mi5SCA7ed98jqDO8NdU4r159Xu_vdVWHe4bfJpme1BZjuIAek2v.BcLErZ31gLyPT5Yf) |  |  |
 |03/31| [Semantic Parsing](https://emory.zoom.us/rec/share/g5j-NZlghb18GcCuS8t_hWTk6OKTt7FB5L3mVmEbLdbk_94-OYR0K5PkcUPkaRk.uO1mLF_OXRIW0jAP?startTime) |  | [Quiz 6](quiz/quiz6.md) |
 |04/05| [Coreference Resolution](https://emory.zoom.us/rec/share/SA3HuUDueUcd4HvOpKskIxmRfBSwT_oWmLy3Js71B2aLGKJeQosRkAYcKg51AGEv.ov8T0qm_tDR_yKpM) | [md](coreference_resolution.md) |  |
-|04/07| Coreference Resolution |  |  |
+|04/07| [Coreference Resolution](https://emory.zoom.us/rec/share/_BnrRzeRVdWjQuEbXcXpnkPKkfjZ6-dkLskvpVU1jfY4JCruNqG5PsmNt0zcL-KD.bIEICqulH62o-2ol) |  |  |
 |04/12| Coreference Resolution |  | Quiz 7 |
 |04/14| Spring Rest Day |  |  |
 |04/19| Machine Comprehension  | [md](machine_comprehension.md) |  |
