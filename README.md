@@ -6,5 +6,5 @@ Advanced topics in deep learning with various neural network models in applicati
 
 * [Syllabus](docs/syllabus.md)
 * [Schedule](docs/schedule.md)
-* Paper presentations: [2019](presentations/paper_presentations_2019.md)
-* Final projects: [2019](projects/final_projects_2019.md), [2017](projects/final_projects_2017.md), [2015](projects/final_projects_2015.md)
+* Paper presentations: [2021](presentations/paper_presentations_2021.md), [2019](presentations/paper_presentations_2019.md)
+* Final projects: [2021](projects/final_projects_2021.md), [2019](projects/final_projects_2019.md), [2017](projects/final_projects_2017.md), [2015](projects/final_projects_2015.md)
