@@ -28,7 +28,7 @@ Schedule
 |04/12| [Coreference Resolution](https://emory.zoom.us/rec/share/OQXk7lgBZicEmfokTs-L5LIB4Seuof9UEQs4BcyPm0dnLx_LMOUtGHH2QIe-wf1O.yae4CLrDnuDJIOIR) |  | [Quiz 7](quiz/quiz7.md) |
 |04/14| Spring Rest Day |  |  |
 |04/19| Machine Comprehension  | [md](machine_comprehension.md) |  |
-|04/21| Machine Comprehension  |  |  |
+|04/21| [Machine Comprehension](https://emory.zoom.us/rec/share/UuNwxE4HzRkUl88ZPXS3lj5_GCfOpgihf9vTd3UZwj76SqvSx20UmgX8f4Mw0_Nv.0VDcIsqEEoY7pZTH)  |  |  |
 |04/26| Machine Comprehension |  | Quiz 8 |
 |04/28| Project Presentations |  | Quiz 9 |
 |05/03| NLP Applications |  |  |
