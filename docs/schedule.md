@@ -29,7 +29,7 @@ Schedule
 |04/14| Spring Rest Day |  |  |
 |04/19| Machine Comprehension  | [md](machine_comprehension.md) |  |
 |04/21| [Machine Comprehension](https://emory.zoom.us/rec/share/UuNwxE4HzRkUl88ZPXS3lj5_GCfOpgihf9vTd3UZwj76SqvSx20UmgX8f4Mw0_Nv.0VDcIsqEEoY7pZTH)  |  |  |
-|04/26| [Machine Comprehension](https://emory.zoom.us/rec/share/SVOQACl0XaTcHcdrj6QGksJL64bieMVl5ufm4r-7k4sREvs44WQ_R4F4EPFkx1vf.OVEXTJNJVn38A840) |  | Quiz 8 |
+|04/26| [Machine Comprehension](https://emory.zoom.us/rec/share/SVOQACl0XaTcHcdrj6QGksJL64bieMVl5ufm4r-7k4sREvs44WQ_R4F4EPFkx1vf.OVEXTJNJVn38A840) |  | [Quiz 8](quiz/quiz8.md) |
 |04/28| Project Presentations |  | Quiz 9 |
 |05/03| NLP Applications |  |  |
 
