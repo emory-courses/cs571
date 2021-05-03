@@ -8,6 +8,4 @@ For each of the [proposals](../../projects/final_projects_2021.md) other than yo
 * Intellectual Challenges
 * Broad Impacts (potentially outside of the NLP community)
 
-Your reviews will be open to the public.
-
 Save your answers in `quiz4.pdf` and submit: https://canvas.emory.edu/courses/83648/assignments/466813

@@ -30,7 +30,7 @@ Schedule
 |04/19| Machine Comprehension  | [md](machine_comprehension.md) |  |
 |04/21| [Machine Comprehension](https://emory.zoom.us/rec/share/UuNwxE4HzRkUl88ZPXS3lj5_GCfOpgihf9vTd3UZwj76SqvSx20UmgX8f4Mw0_Nv.0VDcIsqEEoY7pZTH)  |  |  |
 |04/26| [Machine Comprehension](https://emory.zoom.us/rec/share/SVOQACl0XaTcHcdrj6QGksJL64bieMVl5ufm4r-7k4sREvs44WQ_R4F4EPFkx1vf.OVEXTJNJVn38A840) |  | [Quiz 8](quiz/quiz8.md) |
-|04/28| [Project Presentations](https://emory.zoom.us/rec/share/anlrDSYKbn5SWW6yq5d4kRntoUZ3G2NGDrKwf5gkqPvVeqC7gAUQHpF5QnpMtv2L.4EnFaxDGs_ruV7Be) |  | Quiz 9 |
+|04/28| [Project Presentations](https://emory.zoom.us/rec/share/anlrDSYKbn5SWW6yq5d4kRntoUZ3G2NGDrKwf5gkqPvVeqC7gAUQHpF5QnpMtv2L.4EnFaxDGs_ruV7Be) |  | [Quiz 9](quiz/quiz9.md) |
 |05/03| NLP Applications |  |  |
 
 
